@@ -1,4 +1,4 @@
-
+import './edit-account.css';
 
 
 export default function EditAccount(){
