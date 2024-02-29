@@ -1,5 +1,3 @@
-export type input = {
-    type: string,
-    placeholder: string,
+export interface Input extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string,
 }
