@@ -2,10 +2,14 @@
 
 import { ReactNode, createContext, useContext, useState } from 'react';
 
+
 interface User {
     name: string;
     email: string;
+    userName?: string;
     password: string;
+    bio?: string;
+    imgProfile?: {};
 }
 
 type IUserContextData = {
@@ -20,7 +24,7 @@ interface AppProviderProps {
 const DataContext = createContext<IUserContextData | undefined>(undefined);
 
 const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps) => {
-    const [userData, setUserData] = useState<User>({ name: '', email: '', password: '' });
+    const [userData, setUserData] = useState<User>({ name: '', email: '', password: '', userName:'', bio:''});
 
     const contextValue = {
         userData,
