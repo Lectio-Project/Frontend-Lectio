@@ -1,22 +1,33 @@
-import { input } from '@/types/forms-type';
-import { useForm } from 'react-hook-form';
+import { Input } from '@/types/forms-type';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 
-export default function Input({
-    type,
-    placeholder,
-    label,
-    ...rest
-}:input){
+interface propsRegister {
+    register?: UseFormRegisterReturn<string>,
+    label?: string,
+    placeholder?: string,
+    value ?: string,
+    type?: string
+    errorMessage?: string
+}
+
+
+export default function Input({label,placeholder,register,value, type, errorMessage}:propsRegister){
+
+    
+
 
 
     return(
         <div>
+            <label> {label} </label>
             <input
-            
-            type={type}
             placeholder={placeholder}
+            value={value}
+            type={type}
+            {...register}
             />
+            <p>{errorMessage}</p>
 
         </div>
     )
