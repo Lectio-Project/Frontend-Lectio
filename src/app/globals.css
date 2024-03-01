@@ -5,6 +5,7 @@
   --bg-button: #FDBB22;
   --bg-footer: #FFD268;
   --bg-btn-darkblue: #222E36;
+  --border-input: ##577B94;
   --border-btn-yellow: #FDBB22;
   --border-green: #8CD92B;
   --text-color-btn-yellow: #FDBB22;
@@ -13,7 +14,7 @@
   --text-color-darkblue: #222E36;
   --text-colo-green: #C7FF80;
   --p-color-primary: #939393;
-
+  --family-primary: '__Inter_aaf875', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
