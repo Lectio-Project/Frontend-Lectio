@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { editFormProps, schemaEdit } from '@/app/schemas/schemaEdit';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { KeyboardEvent } from 'react';
+import EditSenha from '@/app/components/editSenha/editSenha';
 
 export default function ConfigAccount(){
     const { userData } = useDataContext();
@@ -98,6 +99,8 @@ export default function ConfigAccount(){
             
 
             </form>
+
+            <EditSenha/>
 
         </main>
     )
