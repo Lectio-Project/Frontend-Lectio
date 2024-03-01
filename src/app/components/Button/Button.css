@@ -1,0 +1,24 @@
+.primary, .secondary  {
+    width: 10rem;
+    height: 3rem;
+    cursor: pointer;
+
+    border: none;
+    border-radius: 0.5rem;
+
+    font-family: var(--family-primary);
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1rem;
+}
+
+.primary {
+    color: var(--bg-color-primary);
+    background-color: var(--bg-button);
+}
+
+.secondary {
+    border: 1px solid var(--bg-button);
+    color: var(--bg-button);
+    background-color: transparent;
+}

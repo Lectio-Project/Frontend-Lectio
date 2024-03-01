@@ -1,6 +1,7 @@
 import { Input } from '@/types/forms-type';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
+import './input.css'
 
 interface propsRegister {
     register?: UseFormRegisterReturn<string>,
@@ -11,15 +12,9 @@ interface propsRegister {
     errorMessage?: string
 }
 
-
 export default function Input({label,placeholder,register,value, type, errorMessage}:propsRegister){
-
-    
-
-
-
     return(
-        <div>
+        <div className='input'>
             <label> {label} </label>
             <input
             placeholder={placeholder}
