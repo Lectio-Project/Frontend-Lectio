@@ -1,7 +1,23 @@
-.signup-main {
+.signup-container {
     width: 100%;
     height: 100vh;
     background-color: var(--bg-color-primary);
+}
+
+.signup-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.signup-left-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signup-book-lover {
+    display: none;
 }
 
 .signup-page {
@@ -18,18 +34,26 @@
     margin: 6.4rem 0 6.8rem;
 }
 
+.signup-logo-with-name {
+    display: none;
+}
+
 .signup-title {
     font-size: 2.4rem;
     font-weight: 700;
     line-height: 4rem;
 }
 
-.signup-title, .signup-body {
+.signup-title, .signup-body-mobile, .signup-body-desktop {
     font-family: var(--primary-font);
     color: var(--text-color-neutral-white);
 }
 
-.signup-body {
+.signup-body-desktop {
+    display: none;
+}
+
+.signup-body-mobile {
     margin: 1.2rem 0 3.6rem;
     font-size: 1.4rem;
     font-weight: 400;
@@ -116,13 +140,71 @@
 }
 
 .signup-footer {
-    margin: 5.6rem 0 4.3rem;
+    display: flex;
+    justify-content: center;
+    padding: 5.6rem 0 4.3rem;
 }
 
-.signin-footer span {
+.signup-footer > span {
     font-family: var(--primary-font);
     font-size: 1.2rem;
     font-weight: 400;
     line-height: 1.68rem;
     color: var(--neutral-light-gray);
+}
+
+@media (min-width: 1100px) {
+    .signup-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
+
+    .signup-book-lover {
+        display: block;
+        min-width: 44.2rem;
+    }
+
+    .signup-page {
+        max-width: 54.1rem;
+        padding: 4rem;
+        margin: 0;
+
+        box-shadow: 7px 6px 43px 0px #000;
+    }
+
+    .signup-logo {
+        display: none;
+    }
+
+    .signup-logo-with-name {
+        display: block;
+        padding: 2.4rem 3.2rem;
+    }
+
+    .signup-body-desktop {
+        display: block;
+
+        max-width: 35.3rem;
+        margin-top: 8rem;
+
+        font-size: 1.8rem;
+        font-weight: 500;
+        line-height: 2.4rem;
+        text-align: center;
+    }
+
+    .signup-title {
+        font-size: 3.2rem;
+    }
+    
+    .signup-body-mobile {
+        display: none;
+    }
+
+    .signup-footer {
+        display: flex;
+        justify-content: center;
+        padding: 5.6rem;
+    }
+}
