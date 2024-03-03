@@ -6,6 +6,7 @@ import Button from "@/app/components/Button/Button";
 import Input from "@/app/components/input/input";
 
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaSignUp, signUpFormProps } from "@/app/schemas/schemaSignUp";
 
@@ -16,6 +17,9 @@ export default function SignUp() {
         mode: 'onSubmit',
         resolver: zodResolver(schemaSignUp)
     });
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
 
     const handleData:SubmitHandler<signUpFormProps> = (data) => {
         console.log('submit', data);
@@ -44,13 +48,15 @@ export default function SignUp() {
                     <Input 
                         register={register('password', {required: 'campo obrigatório'})}  
                         errorMessage={errors.password && errors.password.message} 
-                        label="Senha" placeholder="Digite sua senha" type="password"
+                        label="Senha" placeholder="Digite sua senha" type={showPassword ? 'text' : 'password'}
+                        showPassword={showPassword} toggleShowPassword={() => setShowPassword(!showPassword)}
                     />
                     
-                    <Input 
+                    <Input
                         register={register('passwordConfirmation', {required: 'campo obrigatório'})}  
                         errorMessage={errors.passwordConfirmation && errors.passwordConfirmation.message} 
-                        label="Confirmar Senha" placeholder="Digite sua senha novamente" type="password"
+                        label="Confirmar Senha" placeholder="Digite sua senha novamente" type={showPasswordConfirmation ? 'text' : 'password'}
+                        showPassword={showPasswordConfirmation} toggleShowPassword={() => setShowPasswordConfirmation(!showPasswordConfirmation)}
                     />
                     <label className='signup-checkbox'>
                         <input type='checkbox' defaultChecked={false}/>
