@@ -1,6 +1,7 @@
 'use client'
 
 import Logo from '@/app/assets/logoLectio.svg';
+import AlertIcon from '@/app/assets/alertIcon.svg'
 
 import Button from "@/app/components/Button/Button";
 import Input from "@/app/components/input/input";
@@ -58,10 +59,19 @@ export default function SignUp() {
                         label="Confirmar Senha" placeholder="Digite sua senha novamente" type={showPasswordConfirmation ? 'text' : 'password'}
                         showPassword={showPasswordConfirmation} toggleShowPassword={() => setShowPasswordConfirmation(!showPasswordConfirmation)}
                     />
-                    <label className='signup-checkbox'>
-                        <input type='checkbox' defaultChecked={false}/>
-                        Concordo em fornecer meus dados para a criação desta conta e declaro que li e aceito os termos e condições
-                    </label>
+                    <section>
+                        <label className='signup-checkbox'>
+                            <input type='checkbox' defaultChecked={false}
+                                {...register('termsAndConditions', { required: 'campo obrigatório' })} />
+                            Concordo em fornecer meus dados para a criação desta conta e declaro que li e aceito os termos e condições
+                        </label>
+                        {errors.termsAndConditions && (
+                            <div className='error-container error-checked'>
+                                <img src={AlertIcon} className='alert-icon'/>
+                                <p className='error-message-input'>{errors.termsAndConditions.message}</p>
+                            </div>
+                        )}
+                    </section>
 
                     <Button title='Cadastrar' type='submit' className={!errors ? 'active' : 'disabled'} disabled={!errors ? '' : 'disabled'}/>
                 </form>

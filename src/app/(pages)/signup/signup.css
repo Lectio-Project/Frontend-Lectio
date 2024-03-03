@@ -86,6 +86,11 @@
     color: var(--text-neutral-black);
 }
 
+.error-checked {
+    padding: 0rem 0.8rem 0.3rem;
+    margin-top: -0.3rem;
+}
+
 .signup-redirect {
     margin: 4.8rem 0 1.6rem;
 
