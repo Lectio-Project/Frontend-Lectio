@@ -22,3 +22,30 @@
     color: var(--bg-button);
     background-color: transparent;
 }
+
+.disabled, .active {
+    width: 100%;
+    padding: 16px 24px;
+
+    font-family: var(--primary-font);
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 2.24rem;
+    
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.disabled {
+    color: var(--neutral-dark-gray-2);
+    background-color: var(--neutral-medium-gray);
+}
+
+.active {
+    color: var(--text-neutral-black);
+    background-color: var(--text-color-btn-yellow);
+}
+
+.active:active {
+    background-color: #CA961B
+}

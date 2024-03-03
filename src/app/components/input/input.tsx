@@ -1,5 +1,6 @@
 import { Input } from '@/types/forms-type';
 import { UseFormRegisterReturn } from 'react-hook-form';
+import AlertIcon from '@/app/assets/alertIcon.svg'
 
 import './input.css'
 
@@ -14,7 +15,7 @@ interface propsRegister {
 
 export default function Input({label,placeholder,register,value, type, errorMessage}:propsRegister){
     return(
-        <div className='input'>
+        <div className={`input ${errorMessage && 'input-error'}`}>
             <label> {label} </label>
             <input
             placeholder={placeholder}
@@ -22,8 +23,12 @@ export default function Input({label,placeholder,register,value, type, errorMess
             type={type}
             {...register}
             />
-            <p>{errorMessage}</p>
-
+            {errorMessage && (
+                <div className='error-container'>
+                    <img src={AlertIcon} className='alert-icon'/>
+                    <p className='error-message-input'>{errorMessage}</p>
+                </div>
+            )}
         </div>
     )
 }
