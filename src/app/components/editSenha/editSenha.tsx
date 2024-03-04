@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../Button/Button';
 import BackIcon from '../../assets/arrowBack.svg';
 import { useDataContext } from '@/context/user';
+import api from '@/api/api';
 
 export default function EditSenha(){
 
@@ -16,9 +17,26 @@ export default function EditSenha(){
         resolver: zodResolver(schemaNewPassword)
     });
 
-    const handleData:SubmitHandler<newPassProps> = (data) => {
-        console.log('submit', data);
-        console.log(errors)
+    const handleData:SubmitHandler<newPassProps> = async (data) => {
+        try {
+            if(data.password !== data.password){
+                throw new Error('As senhas não são iguais!');
+                return
+            }
+
+            await api.patch(`/users/${userData.id}`,{
+                password: data.password
+            },
+            {
+                headers: {
+                authorization: `Bearer ${userData.token}` ,
+                },
+            }
+            )
+            
+        } catch (error) {
+            return  console.error(error);
+        }
 
 
         setShowModalEdit(false)

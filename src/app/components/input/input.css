@@ -27,3 +27,7 @@
 
     color: var(--p-color-primary);
 }
+
+.input p{
+    color: red;
+}

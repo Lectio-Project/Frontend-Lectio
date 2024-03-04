@@ -7,8 +7,9 @@ import GoIcon from '../../../assets/arrowGo.svg';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { editFormProps, schemaEdit } from '@/app/schemas/schemaEdit';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { KeyboardEvent } from 'react';
+import { KeyboardEvent, useState } from 'react';
 import EditSenha from '@/app/components/editSenha/editSenha';
+import api from '@/api/api';
 
 export default function ConfigAccount(){
     const { userData, showModalEdit, setShowModalEdit } = useDataContext();
@@ -23,9 +24,36 @@ export default function ConfigAccount(){
         }
     });
 
-    const handleData:SubmitHandler<editFormProps> = (data) => {
-        console.log('submit', data);
-        console.log(errors)
+    const[errorValidate, setErrorValidate] = useState<string | null>(null);
+
+    const handleData:SubmitHandler<editFormProps> = async (data) => {
+        try {
+            if(!data.name || !data.userName){
+                throw new Error('O nome ou username não pode ser vazio');
+                return
+            }
+
+            const response = await api.patch(`/users/${userData.id}`,{
+                name: data.name,
+                userName: '@' + data.userName,
+                bio: data.bio,
+            },
+            {
+                headers: {
+                authorization: `Bearer ${userData.token}` ,
+                },
+            }
+            )
+        } catch (error: any) {
+
+            if (error.response && error.response.status === 400) {
+                const errorMessage = error.response.data.message;
+                
+                return setErrorValidate(errorMessage);
+            }
+
+            console.log(error.message)
+        }
     }
 
     const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -46,9 +74,11 @@ export default function ConfigAccount(){
 
             <section className='image-profile'>
 
-                <img src= {DefaultImg} alt='Profile image'/>
+                <img src= { userData.imageUrl ? userData.imageUrl : DefaultImg} alt='Profile image'/>
                 <p>Definir foto de perfil</p>
             </section>
+
+            {errorValidate && <span>{errorValidate}</span>}
 
             <form className='form-edit' onSubmit={handleSubmit(handleData)}>
 
