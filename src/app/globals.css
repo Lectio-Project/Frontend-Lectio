@@ -9,50 +9,27 @@
   --bg-btn-hover: #E4A81F;
   --bg-btn-active: #CA961B;
   --border-input: ##577B94;
+  --border-input: #577B94;
   --border-btn-yellow: #FDBB22;
   --border-green: #8CD92B;
   --text-color-btn-yellow: #FDBB22;
   --text-color-yellow: #FDBB22;
+  --pressed-button-yellow: #CA961B;
   --text-color-white: #FFFFFF;
+  --text-color-neutral-white: #FCFCFC;
+  --text-neutral-black: #0F0F0F;
   --text-color-disabled: #6A6A6A;
   --text-color-lightgray: #F5F5F5;
   --text-color-darkblue: #222E36;
   --text-colo-green: #C7FF80;
-  --p-color-primary: #939393;
-  --family-primary: '__Inter_aaf875', sans-serif;
-}
+  --neutral-light-gray: #F5F5F5;
+  --neutral-medium-gray: #C0C0C0;
+  --neutral-gray: #939393;
+  --neutral-dark-gray: #2F2F2F;
+  --neutral-dark-gray-2: #6A6A6A;
+  --input-error: #F03D3E;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-
-    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-    --secondary-glow: linear-gradient(
-      to bottom right,
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0.3)
-    );
-
-    --tile-start-rgb: 2, 13, 46;
-    --tile-end-rgb: 2, 5, 19;
-    --tile-border: conic-gradient(
-      #ffffff80,
-      #ffffff40,
-      #ffffff30,
-      #ffffff20,
-      #ffffff10,
-      #ffffff10,
-      #ffffff80
-    );
-
-    --callout-rgb: 20, 20, 20;
-    --callout-border-rgb: 108, 108, 108;
-    --card-rgb: 100, 100, 100;
-    --card-border-rgb: 200, 200, 200;
-  }
+  --primary-font: 'Inter', sans-serif;
 }
 
 * {
@@ -61,20 +38,15 @@
   margin: 0;
 }
 
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
 
 a {

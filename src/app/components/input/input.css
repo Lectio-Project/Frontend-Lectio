@@ -4,10 +4,37 @@
 }
 
 .input label {
-    font-size: 1rem;
-    font-weight: 400;
+    color: var(--neutral-light-gray);
+    width: 100%;
 }
 
+.input .container-input {
+    width: 100%;
+    position: relative;
+}
+
+.input label,
+.input input::placeholder,
+.input input:focus,
+.input input:not(:placeholder-shown),
+.error-message-input {
+    font-family: var(--primary-font);
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 2.24rem;
+}
+
+.container-input {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.input input {
+    width: 100%;
+    height: 5.6rem;
+    padding: 0 2.4rem;
+    margin-top: 0.5rem;
 .security-password {
     position: relative;
 }
@@ -23,14 +50,59 @@
     
     transition: background-color 0.3s ease-in-out;
     background-color: transparent;
+    border: 2px solid var(--neutral-gray);
+    background-color: transparent;
 }
 
-.security-password input::placeholder {
-    font-size: 1rem;
-    font-weight: 400;
-    font-family: var(--family-primary);
+.input input::placeholder, .input input:not(:placeholder-shown) {
+    color: var(--neutral-gray);
+}
 
-    color: var(--p-color-primary);
+.input input:focus {
+    color: var(--text-neutral-black);
+    background-color: var(--neutral-light-gray);
+    border: 2px solid var(--neutral-gray);
+}
+
+.input-error input, .input-error input:focus {
+    border-color: var(--input-error);
+}
+
+.input-password {
+    display: flex;
+    align-items: center;
+
+    transition: 0.2s ease-in-out;
+    border-radius: 0.8rem;
+}
+
+.container-input > img {
+    width: 2.4rem;
+    position: absolute;
+    right: 2.4rem;
+
+    cursor: pointer;
+}
+
+.error-container {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+
+    padding: 0.3rem 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.alert-icon {
+    align-self: flex-start;
+
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-top: 0.3rem;
+}
+
+.error-message-input {
+    color: var(--input-error);
 }
 
 .security-password input:focus {

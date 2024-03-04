@@ -28,8 +28,8 @@ export default function Dashboard(){
             
 
             <Input 
-            register={register('UserName', {required: 'campo obrigatório'})}  
-            placeholder="digite seu userName" type="password" label="Password" errorMessage={errors.UserName && errors.UserName.message}
+            register={register('userName', {required: 'campo obrigatório'})}  
+            placeholder="digite seu userName" type="password" label="Password" errorMessage={errors.userName && errors.userName.message}
             />
             
 
