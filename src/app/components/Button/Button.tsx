@@ -4,10 +4,10 @@ import './Button.css';
 export default function Button({title, type, className, size, disabled}: button) {
     return (
         <button 
-            className={className === 'primary' ? 'primary' : 'secondary'} 
+            className={className}
             style={size === 'full' ? {width: '100%'} : {width: '50%'}} 
             type={type}
-            disabled={disabled ? true : false}
+            disabled={disabled === 'active' ? true : false}
         >
             {title}
         </button>
