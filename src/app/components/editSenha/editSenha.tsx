@@ -4,8 +4,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { newPassProps, schemaNewPassword } from '@/app/schemas/schemaEdit';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../Button/Button';
+import BackIcon from '../../assets/arrowBack.svg';
+import { useDataContext } from '@/context/user';
 
 export default function EditSenha(){
+
+    const { userData, showModalEdit, setShowModalEdit } = useDataContext();
 
     const { handleSubmit,register, formState:{ errors } } = useForm<newPassProps>({
         mode: 'onSubmit',
@@ -15,18 +19,28 @@ export default function EditSenha(){
     const handleData:SubmitHandler<newPassProps> = (data) => {
         console.log('submit', data);
         console.log(errors)
+
+
+        setShowModalEdit(false)
     }
 
     return(
         <main>
-            <div className='background-modal'></div>
+            <div className='background-modal'>
+
+            <div className='back-area' onClick={()=> setShowModalEdit(false)}>
+                <img src={BackIcon} alt='icon back'/>
+                <span>Voltar</span>
+                </div>
 
             <section className='container-modal'>
+                
+
                 <div className='title-top'>
                     <span>Senha e segurança</span>
                 </div>
 
-                <form onSubmit={handleSubmit(handleData)}>
+                <form onSubmit={handleSubmit(handleData)} className='forms-edit'>
 
                 <Input 
                     register={register('password', {required: 'campo obrigatório'})}  
@@ -49,7 +63,7 @@ export default function EditSenha(){
                 </form>
 
             </section>
-
+            </div>
         </main>
     )
 }

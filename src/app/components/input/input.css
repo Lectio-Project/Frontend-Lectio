@@ -4,6 +4,7 @@
 }
 
 .input label {
+    font-family: var(--family-primary);
     font-size: 1rem;
     font-weight: 400;
 }

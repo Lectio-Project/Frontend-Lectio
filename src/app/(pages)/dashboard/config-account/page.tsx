@@ -1,8 +1,7 @@
 'use client'
 import './config-account.css';
 import { useDataContext } from '@/context/user';
-import Input from '@/app/components/input/input';
-import Logo from '../../../assets/logoLectio.svg';
+import DefaultImg from '../../../assets/perfilDefault.svg';
 import BackIcon from '../../../assets/arrowBack.svg';
 import GoIcon from '../../../assets/arrowGo.svg';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,7 +11,7 @@ import { KeyboardEvent } from 'react';
 import EditSenha from '@/app/components/editSenha/editSenha';
 
 export default function ConfigAccount(){
-    const { userData } = useDataContext();
+    const { userData, showModalEdit, setShowModalEdit } = useDataContext();
 
     const { handleSubmit,register, formState:{ errors } } = useForm<editFormProps>({
         mode: 'onSubmit',
@@ -47,7 +46,7 @@ export default function ConfigAccount(){
 
             <section className='image-profile'>
 
-                <img src= {Logo} alt='Profile image'/>
+                <img src= {DefaultImg} alt='Profile image'/>
                 <p>Definir foto de perfil</p>
             </section>
 
@@ -92,7 +91,7 @@ export default function ConfigAccount(){
 
                 </div>
 
-                <div className='secure-option'>
+                <div className='secure-option' onClick={()=> setShowModalEdit(true)}>
                     <p>Senha e segurança</p>
                     <img src={GoIcon} alt='Intro Icon'/>
                 </div>
@@ -100,7 +99,7 @@ export default function ConfigAccount(){
 
             </form>
 
-            <EditSenha/>
+            {showModalEdit && <EditSenha/>}
 
         </main>
     )

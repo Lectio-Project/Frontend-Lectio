@@ -12,9 +12,12 @@ interface User {
     imgProfile?: {};
 }
 
+
 type IUserContextData = {
     userData: User;
     setUserData: React.Dispatch<React.SetStateAction<User>>;
+    showModalEdit: boolean,
+    setShowModalEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface AppProviderProps {
@@ -26,9 +29,13 @@ const DataContext = createContext<IUserContextData | undefined>(undefined);
 const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps) => {
     const [userData, setUserData] = useState<User>({ name: '', email: '', password: '', userName:'', bio:''});
 
+    const [showModalEdit, setShowModalEdit] = useState<boolean>(false);
+
     const contextValue = {
         userData,
-        setUserData
+        setUserData,
+        showModalEdit,
+        setShowModalEdit
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;

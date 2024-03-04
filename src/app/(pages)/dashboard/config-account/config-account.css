@@ -42,6 +42,13 @@
 
 .image-profile p{
     cursor: pointer;
+
+    font-family: var(--family-primary);
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 13px;
+    letter-spacing: 0em;
+    text-align: left;
 }
 
 .form-edit{
@@ -49,7 +56,7 @@
     height: 271px;
     display: flex;
     flex-direction: column;
-    margin-top: 125px;
+    margin-top: 105px;
     background-color: var(--bg-input);
     border: 1px solid #577B94;
     border-radius: 10px;
@@ -58,7 +65,7 @@
 .edit-area{
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     padding: 10px 0 0 14px;
     background-color: var(--bg-input);
     border-bottom: 1px solid #577B94 ;
@@ -66,8 +73,14 @@
 }
 
 .edit-area p{
-    
     color: red;
+
+    font-family: var(--family-primary);
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 13px;
+    letter-spacing: 0em;
+    text-align: left;
 }
 
 .edit-area input{
@@ -80,11 +93,12 @@
     outline: none;
 }
 
+
 .bio-area{
     display: flex;
     height: 99px;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     padding: 0 0 0 14px;
     gap:5px;
     margin: 0;
@@ -115,4 +129,13 @@
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+}
+
+.secure-option p{
+font-family: var(--family-primary);
+font-size: 14px;
+font-weight: 400;
+line-height: 17px;
+letter-spacing: 0em;
+text-align: left;
 }
