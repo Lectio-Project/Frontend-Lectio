@@ -22,6 +22,8 @@ type IUserContextData = {
     setShowModalEdit: React.Dispatch<React.SetStateAction<boolean>>;
     showModalImage: boolean;
     setShowModalImage: React.Dispatch<React.SetStateAction<boolean>>;
+    selectedImageUrl: string;
+    setSelectedImageUrl: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface AppProviderProps {
@@ -45,6 +47,7 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
 
     const [showModalEdit, setShowModalEdit] = useState<boolean>(false);
     const [showModalImage, setShowModalImage] = useState<boolean>(false);
+    const [selectedImageUrl, setSelectedImageUrl] = useState(userData.imageUrl || '');
 
     const contextValue = {
         userData,
@@ -52,7 +55,9 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         showModalEdit,
         setShowModalEdit,
         showModalImage,
-        setShowModalImage
+        setShowModalImage,
+        selectedImageUrl,
+        setSelectedImageUrl
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;

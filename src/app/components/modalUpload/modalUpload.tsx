@@ -9,11 +9,16 @@ import BackIcon from '../../assets/arrowBack.svg';
 
 
 export default function UploadImage(){
-    const { userData, setUserData, setShowModalImage } = useDataContext();
+    const { userData,
+        setUserData,
+        setShowModalImage,
+        selectedImageUrl,
+        setSelectedImageUrl
+        } = useDataContext();
 
     const[imgUrl, setImgUrl] = useState('');
     const [progressUp, setProgressUp] = useState(0);
-    const [selectedImageUrl, setSelectedImageUrl] = useState(userData.imageUrl || '');
+    
 
     async function  handleUpload(event: any){
         event.preventDefault();
