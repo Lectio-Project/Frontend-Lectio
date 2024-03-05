@@ -13,18 +13,37 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaSignIn, signinFormProps } from "@/app/schemas/schemaSignIn";
 
 import './signin.css';
+import { useEffect, useState } from 'react';
 
 export default function SignIn() {
-    const { handleSubmit, register, formState:{ errors } } = useForm<signinFormProps>({
-        mode: 'onSubmit',
+    const [availableButton, setAvailableButton] = useState(false);
+    const { handleSubmit, register, formState:{ errors }, watch, getValues } = useForm<signinFormProps>({
+        mode: 'onBlur',
         resolver: zodResolver(schemaSignIn)
     });    
 
     const handleData:SubmitHandler<signinFormProps> = (data) => {
         console.log('submit', data);
         console.log(errors)
+    }    
+
+    const watchInputs = watch(["email", "password"])
+    
+    const validateButton = () => {
+        const valueEmail = getValues("email")
+        const valuePassword = getValues("password");
+
+        if (valueEmail && valuePassword) {
+            return setAvailableButton(true);
+        }
+        return setAvailableButton(false);
     }
 
+    useEffect(() => {
+        validateButton();  
+    }, [watchInputs])
+    
+    
     return (
         <main className="signin-container">
             <header><img src={LogoWithName} alt="Logo Lectio and name" className='signin-logo-with-name'/></header>
@@ -48,18 +67,20 @@ export default function SignIn() {
                                 register={register('email', {required: 'campo obrigatório'})}  
                                 errorMessage={errors.email && errors.email.message}
                                 label="E-mail" placeholder="Digite seu endereço de e-mail" type="email" 
+                                onChange={() => validateButton}
                             />
 
                             <Input 
                                 register={register('password', {required: 'campo obrigatório'})}  
                                 errorMessage={errors.password && errors.password.message} 
                                 label="Senha" placeholder="Digite sua senha" type="password"
+                                onChange={() => validateButton}
                             />
                         </div>
 
                         <span className='signin-forgot-password'>Esqueceu sua senha?</span>
                         
-                        <Button title='Entrar' type='submit' size='full' className={!errors ? 'primary' : 'disabled'} disabled={!errors ? '' : 'disabled'}/>
+                        <Button title='Entrar' type='submit' size='full' className={availableButton ? 'primary' : 'disabled'} />
                     </form>
 
                     <span className="signin-redirect">Não tem uma conta? <a href="./signup">Cadastrar-se</a></span>

@@ -7,5 +7,4 @@ export type button = {
     type: 'button' | 'submit' | 'reset' | undefined,
     className: 'primary' | 'secondary' | 'disabled' | 'active',
     size: 'full' | 'default',
-    disabled?: 'disabled' | 'active' | '' | undefined
 }

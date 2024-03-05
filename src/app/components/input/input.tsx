@@ -18,14 +18,15 @@ interface propsRegister {
     placeholder?: string,
     value ?: string,
     type?: string
-    errorMessage?: string,
-    showPassword?: boolean,
-    toggleShowPassword?: () => void,
+    errorMessage?: string
     password?: string
     confirmPassword?: string
+    showPassword?: boolean,
+    toggleShowPassword?: () => void,
+    onChange?: () => void
 }
 
-export default function Input({ label, placeholder, register, value, type, errorMessage, showPassword, toggleShowPassword}:propsRegister){
+export default function Input({ label, placeholder, register, value, type, errorMessage, showPassword, toggleShowPassword, onChange}:propsRegister){
     const [isFocused, setIsFocused] = useState(false);
 
     return(
@@ -38,6 +39,8 @@ export default function Input({ label, placeholder, register, value, type, error
                     type={type}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
+                    autoComplete='off'
+                    onChange={onChange}
                     {...register}
                 />
                 {(register?.name === 'password' || register?.name === 'passwordConfirmation') &&  (

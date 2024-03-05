@@ -13,19 +13,23 @@
 
 .input .container-input {
     width: 100%;
-    position: relative;
 }
 
 .input label,
+.input input,
 .input input::placeholder,
 .input input:focus,
 .input input:not(:placeholder-shown),
 .error-message-input {
     font-family: var(--primary-font);
-    font-family: var(--family-primary);
     font-size: 1.6rem;
     font-weight: 400;
     line-height: 2.24rem;
+}
+
+.error-container {
+    display: flex;
+    gap: 1rem;
 }
 
 .container-input {
@@ -34,15 +38,22 @@
     position: relative;
 }
 
+.container-input img {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
 .input input {
-    width: 3.5rem;
+    width: 100%;
     height: 5.6rem;
     padding: 0 1.5rem;
 
-    border: 5px solid var(--border-input);
+    font-family: var(--family-primary);
+    border: 2px solid var(--neutral-gray);
     border-radius: 6px;
     
-    background-color: var(--bg-btn-darkblue);
+    background-color: transparent;
 }
 
 .input input::placeholder, .input input:not(:placeholder-shown) {
@@ -50,15 +61,10 @@
 }
 
 .input input:focus {
-    color: var(--text-neutral-black);
-    background-color: var(--neutral-light-gray);
-    border: 2px solid var(--neutral-gray);
+    outline: 1px solid var(--border-btn-yellow);
+    border: 1px solid var(--border-btn-yellow);
 }
 
 .input input::placeholder {
-    font-size: 1rem;
-    font-weight: 400;
-    font-family: var(--family-primary);
-
-    color: var(--p-color-primary);
+    color: var(--neutral-gray);
 }
