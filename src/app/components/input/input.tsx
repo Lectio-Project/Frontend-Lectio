@@ -21,6 +21,8 @@ interface propsRegister {
     errorMessage?: string,
     showPassword?: boolean,
     toggleShowPassword?: () => void,
+    password?: string
+    confirmPassword?: string
 }
 
 export default function Input({ label, placeholder, register, value, type, errorMessage, showPassword, toggleShowPassword}:propsRegister){
