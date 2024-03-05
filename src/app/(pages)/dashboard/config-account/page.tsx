@@ -1,7 +1,6 @@
 'use client'
 import './config-account.css';
 import { useDataContext } from '@/context/user';
-import DefaultImg from '../../../assets/perfilDefault.svg';
 import BackIcon from '../../../assets/arrowBack.svg';
 import GoIcon from '../../../assets/arrowGo.svg';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,10 +8,17 @@ import { editFormProps, schemaEdit } from '@/app/schemas/schemaEdit';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { KeyboardEvent, useState } from 'react';
 import EditSenha from '@/app/components/editSenha/editSenha';
+import UploadImage from '@/app/components/modalUpload/modalUpload';
 import api from '@/api/api';
 
 export default function ConfigAccount(){
-    const { userData, showModalEdit, setShowModalEdit } = useDataContext();
+    const { 
+        userData, 
+        showModalEdit, 
+        setShowModalEdit, 
+        showModalImage, 
+        setShowModalImage
+    } = useDataContext();
 
     const { handleSubmit,register, formState:{ errors } } = useForm<editFormProps>({
         mode: 'onSubmit',
@@ -64,6 +70,8 @@ export default function ConfigAccount(){
         }
     };
 
+    const initialImage = 'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg'
+
     return(
         <main className='container-edit'>
 
@@ -74,8 +82,8 @@ export default function ConfigAccount(){
 
             <section className='image-profile'>
 
-                <img src= { userData.imageUrl ? userData.imageUrl : DefaultImg} alt='Profile image'/>
-                <p>Definir foto de perfil</p>
+                <img src= {userData.imageUrl || initialImage} alt='Profile image'/>
+                <p onClick={()=>setShowModalImage(true)}>Definir foto de perfil</p>
             </section>
 
             {errorValidate && <span>{errorValidate}</span>}
@@ -130,6 +138,8 @@ export default function ConfigAccount(){
             </form>
 
             {showModalEdit && <EditSenha/>}
+
+            {showModalImage && <UploadImage/>}
 
         </main>
     )

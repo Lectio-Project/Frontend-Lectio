@@ -18,8 +18,10 @@ interface User {
 type IUserContextData = {
     userData: User;
     setUserData: React.Dispatch<React.SetStateAction<User>>;
-    showModalEdit: boolean,
+    showModalEdit: boolean;
     setShowModalEdit: React.Dispatch<React.SetStateAction<boolean>>;
+    showModalImage: boolean;
+    setShowModalImage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface AppProviderProps {
@@ -42,12 +44,15 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
     });
 
     const [showModalEdit, setShowModalEdit] = useState<boolean>(false);
+    const [showModalImage, setShowModalImage] = useState<boolean>(false);
 
     const contextValue = {
         userData,
         setUserData,
         showModalEdit,
-        setShowModalEdit
+        setShowModalEdit,
+        showModalImage,
+        setShowModalImage
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;
