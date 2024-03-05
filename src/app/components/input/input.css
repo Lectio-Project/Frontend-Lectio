@@ -45,13 +45,16 @@
     color: var(--neutral-gray);
 }
 
-.input input:focus {
-    color: var(--text-neutral-black);
-    background-color: var(--neutral-light-gray);
-    border: 2px solid var(--neutral-gray);
+.container-input input:focus {
+    border-color: var(--border-btn-yellow);
 }
 
-.input-error input, .input-error input:focus {
+.container-input input:hover {
+    border-color: var(--neutral-dark-gray);
+    transition: 0.2s ease-in-out;
+}
+
+.input.input-error input, .input.input-error > input:focus, .input.input-error-password input, .input.input-error-password > input:focus {
     border-color: var(--input-error);
 }
 

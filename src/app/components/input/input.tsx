@@ -7,8 +7,6 @@ import { useState } from 'react';
 import AlertIcon from '@/app/assets/alertIcon.svg'
 import ShowPassword from '@/app/assets/showPassword.svg';
 import HidePassword from '@/app/assets/hidePassword.svg';
-import ShowPasswordFocused from '@/app/assets/showPasswordFocused.svg';
-import HidePasswordFocused from '@/app/assets/hidePasswordFocused.svg';
 
 import './input.css'
 
@@ -24,7 +22,6 @@ interface propsRegister {
 }
 
 export default function Input({ label, placeholder, register, value, type, errorMessage, showPassword, toggleShowPassword}:propsRegister){
-    const [isFocused, setIsFocused] = useState(false);
 
     return(
         <div className={`input ${errorMessage && 'input-error'} ${register?.name === 'password' && 'input-password'}`}>
@@ -34,8 +31,6 @@ export default function Input({ label, placeholder, register, value, type, error
                     placeholder={placeholder}
                     value={value}
                     type={type}
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
                     {...register}
                 />
                 {(register?.name === 'password' || register?.name === 'passwordConfirmation') &&  (
