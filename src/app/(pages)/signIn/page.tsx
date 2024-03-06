@@ -2,29 +2,51 @@
 
 import Logo from '@/app/assets/logoLectio.svg';
 import LogoWithName from '@/app/assets/logoWithName.svg';
-import AlertIcon from '@/app/assets/alertIcon.svg'
 import ImageBookLover from '@/app/assets/imageBookLover.svg'
 
 import Button from "@/app/components/Button/Button";
 import Input from "@/app/components/input/input";
+import api from '@/api/api';
 
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaSignIn, signinFormProps } from "@/app/schemas/schemaSignIn";
 
-import './signin.css';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useDataContext } from '@/context/user';
+
+import './signin.css';
 
 export default function SignIn() {
     const [availableButton, setAvailableButton] = useState(false);
+    const { setUserData } = useDataContext();
+
     const { handleSubmit, register, formState:{ errors }, watch, getValues } = useForm<signinFormProps>({
-        mode: 'onBlur',
+        mode: 'onSubmit',
         resolver: zodResolver(schemaSignIn)
     });    
 
-    const handleData:SubmitHandler<signinFormProps> = (data) => {
-        console.log('submit', data);
-        console.log(errors)
+    const handleData:SubmitHandler<signinFormProps> = async(data) => {
+        const email = getValues("email")
+        const password = getValues("password");
+        const router = useRouter();
+
+        try {
+            const response = await api.post('/login', { email, password });
+            
+            if (response.status === 200) {
+                // const {} = response.data;
+                // setUserData()
+
+                // toast.success('Login efetuado!');
+                // return router.replace('/dashboard')
+            }
+        } catch (error) {
+            console.error(error)
+        }
+        // console.log('submit', data);
+        // console.log(errors)
     }    
 
     const watchInputs = watch(["email", "password"])
@@ -42,7 +64,6 @@ export default function SignIn() {
     useEffect(() => {
         validateButton();  
     }, [watchInputs])
-    
     
     return (
         <main className="signin-container">
