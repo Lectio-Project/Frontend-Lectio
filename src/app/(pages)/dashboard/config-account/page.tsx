@@ -42,9 +42,13 @@ export default function ConfigAccount(){
                 return
             }
 
+            if(errorValidate !== ''){
+                return setErrorValidate('');
+            }
+
             const response = await api.patch(`/users/${userData.id}`,{
                 name: data.name,
-                userName: '@' + data.userName,
+                username: '@' + data.userName,
                 bio: data.bio,
             },
             {
@@ -54,10 +58,13 @@ export default function ConfigAccount(){
             }
             )
         } catch (error: any) {
+            
 
             if (error.response && error.response.status === 400) {
                 const errorMessage = error.response.data.message;
                 
+                
+
                 return setErrorValidate(errorMessage);
             }
 
