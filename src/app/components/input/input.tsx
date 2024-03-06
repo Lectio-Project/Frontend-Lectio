@@ -7,8 +7,6 @@ import { useState } from 'react';
 import AlertIcon from '@/app/assets/alertIcon.svg'
 import ShowPassword from '@/app/assets/showPassword.svg';
 import HidePassword from '@/app/assets/hidePassword.svg';
-import ShowPasswordFocused from '@/app/assets/showPasswordFocused.svg';
-import HidePasswordFocused from '@/app/assets/hidePasswordFocused.svg';
 
 import './input.css'
 
@@ -37,8 +35,6 @@ export default function Input({ label, placeholder, register, value, type, error
                     placeholder={placeholder}
                     value={value}
                     type={type}
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
                     autoComplete='off'
                     onChange={onChange}
                     {...register}

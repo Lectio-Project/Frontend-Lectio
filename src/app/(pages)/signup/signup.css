@@ -112,7 +112,6 @@
 
 .error-checked {
     padding: 0rem 0.8rem 0.3rem;
-    margin-top: -0.3rem;
 }
 
 .signup-redirect {
@@ -139,13 +138,13 @@
     color: var(--pressed-button-yellow);
 }
 
-.signup-footer {
+.footer {
     display: flex;
     justify-content: center;
     padding: 5.6rem 0 4.3rem;
 }
 
-.signup-footer > span {
+.footer > span {
     font-family: var(--primary-font);
     font-size: 1.2rem;
     font-weight: 400;
@@ -202,7 +201,7 @@
         display: none;
     }
 
-    .signup-footer {
+    .footer {
         display: flex;
         justify-content: center;
         padding: 5.6rem;

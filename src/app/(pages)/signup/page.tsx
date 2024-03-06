@@ -81,13 +81,13 @@ export default function SignUp() {
                             )}
                         </section>
 
-                        <Button title='Cadastrar' type='submit' className={!errors ? 'active' : 'disabled'} disabled={!errors ? '' : 'disabled'}/>
+                        <Button title='Cadastrar' type='submit' className={Object.keys(errors).length > 0 ? 'disabled' : 'active'} disabled={Object.keys(errors).length > 0 ? 'disabled' : ''}/>
                     </form>
 
                     <span className="signup-redirect">Já tem uma conta?<a href="./signIn">Faca seu login</a></span>
                 </section>
             </section>
-            <section className="signup-footer">
+            <section className="footer">
                 <span>Copyright 2022. Todos os direitos reservados.</span>
             </section>
         </main>

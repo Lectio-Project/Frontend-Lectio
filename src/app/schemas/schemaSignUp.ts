@@ -11,6 +11,9 @@ export const schemaSignUp = z.object({
         }, { message: 'A senha deve conter pelo menos 8 caracteres, uma letra maiúscula, um número e um caractere especial' }),
     passwordConfirmation: z.string(),
     termsAndConditions: z.boolean().refine(value => value === true, { message: 'Os termos e condições devem ser aceitos' })
-})
+}).refine((data) => data.password === data.passwordConfirmation, {
+    message: 'As senhas não correspondem',
+    path: ['passwordConfirmation'],
+});
 
 export type signUpFormProps = z.infer<typeof schemaSignUp>;
