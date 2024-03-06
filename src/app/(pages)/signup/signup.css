@@ -55,6 +55,7 @@
 
 .signup-body-mobile {
     margin: 1.2rem 0 3.6rem;
+
     font-size: 1.4rem;
     font-weight: 400;
     line-height: 1.96rem;
@@ -115,7 +116,7 @@
 }
 
 .signup-redirect {
-    margin: 4.8rem 0 1.6rem;
+    margin-top: 4rem;
 
     font-weight: 400;
     color: var(--text-color-neutral-white);
@@ -152,20 +153,27 @@
     color: var(--neutral-light-gray);
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 768px) {
     .signup-container {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
 
+    .signup-content {
+        flex-direction: column-reverse;
+        gap: 6.4rem;
+
+        margin-top: 6.9rem;
+    }
+
     .signup-book-lover {
         display: block;
-        min-width: 44.2rem;
+        min-width: 53.2rem;
     }
 
     .signup-page {
-        max-width: 54.1rem;
+        max-width: 70%;
         padding: 4rem;
         margin: 0;
 
@@ -178,23 +186,23 @@
 
     .signup-logo-with-name {
         display: block;
-        padding: 2.4rem 3.2rem;
+        padding: 2.4rem;
+    }
+
+    .signup-title {
+        font-size: 3.2rem;
     }
 
     .signup-body-desktop {
         display: block;
 
         max-width: 35.3rem;
-        margin-top: 8rem;
+        margin-top: 3.2rem;
 
         font-size: 1.8rem;
         font-weight: 500;
         line-height: 2.4rem;
         text-align: center;
-    }
-
-    .signup-title {
-        font-size: 3.2rem;
     }
     
     .signup-body-mobile {
@@ -202,8 +210,27 @@
     }
 
     .footer {
-        display: flex;
-        justify-content: center;
-        padding: 5.6rem;
+        padding: 5.6rem 0;
+    }
+}
+
+@media (min-width: 1280px) {
+    .signup-content {
+        flex-direction: row;
+        gap: 0;
+
+        margin-top: 0;
+    }
+    
+    .signup-page {
+        max-width: 54.1rem;
+    }
+
+    .signup-body-desktop {
+        margin-top: 8rem;
+    }
+
+    .footer {
+        padding: 3rem 0;
     }
 }
