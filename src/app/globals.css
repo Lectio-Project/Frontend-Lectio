@@ -5,8 +5,12 @@
   --bg-button: #FDBB22;
   --bg-footer: #FFD268;
   --bg-btn-darkblue: #222E36;
-  --border-input: #577B94;
+  --bg-btn-disabled: #C0C0C0;
+  --bg-btn-hover: #E4A81F;
+  --bg-btn-active: #CA961B;
+  --border-input: ##577B94;
   --border-btn-yellow: #FDBB22;
+  --bg-btn-darker: #1E2B34;
   --border-green: #8CD92B;
   --text-color-btn-yellow: #FDBB22;
   --text-color-yellow: #FDBB22;
@@ -14,6 +18,8 @@
   --text-color-white: #FFFFFF;
   --text-color-neutral-white: #FCFCFC;
   --text-neutral-black: #0F0F0F;
+  --text-color-disabled: #6A6A6A;
+  --text-color-lightgray: #F5F5F5;
   --text-color-darkblue: #222E36;
   --text-colo-green: #C7FF80;
   --neutral-light-gray: #F5F5F5;
@@ -40,6 +46,7 @@ html {
 html,
 body {
   max-width: 100vw;
+  min-height: 100vh;
   overflow-x: hidden;
 }
 

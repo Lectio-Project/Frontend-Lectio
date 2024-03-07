@@ -84,7 +84,7 @@ export default function SignUp() {
                         <Button title='Cadastrar' type='submit' className={Object.keys(errors).length > 0 ? 'disabled' : 'active'} disabled={Object.keys(errors).length > 0 ? 'disabled' : ''}/>
                     </form>
 
-                    <span className="signup-redirect">Já tem uma conta?<a href="./signIn">Faca seu login</a></span>
+                    <span className="signup-redirect">Já tem uma conta?<a href="./signin">Faça seu login</a></span>
                 </section>
             </section>
             <section className="footer">
