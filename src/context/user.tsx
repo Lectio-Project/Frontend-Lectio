@@ -2,15 +2,28 @@
 
 import { ReactNode, createContext, useContext, useState } from 'react';
 
+
 interface User {
+    id: string;
     name: string;
     email: string;
-    password: string;
+    userName?: string;
+    password?: string;
+    bio?: string;
+    imageUrl?: string;
+    token?: string;
 }
+
 
 type IUserContextData = {
     userData: User;
     setUserData: React.Dispatch<React.SetStateAction<User>>;
+    showModalEdit: boolean;
+    setShowModalEdit: React.Dispatch<React.SetStateAction<boolean>>;
+    showModalImage: boolean;
+    setShowModalImage: React.Dispatch<React.SetStateAction<boolean>>;
+    selectedImageUrl: string;
+    setSelectedImageUrl: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface AppProviderProps {
@@ -20,11 +33,31 @@ interface AppProviderProps {
 const DataContext = createContext<IUserContextData | undefined>(undefined);
 
 const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps) => {
-    const [userData, setUserData] = useState<User>({ name: '', email: '', password: '' });
+    
+    const [userData, setUserData] = useState<User>({ 
+        name: '', 
+        email: '', 
+        password: '', 
+        userName:'', 
+        bio:'' , 
+        id: '', 
+        token: '', 
+        imageUrl: ''
+    });
+
+    const [showModalEdit, setShowModalEdit] = useState<boolean>(false);
+    const [showModalImage, setShowModalImage] = useState<boolean>(false);
+    const [selectedImageUrl, setSelectedImageUrl] = useState(userData.imageUrl || '');
 
     const contextValue = {
         userData,
-        setUserData
+        setUserData,
+        showModalEdit,
+        setShowModalEdit,
+        showModalImage,
+        setShowModalImage,
+        selectedImageUrl,
+        setSelectedImageUrl
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;
