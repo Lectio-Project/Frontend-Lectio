@@ -12,14 +12,16 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaSignIn, signinFormProps } from "@/app/schemas/schemaSignIn";
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDataContext } from '@/context/user';
 
 import './signin.css';
 
 export default function SignIn() {
+    const [responseError, setResponseError] = useState({});
     const { setUserData } = useDataContext();
+    const router = useRouter();
 
     const { handleSubmit, register, formState:{ errors }} = useForm<signinFormProps>({
         mode: 'onSubmit',
@@ -27,23 +29,20 @@ export default function SignIn() {
     });    
 
     const handleData:SubmitHandler<signinFormProps> = async(data) => {
-        const router = useRouter();
-
-        // try {
-        //     const response = await api.post('/login', { email, password });
+        const {email, password} = data
+        
+        try {            
+            const response = await api.post('/users/sign-in', {email, password});
             
-        //     if (response.status === 200) {
-        //         // const {} = response.data;
-        //         // setUserData()
-
-        //         // toast.success('Login efetuado!');
-        //         // return router.replace('/dashboard')
-        //     }
-        // } catch (error) {
-        //     console.error(error)
-        // }
-        // // console.log('submit', data);
-        // // console.log(errors)
+            if (response.status === 201) {
+                setUserData(response.data)
+                setResponseError({});
+                return await router.push('/dashboard/config-account')
+            }
+        
+        } catch (error: any) {
+            setResponseError(error.response.data.message)
+        }
     }    
 
     const [showPassword, setShowPassword] = useState(false);
@@ -70,7 +69,7 @@ export default function SignIn() {
                             <Input 
                                 register={register('email')}  
                                 errorMessage={errors.email && errors.email.message}
-                                label="E-mail" placeholder="Digite seu endereço de e-mail" type="email" 
+                                label="E-mail" placeholder="Digite seu endereço de e-mail" type="email"
                             />
 
                             <Input 
@@ -79,6 +78,7 @@ export default function SignIn() {
                                 label="Senha" placeholder="Digite sua senha" type={showPassword ? 'text' : 'password'} showPassword={showPassword} toggleShowPassword={() => setShowPassword(!showPassword)}
                             />
                         </div>
+                        {responseError.length > 0 && <span className='signin-response-error'>{responseError}</span>}
 
                         <span className='signin-forgot-password'>Esqueceu sua senha?</span>
                         
