@@ -6,7 +6,7 @@ import ButtonGender from '@/app/components/ButtonGender/ButtonGender';
 import Button from '@/app/components/Button/Button';
 import { listGender } from '@/app/data/gender';
 
-import './gender.css';
+import './page2.css';
 
 export default function Gender() {
     function handleChangeClassName(e: React.MouseEvent<HTMLButtonElement>) {
