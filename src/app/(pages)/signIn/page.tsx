@@ -49,6 +49,8 @@ export default function SignIn() {
         // console.log(errors)
     }    
 
+    
+    const [showPassword, setShowPassword] = useState(false);
     const watchInputs = watch(["email", "password"])
     
     const validateButton = () => {
@@ -85,23 +87,21 @@ export default function SignIn() {
                     <form className="signin-form" onSubmit={handleSubmit(handleData)}>
                         <div>
                             <Input 
-                                register={register('email', {required: 'campo obrigatório'})}  
+                                register={register('email')}  
                                 errorMessage={errors.email && errors.email.message}
                                 label="E-mail" placeholder="Digite seu endereço de e-mail" type="email" 
-                                onChange={() => validateButton}
                             />
 
                             <Input 
-                                register={register('password', {required: 'campo obrigatório'})}  
+                                register={register('password')}  
                                 errorMessage={errors.password && errors.password.message} 
-                                label="Senha" placeholder="Digite sua senha" type="password"
-                                onChange={() => validateButton}
+                                label="Senha" placeholder="Digite sua senha" type={showPassword ? 'text' : 'password'} showPassword={showPassword} toggleShowPassword={() => setShowPassword(!showPassword)}
                             />
                         </div>
 
                         <span className='signin-forgot-password'>Esqueceu sua senha?</span>
                         
-                        <Button title='Entrar' type='submit' size='full' className={availableButton ? 'primary' : 'disabled'} />
+                        <Button title='Entrar' type='submit' className={Object.keys(errors).length > 0 ? 'disabled' : 'active'} disabled={Object.keys(errors).length > 0 ? 'disabled' : ''}/>
                     </form>
 
                     <span className="signin-redirect">Não tem uma conta? <a href="./signup">Cadastrar-se</a></span>

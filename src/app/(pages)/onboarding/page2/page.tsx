@@ -41,8 +41,8 @@ export default function Gender() {
             </section>
 
             <div className='gender-button-action'>
-                <Button className='secondary' title='Pular' size='default' type='button'/>
-                <Button className='primary' title='Continuar' size='default' type='submit'/>
+                <Button className='secondary' title='Pular' type='button'/>
+                <Button className='primary' title='Continuar' type='submit'/>
             </div>
         </main>
     )

@@ -3,8 +3,9 @@ export interface Input extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export type button = {
+    onClick ?: () => void;
     title: string,
     type: 'button' | 'submit' | 'reset' | undefined,
     className: 'primary' | 'secondary' | 'disabled' | 'active',
-    size: 'full' | 'default',
+    disabled?: 'disabled' | 'active' | '' | undefined
 }
