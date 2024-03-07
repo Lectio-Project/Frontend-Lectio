@@ -12,10 +12,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaSignUp, signUpFormProps } from "@/app/schemas/schemaSignUp";
-
+ 
 import './signup.css';
 
-export default function SignUp() {
+export default function SignUp() {  
     const { handleSubmit, register, formState:{ errors } } = useForm<signUpFormProps>({
         mode: 'onSubmit',
         resolver: zodResolver(schemaSignUp)
