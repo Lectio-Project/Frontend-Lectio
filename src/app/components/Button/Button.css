@@ -4,9 +4,36 @@
     background-color: var(--bg-btn-disabled);
 }
 
-
 .primary, .secondary, .disabled, .active {
     border: none;
+}
+
+.primary, .secondary  {
+    width: 16.3rem;
+    height: 4.4rem;
+    
+    font-family: var(--family-primary);
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1.96rem;
+    
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.primary {
+    color: var(--bg-color-primary);
+    background-color: var(--bg-button);
+}
+
+.secondary {
+    border: 1px solid var(--bg-button);
+    color: var(--bg-button);
+    background-color: transparent;
+}
+
+.disabled, .active {
     width: 100%;
     padding: 16px 24px;
     
@@ -37,4 +64,14 @@
 
 .active:active {
     background-color: #CA961B
+}
+
+@media (min-width: 768px) {
+    .primary, .secondary  {
+        width: 17.3rem;
+        height: 6.5rem;
+
+        font-size: 1.8rem;
+        line-height: 2.52rem;
+    }
 }

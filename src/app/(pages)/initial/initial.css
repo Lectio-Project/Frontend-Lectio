@@ -1,0 +1,145 @@
+.initial-container {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color-primary);
+}
+
+.initial-logo-with-name {
+    padding: 6.4rem 0 11.6rem 2.4rem;
+}
+
+.initial-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    margin: 0 2.4rem;
+}
+
+.initial-left-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+}
+
+.initial-title {
+    font-family: var(--primary-font);
+    font-size: 2.8rem;
+    font-weight: 300;
+    line-height: 4rem;
+
+    color: var(--text-color-neutral-white);
+}
+
+.initial-title-highlighted {
+    margin-bottom: 1.6rem;
+    
+    font-family: var(--primary-font);
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 4rem;
+
+    color: #FDBB22;
+}
+
+.initial-text {
+    font-family: var(--primary-font);
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.96rem;
+
+    color: var(--text-color-neutral-white);
+}
+
+.initial-container-btns {
+    display: flex;
+    justify-content: center;
+    gap: 1.6rem;
+
+    width: 100%;
+    margin: 2.8rem 0 6rem;
+}
+
+.initial-book-reader {
+    width: 34.2rem;
+    min-width: 60%;
+    margin-top: 1.16rem;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    padding: 5.6rem 0 4.3rem;
+}
+
+.footer > span {
+    font-family: var(--primary-font);
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.68rem;
+    color: var(--neutral-light-gray);
+}
+
+@media (min-width: 768px) {
+    .initial-content {
+        margin: 0 6.9rem;
+    }
+
+    .initial-left-side {
+        align-items: flex-start;
+    }
+
+    .initial-title {
+        font-size: 6.4rem;
+        line-height: 6.4rem;
+        text-align: left;
+    }
+    
+    .initial-title-highlighted {
+        margin-bottom: 4.8rem;
+        
+        font-size: 6.4rem;
+        line-height: 6.4rem;
+        text-align: left;
+    }
+    
+    .initial-text {
+        max-width: 60.9rem;
+        font-size: 2.4rem;
+        line-height: 3.36rem;
+        text-align: left;
+    }
+
+    .initial-container-btns {
+        justify-content: flex-start;
+        margin: 2.8rem 0 6rem;
+    }    
+}
+
+@media (min-width: 1280px) {
+    .initial-content {
+        flex-direction: row;
+    }
+
+    .initial-title, .initial-title-highlighted {
+        font-size: 5.6rem;
+        line-height: 5.6rem;
+    }
+
+    .initial-title-highlighted {
+        margin-bottom: 2.8rem;
+    }
+    
+    .initial-text {
+        font-size: 1.8rem;
+        line-height: 2.52rem;
+    }
+
+    .initial-book-reader {
+        max-width: 50rem;
+        min-width: 40%;
+    }
+}

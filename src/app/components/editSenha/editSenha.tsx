@@ -7,10 +7,14 @@ import Button from '../Button/Button';
 import BackIcon from '../../assets/arrowBack.svg';
 import { useDataContext } from '@/context/user';
 import api from '@/api/api';
+import { useState } from 'react';
 
 export default function EditSenha(){
 
     const { userData, showModalEdit, setShowModalEdit } = useDataContext();
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
 
     const { handleSubmit,register, formState:{ errors } } = useForm<newPassProps>({
         mode: 'onSubmit',
@@ -63,17 +67,21 @@ export default function EditSenha(){
                 <Input 
                     register={register('password', {required: 'campo obrigatório'})}  
                     placeholder="digite a senha" 
-                    type="text" 
+                    type={showPassword ? 'text' : 'password'}
+                    showPassword={showPassword} 
+                    toggleShowPassword={() => setShowPassword(!showPassword)}
                     label="Nova senha" 
                     errorMessage={errors.password && errors.password.message}
                     /> 
 
                     <Input 
-                    register={register('confirmPassword', {required: 'campo obrigatório'})}  
+                    register={register('passwordConfirmation', {required: 'campo obrigatório'})}  
                     placeholder="digite a senha" 
-                    type="text" 
+                    type={showPasswordConfirmation ? 'text' : 'password'}
+                    showPassword={showPasswordConfirmation} 
+                    toggleShowPassword={() => setShowPasswordConfirmation(!showPasswordConfirmation)} 
                     label="Confirmar senha" 
-                    errorMessage={errors.confirmPassword && errors.confirmPassword.message}
+                    errorMessage={errors.passwordConfirmation && errors.passwordConfirmation.message}
                     />
 
                     <Button className='primary' type='submit' title='Salvar alterações'/>

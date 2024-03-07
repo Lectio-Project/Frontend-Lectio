@@ -2,7 +2,6 @@
 
 import { Input } from '@/types/forms-type';
 import { UseFormRegisterReturn } from 'react-hook-form';
-import { useState } from 'react';
 
 import AlertIcon from '@/app/assets/alertIcon.svg'
 import ShowPassword from '@/app/assets/showPassword.svg';
@@ -16,7 +15,7 @@ interface propsRegister {
     placeholder?: string,
     value ?: string,
     type?: string
-    errorMessage?: string,
+    errorMessage?: string
     showPassword?: boolean,
     toggleShowPassword?: () => void,
 }

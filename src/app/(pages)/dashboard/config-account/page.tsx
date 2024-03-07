@@ -6,20 +6,24 @@ import GoIcon from '../../../assets/arrowGo.svg';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { editFormProps, schemaEdit } from '@/app/schemas/schemaEdit';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { KeyboardEvent, useState } from 'react';
+import { KeyboardEvent, useEffect, useState } from 'react';
 import EditSenha from '@/app/components/editSenha/editSenha';
 import UploadImage from '@/app/components/modalUpload/modalUpload';
 import api from '@/api/api';
 
 export default function ConfigAccount(){
     const { 
-        userData, 
+        userData,
+        setUserData,
         showModalEdit, 
         setShowModalEdit, 
         showModalImage, 
-        setShowModalImage
+        setShowModalImage,
+        selectedImageUrl
     } = useDataContext();
-
+    
+    const[errorValidate, setErrorValidate] = useState<string | null>(null);
+    
     const { handleSubmit,register, formState:{ errors } } = useForm<editFormProps>({
         mode: 'onSubmit',
         resolver: zodResolver(schemaEdit),
@@ -30,7 +34,6 @@ export default function ConfigAccount(){
         }
     });
 
-    const[errorValidate, setErrorValidate] = useState<string | null>(null);
 
     const handleData:SubmitHandler<editFormProps> = async (data) => {
         try {
@@ -39,9 +42,13 @@ export default function ConfigAccount(){
                 return
             }
 
+            if(errorValidate !== ''){
+                return setErrorValidate('');
+            }
+
             const response = await api.patch(`/users/${userData.id}`,{
                 name: data.name,
-                userName: '@' + data.userName,
+                username: '@' + data.userName,
                 bio: data.bio,
             },
             {
@@ -51,10 +58,13 @@ export default function ConfigAccount(){
             }
             )
         } catch (error: any) {
+            
 
             if (error.response && error.response.status === 400) {
                 const errorMessage = error.response.data.message;
                 
+                
+
                 return setErrorValidate(errorMessage);
             }
 
@@ -69,6 +79,10 @@ export default function ConfigAccount(){
             handleSubmit(handleData)();
         }
     };
+
+    useEffect(()=>{
+        setUserData(userData=>({...userData, imageUrl: selectedImageUrl}));
+    }, [showModalImage])
 
     const initialImage = 'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg'
 
