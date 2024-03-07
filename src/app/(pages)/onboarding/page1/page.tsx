@@ -14,7 +14,6 @@ export default function Page1(){
             <header>
                 <div className='logo-container'>
                     <img src={Logo} alt='Logo Lectio'/>
-                    <span>Lectio</span>
                 </div>
             </header>
 
