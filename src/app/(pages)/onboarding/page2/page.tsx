@@ -41,8 +41,8 @@ export default function Page2() {
             </section>
 
             <div className='gender-button-action'>
-                <Button className='secondary' title='Pular' type='button'/>
-                <Button className='primary' title='Continuar' type='submit'/>
+                <Button className='secondary' title='Pular' type='button' />
+                <Button className='primary' title='Continuar' type='submit' />
             </div>
         </main>
     )

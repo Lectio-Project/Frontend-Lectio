@@ -1,32 +1,15 @@
-.primary, .secondary  {
-    width: 10rem;
-    height: 3rem;
-    cursor: pointer;
+.primary:disabled {
+    cursor: default;
+    color: var(--text-color-disabled);
+    background-color: var(--bg-btn-disabled);
+}
 
+
+.primary, .secondary, .disabled, .active {
     border: none;
-    border-radius: 0.5rem;
-
-    font-family: var(--family-primary);
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 1rem;
-}
-
-.primary {
-    color: var(--bg-color-primary);
-    background-color: var(--bg-button);
-}
-
-.secondary {
-    border: 1px solid var(--bg-button);
-    color: var(--bg-button);
-    background-color: transparent;
-}
-
-.disabled, .active {
     width: 100%;
     padding: 16px 24px;
-
+    
     font-family: var(--primary-font);
     font-size: 1.6rem;
     font-weight: 700;
@@ -36,12 +19,18 @@
     cursor: pointer;
 }
 
+.secondary {
+    border: 1px solid var(--bg-button);
+    color: var(--bg-button);
+    background-color: transparent;
+}
+
 .disabled {
     color: var(--neutral-dark-gray-2);
     background-color: var(--neutral-medium-gray);
 }
 
-.active {
+.primary, .active {
     color: var(--text-neutral-black);
     background-color: var(--text-color-btn-yellow);
 }
