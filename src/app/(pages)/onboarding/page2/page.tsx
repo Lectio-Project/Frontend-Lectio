@@ -8,7 +8,7 @@ import { listGender } from '@/app/data/gender';
 
 import './page2.css';
 
-export default function Gender() {
+export default function Page2() {
     function handleChangeClassName(e: React.MouseEvent<HTMLButtonElement>) {
         if (e.currentTarget.classList.value === 'button-default-gender') {
             e.currentTarget.classList.replace('button-default-gender', 'button-selected-gender');
