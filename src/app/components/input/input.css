@@ -4,30 +4,95 @@
 }
 
 .input label {
-    font-family: var(--family-primary);
-    font-size: 1rem;
+    color: var(--neutral-light-gray);
+    width: 100%;
+}
+
+.input .container-input {
+    width: 100%;
+    position: relative;
+}
+
+.input label,
+.input input::placeholder,
+.input input:focus,
+.input input:not(:placeholder-shown),
+.error-message-input {
+    font-family: var(--primary-font);
+    font-size: 1.6rem;
     font-weight: 400;
+    line-height: 2.24rem;
+}
+
+.container-input {
+    display: flex;
+    align-items: center;
+    position: relative;
 }
 
 .input input {
-    height: 3.5rem;
-    padding: 0 1.5rem;
-    margin: 0.3rem 0;
+    width: 100%;
+    height: 5.6rem;
+    padding: 0 2.4rem;
+    margin-top: 0.5rem;
 
-    border: 5px solid var(--border-input);
     border-radius: 6px;
-    
-    background-color: var(--bg-btn-darkblue);
+    border: 2px solid var(--neutral-gray);
+    background-color: transparent;
 }
 
-.input input::placeholder {
-    font-size: 1rem;
-    font-weight: 400;
-    font-family: var(--family-primary);
-
-    color: var(--p-color-primary);
+.input input::placeholder, .input input:not(:placeholder-shown) {
+    color: var(--neutral-gray);
 }
 
-.input p{
-    color: red;
+.container-input input:focus {
+    outline: 1px solid var(--border-btn-yellow);
+    border-color: var(--border-btn-yellow);
+}
+
+.container-input input:hover {
+    border-color: var(--neutral-dark-gray);
+    transition: 0.2s ease-in-out;
+}
+
+.input.input-error input, .input.input-error > input:focus, .input.input-error-password input, .input.input-error-password > input:focus {
+    outline: 1px solid var(--input-error);
+    border-color: var(--input-error);
+}
+
+.input-password {
+    display: flex;
+    align-items: center;
+
+    transition: 0.2s ease-in-out;
+    border-radius: 0.8rem;
+}
+
+.container-input > img {
+    width: 2.4rem;
+    position: absolute;
+    right: 2.4rem;
+
+    cursor: pointer;
+}
+
+.error-container {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+
+    padding: 0.3rem 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.alert-icon {
+    align-self: flex-start;
+
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-top: 0.3rem;
+}
+
+.error-message-input {
+    color: var(--input-error);
 }

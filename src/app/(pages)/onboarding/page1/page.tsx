@@ -35,7 +35,7 @@ export default function Page1(){
                 className='primary' 
                 type='button' 
                 title='Começar' 
-                onClick={()=>router.replace('/onboarding/page2')}/>
+                onClick={()=>router.push('/onboarding/page2')}/>
 
             </section>
 
@@ -43,7 +43,7 @@ export default function Page1(){
                 <img src={OnBoardingImg} alt='Imagem Ilustrativa'/>
             </div>
 
-            <p>Copyright 2022. Todos os direitos reservados.</p>
+            <p className='copyright'>Copyright 2022. Todos os direitos reservados.</p>
         </main>
     )
 }
