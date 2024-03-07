@@ -19,53 +19,34 @@ import { useDataContext } from '@/context/user';
 import './signin.css';
 
 export default function SignIn() {
-    const [availableButton, setAvailableButton] = useState(false);
     const { setUserData } = useDataContext();
 
-    const { handleSubmit, register, formState:{ errors }, watch, getValues } = useForm<signinFormProps>({
+    const { handleSubmit, register, formState:{ errors }} = useForm<signinFormProps>({
         mode: 'onSubmit',
         resolver: zodResolver(schemaSignIn)
     });    
 
     const handleData:SubmitHandler<signinFormProps> = async(data) => {
-        const email = getValues("email")
-        const password = getValues("password");
         const router = useRouter();
 
-        try {
-            const response = await api.post('/login', { email, password });
+        // try {
+        //     const response = await api.post('/login', { email, password });
             
-            if (response.status === 200) {
-                // const {} = response.data;
-                // setUserData()
+        //     if (response.status === 200) {
+        //         // const {} = response.data;
+        //         // setUserData()
 
-                // toast.success('Login efetuado!');
-                // return router.replace('/dashboard')
-            }
-        } catch (error) {
-            console.error(error)
-        }
-        // console.log('submit', data);
-        // console.log(errors)
+        //         // toast.success('Login efetuado!');
+        //         // return router.replace('/dashboard')
+        //     }
+        // } catch (error) {
+        //     console.error(error)
+        // }
+        // // console.log('submit', data);
+        // // console.log(errors)
     }    
 
-    
     const [showPassword, setShowPassword] = useState(false);
-    const watchInputs = watch(["email", "password"])
-    
-    const validateButton = () => {
-        const valueEmail = getValues("email")
-        const valuePassword = getValues("password");
-
-        if (valueEmail && valuePassword) {
-            return setAvailableButton(true);
-        }
-        return setAvailableButton(false);
-    }
-
-    useEffect(() => {
-        validateButton();  
-    }, [watchInputs])
     
     return (
         <main className="signin-container">
