@@ -37,7 +37,7 @@ export default function SignIn() {
             if (response.status === 201) {
                 setUserData(response.data)
                 setResponseError({});
-                return await router.push('/dashboard/config-account')
+                return router.replace('/onboarding/page1')
             }
         
         } catch (error: any) {
@@ -78,7 +78,7 @@ export default function SignIn() {
                                 label="Senha" placeholder="Digite sua senha" type={showPassword ? 'text' : 'password'} showPassword={showPassword} toggleShowPassword={() => setShowPassword(!showPassword)}
                             />
                         </div>
-                        {responseError.length > 0 && <span className='signin-response-error'>{responseError}</span>}
+                        {Object.keys(responseError).length > 0 && <span className='signin-response-error'>{Object(responseError)}</span>}
 
                         <span className='signin-forgot-password'>Esqueceu sua senha?</span>
                         
