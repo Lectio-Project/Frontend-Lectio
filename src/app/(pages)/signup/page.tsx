@@ -41,7 +41,7 @@ export default function SignUp() {
             
             if (response.status === 201) {
                 setResponseError('');
-                return router.replace('/users/sign-in')
+                return router.push('/users/sign-in')
             }
         
         } catch (error: any) {
