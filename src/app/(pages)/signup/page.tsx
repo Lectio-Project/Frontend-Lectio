@@ -21,7 +21,7 @@ import './signup.css';
 export default function SignUp() {
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
-    const [responseError, setResponseError] = useState({});
+    const [responseError, setResponseError] = useState('');
     const router = useRouter();
 
     const { handleSubmit, register, formState:{ errors } } = useForm<signUpFormProps>({
@@ -40,7 +40,7 @@ export default function SignUp() {
             });
             
             if (response.status === 201) {
-                setResponseError({});
+                setResponseError('');
                 return router.push('/users/sign-in')
             }
         
