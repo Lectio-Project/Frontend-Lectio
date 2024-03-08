@@ -115,6 +115,11 @@
     padding: 0rem 0.8rem 0.3rem;
 }
 
+.signup-response-error {
+    font-size: 1.5rem;
+    color: var(--input-error);
+}
+
 .signup-redirect {
     margin-top: 4rem;
 
