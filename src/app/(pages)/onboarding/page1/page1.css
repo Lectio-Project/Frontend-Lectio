@@ -1,6 +1,6 @@
 @import url('../../../globals.css');
 
-main{
+.container-main {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -90,4 +90,138 @@ main{
     font-weight: 400;
     line-height: 140%;
     margin-bottom: 4.4rem;
+}
+
+@media (min-width: 768px){
+
+    .container-main {
+        width: 100%;
+        height: 100vh; 
+        background-color: var(--bg-color-primary);
+    }
+
+    .box-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .logo-container img{
+        width: 12.3rem;
+        height: 8.6rem;
+    }
+
+    .container-image {
+        width: 40.2rem;
+        height: 30.7rem;
+    }
+
+    .container-image img{
+        width: 40.2rem;
+        height: 30.7rem;
+    }
+
+    
+}
+
+@media screen and (min-width: 1024px) and (max-height: 600px) {
+    .container-main{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+@media (min-width: 1280px){
+    .container-main{
+        display: flex;
+        height: 100%;
+    }
+
+    .logo-container{
+        margin: 2.4rem 0 11.2rem 3.2rem;
+    }
+
+    .logo-container img{
+        width: 12.3rem;
+        height: 4.8rem;
+    }
+
+    .box-content{
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 5rem;
+        margin-bottom: 21.5rem;
+    }
+
+    .container-text{
+        width: 60.9rem;
+        height: 37.6rem;
+        margin: 0 0 4rem 8.8rem;
+    }
+
+    .text-area h3{
+        width: 609px;
+        height: 123px;
+        margin-bottom: 1.2rem;
+
+        font-size: 5.6rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 100%; 
+        text-align: start;
+    }
+
+    .text-area span{ 
+        width: 579px;
+        height: auto;
+        margin-bottom: 1.6rem;
+
+        font-size: 2.2rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 150%;
+        text-align: start;
+    }
+
+    .text-area p {
+        width: 579px;
+        height: auto;
+        margin-bottom: 3.3rem;
+
+        font-size: 1.8rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 2.4rem; 
+        text-align: start;
+    }
+
+    .primary{
+        align-self: flex-start;
+        width: 36.2rem;
+    }
+
+    .container-image{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        width: 55.9rem;
+        height: 45.3rem;
+        flex-shrink: 0;
+    }
+
+    .container-image img {
+        width: 55.9rem;
+        height: 45.3rem;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .container-main{
+        height: 100vh;
+    }
+    
 }
