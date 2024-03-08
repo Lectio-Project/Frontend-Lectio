@@ -66,13 +66,13 @@ export default function SignUp() {
                         <Input 
                             register={register('name', {required: 'campo obrigatório'})}  
                             errorMessage={errors.name && errors.name.message}
-                            label="E-mail" placeholder="Digite seu nome completo" type="text" 
+                            label="Nome" placeholder="Digite seu nome completo" type="text" 
                         />
 
                         <Input 
                             register={register('email', {required: 'campo obrigatório'})}  
                             errorMessage={errors.email && errors.email.message} 
-                            label="Senha" placeholder="Digite seu endereço de e-mail" type="email"
+                            label="E-mail" placeholder="Digite seu endereço de e-mail" type="email"
                         />
 
                         <Input 
