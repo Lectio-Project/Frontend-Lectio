@@ -1,0 +1,81 @@
+.gender-container {
+    width: 100%;
+    height: 100%;
+    padding: 4rem 1.5rem 3rem;
+
+    background-color: #121418;
+}
+
+.onboarding-step {
+    display: flex;
+    justify-content: flex-end; 
+    padding: 1.3rem 0 2rem;
+}
+
+.onboarding-step span {
+    font-size: 2rem;
+    background-color: var(--bg-btn-darker);
+    border-radius: 8px;
+    padding: 0.5rem 2rem;
+}
+
+.gender-title {
+    font-size: 2rem;
+    padding: 1.5rem 0;
+}
+
+.gender-buttons {
+    display: grid;
+    grid-template-columns: 48% 48%;
+    justify-content: space-between;
+    padding: 1.5rem 0 10rem;
+}
+
+.gender-button-action {
+    display: flex;
+    gap: 2rem;
+}
+
+@media(min-width: 1280px) {
+    .gender-container {
+        width: 100%;
+        height: 100vh;
+        padding: 2rem 2rem;
+    
+        background-color: #121418;
+    }
+    
+    .onboarding-step {
+        display: flex;
+        justify-content: flex-end; 
+        padding: 1.3rem 0 2rem;
+    }
+    
+    .onboarding-step span {
+        font-size: 2rem;
+        background-color: var(--bg-btn-darker);
+        border-radius: 8px;
+        padding: 0.5rem 2rem;
+    }
+    
+    .gender-title {
+        font-size: 3rem;
+        padding: 1.5rem 0;
+        text-align: center;
+    }
+    
+    .gender-buttons {
+        display: grid;
+        grid-template-columns: 30% 30% 30%;
+        justify-content: space-between;
+        padding: 1.5rem 10rem 10rem;
+    }
+    
+    .gender-button-action {
+        display: flex;
+        gap: 5rem;
+
+        width: 50%;
+        margin: 0 auto;
+    }
+}

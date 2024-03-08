@@ -1,6 +1,6 @@
 @import url('../../../globals.css');
 
-main{
+.container-main {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,30 +10,26 @@ main{
 }
 
 .logo-container{
-    
-    width: 100%;
+    display: flex;
+    width: 100vw;
+    height: 3.6rem;
     align-items: center;
     gap: 0.5rem;
-    margin: 4rem 0 3.25rem 1.5rem;
-    background-color: red;
+    margin: 6.4rem 0 5.2rem 2.4rem;
 }
 
-/* .logo-container span {
-    color: var(--text-color-yellow, #FDBB22);
-    font-family: var(--family-primary);
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 140%; 
-} */
+.logo-container img{
+    width: 10.3rem;
+    height: 3.6rem;
+}
 
 .container-text{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 21.4rem;
-    height: 21.4rem;
-    margin: 0 1.5rem 2.5rem 1.5rem;
+    width: 34.2rem;
+    height: 34.2rem;
+    margin: 0 2.4rem 4rem 2.4rem;
 }
 
 .text-area h3 {
@@ -41,62 +37,191 @@ main{
     color: var(--text-color-white);
     text-align: center;
     font-family: var(--family-primary);
-    font-size: 2rem;
+    font-size: 3.2rem;
     font-style: normal;
     font-weight: 700;
-    line-height: 2.5rem;
-
-    margin-bottom: 0.5rem;
+    line-height: 4rem;
+    margin-bottom: 0.8rem;
 }
 
 .text-area span{
     display: block;
-    height: 3.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.6rem;
     color: var(--text-color-yellow, #FDBB22);
     text-align: center;
     font-family: var(--family-primary);
-    font-size: 1.25rem;
+    font-size: 2rem;
     font-style: normal;
     font-weight: 500;
     line-height: 140%;
 }
 
 .text-area p {
-    display: block;
-    width: 21.375rem;
-    height: 5.5rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 4rem;
     color: var(--text-color-white, #FCFCFC);
     text-align: center;
     font-family: var(--family-primary);
-    font-size: 1rem;
+    font-size: 1.6rem;
     font-style: normal;
     font-weight: 500;
     line-height: 140%; 
 }
 
 .primary{
-    width: 21.375rem;
+    width: 34.2rem;
 }
 
-.container-image{
+.container-image {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 21.375rem;
-    height: 17.3125rem;
-    margin: 0 1.5rem  5.19rem 1.5rem;
+    width: 34.2rem;
+    height: 27.7rem;
+    margin: 0 2.4rem  8.3rem 2.4rem;
     flex-shrink: 0;
 }
 
-main > p{
+.copyright {
     color: var(--text-color-white, #F5F5F5);
     text-align: center;
     font-family: var(--family-primary);
-    font-size: 0.75rem;
+    font-size: 1.2rem;
     font-style: normal;
     font-weight: 400;
     line-height: 140%;
-    margin-bottom: 2.75rem;
+    margin-bottom: 4.4rem;
+}
+
+@media (min-width: 768px){
+
+    .container-main {
+        width: 100%;
+        height: 100vh; 
+        background-color: var(--bg-color-primary);
+    }
+
+    .box-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .logo-container img{
+        width: 12.3rem;
+        height: 8.6rem;
+    }
+
+    .container-image {
+        width: 40.2rem;
+        height: 30.7rem;
+    }
+
+    .container-image img{
+        width: 40.2rem;
+        height: 30.7rem;
+    }
+
+    
+}
+
+@media screen and (min-width: 1024px) and (max-height: 600px) {
+    .container-main{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+@media (min-width: 1280px){
+    .container-main{
+        display: flex;
+        height: 100%;
+    }
+
+    .logo-container{
+        margin: 2.4rem 0 11.2rem 3.2rem;
+    }
+
+    .logo-container img{
+        width: 12.3rem;
+        height: 4.8rem;
+    }
+
+    .box-content{
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 5rem;
+        margin-bottom: 21.5rem;
+    }
+
+    .container-text{
+        width: 60.9rem;
+        height: 37.6rem;
+        margin: 0 0 4rem 8.8rem;
+    }
+
+    .text-area h3{
+        width: 609px;
+        height: 123px;
+        margin-bottom: 1.2rem;
+
+        font-size: 5.6rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 100%; 
+        text-align: start;
+    }
+
+    .text-area span{ 
+        width: 579px;
+        height: auto;
+        margin-bottom: 1.6rem;
+
+        font-size: 2.2rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 150%;
+        text-align: start;
+    }
+
+    .text-area p {
+        width: 579px;
+        height: auto;
+        margin-bottom: 3.3rem;
+
+        font-size: 1.8rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 2.4rem; 
+        text-align: start;
+    }
+
+    .primary{
+        align-self: flex-start;
+        width: 36.2rem;
+    }
+
+    .container-image{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        width: 55.9rem;
+        height: 45.3rem;
+        flex-shrink: 0;
+    }
+
+    .container-image img {
+        width: 55.9rem;
+        height: 45.3rem;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .container-main{
+        height: 100vh;
+    }
+    
 }
