@@ -21,7 +21,7 @@ import './signup.css';
 export default function SignUp() {
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
-    const [responseError, setResponseError] = useState('');
+    const [responseError, setResponseError] = useState([]);
     const router = useRouter();
 
     const { handleSubmit, register, formState:{ errors } } = useForm<signUpFormProps>({
@@ -30,18 +30,19 @@ export default function SignUp() {
     });
 
     const handleData:SubmitHandler<signUpFormProps> = async(data) => {
-        const {name, email, password, passwordConfirmation} = data
+        const {name, email, password, passwordConfirmation, termsAndConditions} = data
         try {
             const response = await api.post('/users/sign-up', {
                 name, 
                 email, 
                 password, 
-                confirmPassword: passwordConfirmation
+                confirmPassword: passwordConfirmation,
+                checked: termsAndConditions
             });
             
             if (response.status === 201) {
-                setResponseError('');
-                return router.push('/users/sign-in')
+                setResponseError([]);
+                return router.push('/signin')
             }
         
         } catch (error: any) {
