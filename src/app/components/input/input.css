@@ -44,7 +44,7 @@
     color: var(--neutral-gray);
 }
 
-.container-input input:focus {
+.container-input input:focus, .container-input input:not(:placeholder-shown) {
     outline: 1px solid var(--border-btn-yellow);
     border-color: var(--border-btn-yellow);
 }
