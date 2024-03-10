@@ -15,7 +15,7 @@ export default function BooksOnboarding() {
     }, []);
 
     const listBooks = async () => {
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZWQ5ZTRhZjJjNjQ3OTQ0ZjNlZGUzZCIsIm5hbWUiOiJKb2FuYSBTb2FyZXMiLCJlbWFpbCI6ImpvYW5hM0BlbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQwOCRNQVhQZEhTU2ZaR3hCbHFTWXlTWXh1Qy5OUlBZOEkxOEkxZjY5OFNIQlBQVGFaRGlGVmRTMiIsInVzZXJuYW1lIjoiQGpvYW5hMTcxMDA3MTM3MDQxMSIsImJpbyI6bnVsbCwiaW1hZ2VVcmwiOm51bGwsImNyZWF0ZWRBdCI6IjIwMjQtMDMtMTBUMTE6NDk6MzAuNjU4WiIsInVwZGF0ZWRBdCI6IjIwMjQtMDMtMTBUMTE6NDk6MzAuNjU4WiIsImlhdCI6MTcxMDA5NTkwMSwiZXhwIjoxNzEwNzAwNzAxfQ.k4QgNp5yPfBUrKecqc_m7BoOsZJORhyiX6ui8gQyH8Q';
+        const token = 'token';
 
         try {
             const response = await api.get('/books', 
