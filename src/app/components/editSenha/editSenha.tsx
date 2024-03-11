@@ -4,7 +4,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { newPassProps, schemaNewPassword } from '@/app/schemas/schemaEdit';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../Button/Button';
-import BackIcon from '../../assets/arrowBack.svg';
 import CloseIcon from '../../assets/closeIcon.svg';
 import { useDataContext } from '@/context/user';
 import api from '@/api/api';
