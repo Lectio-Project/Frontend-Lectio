@@ -1,26 +1,26 @@
 'use client'
 
 import { useEffect, useState } from 'react';
+import { useDataContext } from '@/context/user';
 
 import api from '@/api/api';
 
 import './BooksOnboarding.css';
 
 export default function BooksOnboarding() {
-
+    const { userData } = useDataContext();
     const [books, setBooks] = useState([]);
+
 
     useEffect(() => {
         listBooks();
     }, []);
 
     const listBooks = async () => {
-        const token = 'token';
-
         try {
             const response = await api.get('/books', 
                 { headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${userData.token}`
                 }});
             setBooks(response.data);
         } catch (error: any) {
