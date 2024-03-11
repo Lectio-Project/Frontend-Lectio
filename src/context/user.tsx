@@ -18,8 +18,8 @@ interface User {
 type IUserContextData = {
     userData: User;
     setUserData: React.Dispatch<React.SetStateAction<User>>;
-    showModalEdit: boolean;
-    setShowModalEdit: React.Dispatch<React.SetStateAction<boolean>>;
+    showModalEditPass: boolean;
+    setShowModalEditPass: React.Dispatch<React.SetStateAction<boolean>>;
     showModalImage: boolean;
     setShowModalImage: React.Dispatch<React.SetStateAction<boolean>>;
     selectedImageUrl: string;
@@ -45,15 +45,15 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         imageUrl: ''
     });
 
-    const [showModalEdit, setShowModalEdit] = useState<boolean>(false);
+    const [showModalEditPass, setShowModalEditPass] = useState<boolean>(false);
     const [showModalImage, setShowModalImage] = useState<boolean>(false);
     const [selectedImageUrl, setSelectedImageUrl] = useState(userData.imageUrl || '');
 
     const contextValue = {
         userData,
         setUserData,
-        showModalEdit,
-        setShowModalEdit,
+        showModalEditPass,
+        setShowModalEditPass,
         showModalImage,
         setShowModalImage,
         selectedImageUrl,

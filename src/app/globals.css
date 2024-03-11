@@ -21,7 +21,7 @@
   --text-color-disabled: #6A6A6A;
   --text-color-lightgray: #F5F5F5;
   --text-color-darkblue: #222E36;
-  --text-colo-green: #C7FF80;
+  --text-color-green: #C7FF80;
   --neutral-light-gray: #F5F5F5;
   --neutral-medium-gray: #C0C0C0;
   --neutral-gray: #939393;
@@ -46,7 +46,7 @@ html {
 html,
 body {
   max-width: 100vw;
-  min-height: 100vh;
+  height: 100%;
   overflow-x: hidden;
 }
 
