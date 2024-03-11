@@ -17,8 +17,8 @@ export default function ConfigAccount(){
     const { 
         userData,
         setUserData,
-        showModalEdit, 
-        setShowModalEdit, 
+        showModalEditPass, 
+        setShowModalEditPass, 
         showModalImage, 
         setShowModalImage,
         selectedImageUrl
@@ -137,7 +137,7 @@ export default function ConfigAccount(){
                     </div>
 
 
-                <div className='secure-option' onClick={()=> setShowModalEdit(true)}>
+                <div className='secure-option' onClick={()=>setShowModalEditPass(true)}>
                     <p>Alterar senha</p>
                     <img src={GoIconY} alt='Intro Icon'/>
                 </div>
@@ -145,7 +145,7 @@ export default function ConfigAccount(){
 
             </section>
 
-            {showModalEdit && <EditSenha/>}
+            <EditSenha/>
 
             {showModalImage && <UploadImage/>}
 

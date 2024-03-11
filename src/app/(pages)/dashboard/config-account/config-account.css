@@ -133,7 +133,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 1.2rem;
-    
+    cursor: pointer;
     border-radius: 8px;
     border: 1px solid var(--Azul-Input, #577B94);
     background: #1F1F1F;
