@@ -7,101 +7,109 @@
 }
 
 .container-edit{
-    min-width: 393px;
-    min-height: 873px;
+    width: 100%;
+    height: 100%;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:31px;
     background-color: var(--bg-color-primary);
 }
 
-.back-section{
-    width: 100%;
+.header-container{
     display: flex;
-    margin-top: 43px;
-    margin-left: 20px;
-    gap: 4px;
+    width: 100%;
+    margin-top: 4.4rem;
+    margin-bottom: 4.6rem;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.image-profile{
+.logo-section{
+    display: flex;
+    align-items: center;
+    margin-left: 2.4rem;
+}
+
+.logo-section img{
+    width: 10.3rem;
+    height: 3.6rem;
+}
+
+.sandwich-menu{
+    width: 3.2rem;
+    height: 3.2rem;
+    margin-right: 2.4rem;
+}
+
+.area-profile{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 18px;
-    margin-top: 18px;
+    gap: 2rem;
+    margin-bottom: 3.4rem;
 }
 
-.image-profile img{
+.area-profile img{
     width: 100px;
     height: 100px;
     border-radius: 50%;
 }
 
-.image-profile p{
-    cursor: pointer;
+.info-profile span {
+    color: var(--text-color-lightgray, #F5F5F5);
+    text-align: center;
+    
+    font-family: var(--family-primary);
+    font-size: 2.4rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 166%; 
+}
+
+.info-profile p{
+    color: var(--neutral-gray);
+    text-align: center;
 
     font-family: var(--family-primary);
-    font-size: 11px;
-    font-weight: 300;
-    line-height: 13px;
-    letter-spacing: 0em;
-    text-align: left;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
 }
 
 .form-edit{
-    width: 353px;
-    height: 271px;
     display: flex;
     flex-direction: column;
-    margin-top: 105px;
-    background-color: var(--bg-input);
-    border: 1px solid #577B94;
-    border-radius: 10px;
+    width: 34.2rem;
 }
 
-.edit-area{
+.label-area {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 0 0 14px;
-    background-color: var(--bg-input);
-    border-bottom: 1px solid #577B94 ;
-    
+    width: 100%;
+    margin-bottom: 2.2rem;
+    justify-content: space-between;
 }
 
-.edit-area p{
-    color: red;
+.label-area span{
+    color: var(--text-color-lightgray);
 
     font-family: var(--family-primary);
-    font-size: 11px;
-    font-weight: 300;
-    line-height: 13px;
-    letter-spacing: 0em;
-    text-align: left;
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
 }
-
-.edit-area input{
-    width: 100%;
-    height: 2rem;
-    padding: 0;
-    margin: 0;
-    border: none;
-    background-color: var(--bg-input);
-    outline: none;
-}
-
 
 .bio-area{
     display: flex;
-    height: 99px;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0 0 0 14px;
-    gap:5px;
-    margin: 0;
+    height: 6rem;
+    margin-bottom: 2.4rem;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    border: 1px solid var(--Azul-Input, #577B94);
+    background: #1F1F1F;
 }
 
 .bio-area textarea{
@@ -121,14 +129,14 @@
 .secure-option{
     display: flex;
     width: 100%;
-    height: 50px;
-    border-radius: 0 0 10px 10px;
-    border: 0.5px solid #577B94;
-    padding: 0 14.5px 0 12px;
-    background-color: var(--bg-option);
+    height: 4.2rem;
     align-items: center;
     justify-content: space-between;
-    cursor: pointer;
+    padding: 0 1.2rem;
+    
+    border-radius: 8px;
+    border: 1px solid var(--Azul-Input, #577B94);
+    background: #1F1F1F;
 }
 
 .secure-option p{
