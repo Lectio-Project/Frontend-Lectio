@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation';
 import { useDataContext } from '@/context/user';
 
 import './signin.css';
+import { setCookie } from '@/utils/cookies';
 
 export default function SignIn() {
     const [responseError, setResponseError] = useState({});
@@ -35,7 +36,7 @@ export default function SignIn() {
             const response = await api.post('/users/sign-in', {email, password});
             
             if (response.status === 201) {
-                setUserData(response.data)
+                setCookie('token', response.data.token);
                 setResponseError({});
                 return router.replace('/onboarding/page1')
             }

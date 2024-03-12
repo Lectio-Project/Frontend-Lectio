@@ -1,16 +1,14 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import { useDataContext } from '@/context/user';
+import { getCookie } from '@/utils/cookies';
 
 import api from '@/api/api';
 
 import './BooksOnboarding.css';
 
 export default function BooksOnboarding() {
-    const { userData } = useDataContext();
     const [books, setBooks] = useState([]);
-
 
     useEffect(() => {
         listBooks();
@@ -18,9 +16,11 @@ export default function BooksOnboarding() {
 
     const listBooks = async () => {
         try {
+            const token = await getCookie('token');
+            
             const response = await api.get('/books', 
                 { headers: {
-                    Authorization: `Bearer ${userData.token}`
+                    Authorization: `Bearer ${token}`
                 }});
             setBooks(response.data);
         } catch (error: any) {
