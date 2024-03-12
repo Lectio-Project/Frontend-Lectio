@@ -11,6 +11,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { KeyboardEvent, useEffect, useState } from 'react';
 import EditSenha from '@/app/components/editSenha/editSenha';
 import UploadImage from '@/app/components/modalUpload/modalUpload';
+import HamburguerMenu from '@/app/components/hamburguerMenu/hamburguerMenu';
 import api from '@/api/api';
 
 export default function ConfigAccount(){
@@ -21,7 +22,9 @@ export default function ConfigAccount(){
         setShowModalEditPass, 
         showModalImage, 
         setShowModalImage,
-        selectedImageUrl
+        selectedImageUrl,
+        openDrawer, 
+        setOpenDrawer
     } = useDataContext();
     
     const[errorValidate, setErrorValidate] = useState<string | null>(null);
@@ -97,11 +100,15 @@ export default function ConfigAccount(){
             <img src={Logo} alt='logo Icon'/>
             </div>
 
-            <div className='sandwich-menu'>
+            <div className='sandwich-menu' onClick={()=> setOpenDrawer(true)}>
                 <img src={MenuIcon} alt='sandwich menu' />
             </div>
 
             </header>
+
+            
+            <HamburguerMenu select= 'perfil'/>
+            
 
             <section className='area-profile'>
 
@@ -145,9 +152,13 @@ export default function ConfigAccount(){
 
             </section>
 
+            
+
             <EditSenha/>
 
             {showModalImage && <UploadImage/>}
+            
+            
 
         </main>
     )
