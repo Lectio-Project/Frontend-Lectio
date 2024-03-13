@@ -14,13 +14,12 @@ import { schemaSignIn, signinFormProps } from "@/app/schemas/schemaSignIn";
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useDataContext } from '@/context/user';
+import { setCookie } from '@/utils/cookies';
 
 import './signin.css';
 
 export default function SignIn() {
     const [responseError, setResponseError] = useState({});
-    const { setUserData } = useDataContext();
     const router = useRouter();
 
     const { handleSubmit, register, formState:{ errors }} = useForm<signinFormProps>({
@@ -35,7 +34,7 @@ export default function SignIn() {
             const response = await api.post('/users/sign-in', {email, password});
             
             if (response.status === 201) {
-                setUserData(response.data)
+                await setCookie('token', response.data.token);
                 setResponseError({});
                 return router.replace('/onboarding/page1')
             }
