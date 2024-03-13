@@ -7,11 +7,12 @@ interface User {
     id: string;
     name: string;
     email: string;
-    userName?: string;
-    password?: string;
+    username?: string;
     bio?: string;
     imageUrl?: string;
     token?: string;
+    createdAt?: string,
+    updatedAt?: string
 }
 
 
@@ -38,13 +39,15 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
     
     const [userData, setUserData] = useState<User>({ 
         name: '', 
-        email: '', 
-        password: '', 
-        userName:'', 
+        email: '',
+        username:'', 
         bio:'' , 
         id: '', 
         token: '', 
-        imageUrl: ''
+        imageUrl: '',
+        createdAt: '',
+        updatedAt: ''
+
     });
 
     const [showModalEditPass, setShowModalEditPass] = useState<boolean>(false);
