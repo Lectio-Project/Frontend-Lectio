@@ -1,17 +1,22 @@
 'use client'
 import './config-account.css';
 import { useDataContext } from '@/context/user';
-import Logo from '../../../assets/logoWithName.svg';
-import GoIconY from '../../../assets/arrowGoYellow.svg';
-import MenuIcon from '../../../assets/menuIcon.svg';
-import EditIcon from '../../../assets/editIcon.svg';
+
+import Logo from '../../assets/logoWithName.svg';
+import GoIconY from '../../assets/arrowGoYellow.svg';
+import MenuIcon from '../../assets/menuIcon.svg';
+import EditIcon from '../../assets/editIcon.svg';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { editFormProps, schemaEdit } from '@/app/schemas/schemaEdit';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { KeyboardEvent, useEffect, useState } from 'react';
+
 import EditSenha from '@/app/components/editSenha/editSenha';
 import UploadImage from '@/app/components/modalUpload/modalUpload';
+import HamburguerMenu from '@/app/components/hamburguerMenu/hamburguerMenu';
 import api from '@/api/api';
+import NavBar from '@/app/components/NavBar/navBar';
 
 export default function ConfigAccount(){
     const { 
@@ -21,7 +26,9 @@ export default function ConfigAccount(){
         setShowModalEditPass, 
         showModalImage, 
         setShowModalImage,
-        selectedImageUrl
+        selectedImageUrl,
+        openDrawer, 
+        setOpenDrawer
     } = useDataContext();
     
     const[errorValidate, setErrorValidate] = useState<string | null>(null);
@@ -31,7 +38,7 @@ export default function ConfigAccount(){
         resolver: zodResolver(schemaEdit),
         defaultValues: {
             name: userData.name,
-            userName: userData.userName,
+            userName: userData.username,
             bio: userData.bio
         }
     });
@@ -86,6 +93,7 @@ export default function ConfigAccount(){
         setUserData(userData=>({...userData, imageUrl: selectedImageUrl}));
     }, [showModalImage])
 
+
     const initialImage = 'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg'
 
     return(
@@ -97,11 +105,19 @@ export default function ConfigAccount(){
             <img src={Logo} alt='logo Icon'/>
             </div>
 
-            <div className='sandwich-menu'>
+            <div className='sandwich-menu' onClick={()=> setOpenDrawer(true)}>
                 <img src={MenuIcon} alt='sandwich menu' />
             </div>
 
+            <nav>
+                <NavBar select='perfil'/>
+            </nav>
+
             </header>
+
+            
+            <HamburguerMenu select= 'perfil'/>
+            
 
             <section className='area-profile'>
 
@@ -109,7 +125,7 @@ export default function ConfigAccount(){
 
                 <div className='info-profile'>
                 <span>{userData.name ? userData.name : 'Nome do usuário' }</span>
-                <p>{userData.userName ? userData.userName : 'UserName'}</p>
+                <p>{userData.username ? userData.username : 'UserName'}</p>
                 </div>
                 
             </section>
@@ -145,9 +161,13 @@ export default function ConfigAccount(){
 
             </section>
 
+            
+
             <EditSenha/>
 
             {showModalImage && <UploadImage/>}
+            
+            
 
         </main>
     )

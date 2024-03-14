@@ -1,4 +1,4 @@
-@import url('../../../globals.css');
+@import url('../../globals.css');
 
 *{
     margin: 0;
@@ -40,6 +40,10 @@
     width: 3.2rem;
     height: 3.2rem;
     margin-right: 2.4rem;
+}
+
+nav{
+    display: none;
 }
 
 .area-profile{
@@ -146,4 +150,90 @@ font-weight: 400;
 line-height: 17px;
 letter-spacing: 0em;
 text-align: left;
+}
+
+@media screen and (min-width: 834px) {
+    .container-edit{
+        height: 100%;
+    }
+
+    .logo-section img{
+        width: 12.7rem;
+        height: 4.8rem;
+    }
+
+    .area-profile{
+        gap: 2.4rem;
+    }
+
+    .area-profile img{
+        width: 14rem;
+        height: 14rem;
+    }
+
+    .info-profile span{
+        text-align: center;
+        font-size: 2.9rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 166.667%;
+    }
+
+    .info-profile p{
+        font-size: 1.9rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 140%;
+    }
+
+    .form-edit{
+        width: 57.7rem;
+    }
+    .label-area{
+        width: 57.7rem;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .label-area span{
+        font-size: 1.8rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 140%;
+        padding-left: 0.1rem;
+    }
+
+    .bio-area{
+        width: 57.7rem;
+        height: 9.4rem;
+    }
+
+    .secure-option{
+        height: 4.9rem;
+    }
+
+    .secure-option p{
+        font-size: 1.8rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%;
+    }
+}
+
+@media screen and (min-width:1024px) {
+    .container-edit{
+        height: auto;
+    }
+
+    .sandwich-menu{
+        display: none;
+    }
+    
+    nav{
+        display: block;
+    }
+
+    .secure-option{
+        margin-bottom: 35.1rem;
+    }
 }

@@ -1,0 +1,32 @@
+.onboarding-steps-logo-with-name {
+    width: 10.3rem;
+}
+
+.onboarding-steps {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: 2.2rem;
+}
+
+.onboarding-steps span {
+    padding: 0.4rem 1.2rem;
+
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 2.24rem;
+    
+    color: var(--neutral-light-gray);
+    background-color: var(--bg-btn-darker);
+    border-radius: 8px;
+}
+
+.onboarding-steps-title {
+    margin: 3.2rem 0 2.8rem;
+
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.8rem;
+
+    color: var(--text-color-neutral-white);
+}
