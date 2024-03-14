@@ -1,6 +1,5 @@
 'use client'
 
-import { ButtonsOnboarding } from '@/types/onboarding-types';
 import { useEffect, useState } from 'react';
 import { getCookie } from '@/utils/cookies';
 
