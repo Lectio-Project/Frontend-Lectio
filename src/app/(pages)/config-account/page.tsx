@@ -2,10 +2,10 @@
 import './config-account.css';
 import { useDataContext } from '@/context/user';
 
-import Logo from '../../../assets/logoWithName.svg';
-import GoIconY from '../../../assets/arrowGoYellow.svg';
-import MenuIcon from '../../../assets/menuIcon.svg';
-import EditIcon from '../../../assets/editIcon.svg';
+import Logo from '../../assets/logoWithName.svg';
+import GoIconY from '../../assets/arrowGoYellow.svg';
+import MenuIcon from '../../assets/menuIcon.svg';
+import EditIcon from '../../assets/editIcon.svg';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { editFormProps, schemaEdit } from '@/app/schemas/schemaEdit';
