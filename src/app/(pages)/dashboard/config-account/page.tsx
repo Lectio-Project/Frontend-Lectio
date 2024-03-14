@@ -16,6 +16,7 @@ import EditSenha from '@/app/components/editSenha/editSenha';
 import UploadImage from '@/app/components/modalUpload/modalUpload';
 import HamburguerMenu from '@/app/components/hamburguerMenu/hamburguerMenu';
 import api from '@/api/api';
+import NavBar from '@/app/components/NavBar/navBar';
 
 export default function ConfigAccount(){
     const { 
@@ -107,6 +108,10 @@ export default function ConfigAccount(){
             <div className='sandwich-menu' onClick={()=> setOpenDrawer(true)}>
                 <img src={MenuIcon} alt='sandwich menu' />
             </div>
+
+            <nav>
+                <NavBar select='perfil'/>
+            </nav>
 
             </header>
 
