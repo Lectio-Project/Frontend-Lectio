@@ -11,6 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { editFormProps, schemaEdit } from '@/app/schemas/schemaEdit';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { KeyboardEvent, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import EditSenha from '@/app/components/editSenha/editSenha';
 import UploadImage from '@/app/components/modalUpload/modalUpload';
@@ -31,6 +32,8 @@ export default function ConfigAccount(){
         setOpenDrawer
     } = useDataContext();
     
+    const router= useRouter();
+
     const[errorValidate, setErrorValidate] = useState<string | null>(null);
     
     const { handleSubmit,register, formState:{ errors } } = useForm<editFormProps>({
@@ -136,17 +139,17 @@ export default function ConfigAccount(){
 
                     <div className='label-area'>
                         <span>Bio</span>
-                        <img src={EditIcon} alt= 'Edit Icon'/>
+                        <img src={EditIcon} alt= 'Edit Icon' onClick={() => router.push('/config-account/edit')}/>
                     </div>
 
                     <div className='bio-area'>
 
                     <textarea
                     {...register('bio')}  
-                    placeholder="Digite sua bio"
+                    placeholder="Sem biografia"
                     maxLength={180}
                     rows={4}
-                    autoComplete="off"
+                    disabled
                     />
 
                     <p>{errors.bio && errors.bio.message}</p>

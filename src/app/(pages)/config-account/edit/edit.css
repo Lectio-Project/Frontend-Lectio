@@ -6,7 +6,7 @@
 
 .container-edit{
     width: 100%;
-    height: 100%;
+    height: auto;
 
     display: flex;
     flex-direction: column;
@@ -81,6 +81,8 @@
     font-style: normal;
     font-weight: 700;
     line-height: 140%;
+
+    cursor: pointer;
 }
 
 .edit-form{
@@ -115,11 +117,17 @@
     resize: none;
 }
 
+.edit-form textarea:focus, .edit-form textarea:not(:placeholder-shown) {
+    outline: 1px solid var(--border-btn-yellow);
+    border-color: var(--border-btn-yellow);
+}
+
 .buttons-area{
     display: flex;
     gap: 1.6rem;
     width: 34.2rem;
     margin-top: 3.2rem;
+    margin-bottom: 2rem;
 }
 
 .primary, .secondary, .active, .disabled {
