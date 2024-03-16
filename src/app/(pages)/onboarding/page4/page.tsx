@@ -19,7 +19,7 @@ export default function Page4() {
             <section className='onboarding-steps-options'>
                 <BooksOnboarding selectedBooks={selectedBooks} setSelectedBooks={setSelectedBooks}/>
             </section>
-            <FooterOnboarding selectedBooks={selectedBooks} page='/home'/>
+            <FooterOnboarding selectedItems={selectedBooks} page='/home'/>
         </main>
     )
 }
