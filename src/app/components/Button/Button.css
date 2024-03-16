@@ -4,11 +4,11 @@
     background-color: var(--bg-btn-disabled);
 }
 
-.primary, .secondary, .disabled, .active {
+.primary, .secondary, .disabled, .active, .continue-btn {
     border: none;
 }
 
-.primary, .secondary  {
+.primary, .secondary, .continue-btn  {
     width: 16.3rem;
     height: 4.4rem;
     
@@ -22,7 +22,7 @@
     cursor: pointer;
 }
 
-.primary {
+.primary, .continue-btn{
     color: var(--bg-color-primary);
     background-color: var(--bg-button);
 }
@@ -44,6 +44,10 @@
     
     border-radius: 8px;
     cursor: pointer;
+}
+
+.continue-btn {
+    width: 100%;
 }
 
 .secondary {

@@ -7,7 +7,5 @@ export type button = {
     title: string,
     type: 'button' | 'submit' | 'reset' | undefined,
     className: string,
-    disabled?: 'disabled' | 'active' | '' | undefined
+    disabled?: any,
 }
-
-// 'primary' | 'secondary' | 'disabled' | 'active'

@@ -1,12 +1,17 @@
+import { useRouter } from 'next/navigation';
+import { FooterOnboarding } from '@/types/onboarding-types';
+
 import Button from '@/app/components/Button/Button';
 
 import './FooterOnboarding.css';
 
-export default function FooterOnboarding() {
+export default function FooterOnboarding({ selectedBooks = [], page }: FooterOnboarding) {
+    const router = useRouter();
+
     return (
         <footer className='onboarding-footer-button-action'>
-                <Button className='secondary' title='Pular' type='button' />
-                <Button className='primary' title='Continuar' type='submit'/>
+                <Button className='secondary' title='Pular' type='button' onClick={() => router.push(page)} disabled={selectedBooks.length === 3}/>
+                <Button className='continue-btn' title='Continuar' type='submit' onClick={() => router.push(page)} disabled={selectedBooks.length < 3}/>
         </footer>
     )
 }
