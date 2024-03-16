@@ -4,14 +4,14 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { newPassProps, schemaNewPassword } from '@/app/schemas/schemaEdit';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../Button/Button';
-import BackIcon from '../../assets/arrowBack.svg';
+import CloseIcon from '../../assets/closeIcon.svg';
 import { useDataContext } from '@/context/user';
 import api from '@/api/api';
 import { useState } from 'react';
 
 export default function EditSenha(){
 
-    const { userData, showModalEdit, setShowModalEdit } = useDataContext();
+    const { userData,showModalEditPass, setShowModalEditPass } = useDataContext();
 
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
@@ -42,24 +42,21 @@ export default function EditSenha(){
             return  console.error(error);
         }
 
-
-        setShowModalEdit(false)
+        setTimeout(() => {
+        setShowModalEditPass(false)
+        }, 300);
     }
 
     return(
         <main>
-            <div className='background-modal'>
+            <div className={`background-modal ${showModalEditPass ? 'open' : ''}`} onClick={() => setShowModalEditPass(false)}>
 
-            <div className='back-area' onClick={()=> setShowModalEdit(false)}>
-                <img src={BackIcon} alt='icon back'/>
-                <span>Voltar</span>
-                </div>
-
-            <section className='container-modal'>
+            <section className={`container-modal ${showModalEditPass ? 'open' : ''}`} onClick={(e) => e.stopPropagation()}>
                 
 
                 <div className='title-top'>
-                    <span>Senha e segurança</span>
+                    <span>Alterar senha</span>
+                    <img src={CloseIcon} alt='Close icon' onClick={()=> setShowModalEditPass(false)}/>
                 </div>
 
                 <form onSubmit={handleSubmit(handleData)} className='forms-edit'>
@@ -73,8 +70,9 @@ export default function EditSenha(){
                     label="Nova senha" 
                     errorMessage={errors.password && errors.password.message}
                     /> 
+                    <p>Sua senha deve conter no mínimo  8 caracteres, um caractere especial, uma letra maiúscula e um número.</p>
 
-                    <Input 
+                    <Input
                     register={register('passwordConfirmation', {required: 'campo obrigatório'})}  
                     placeholder="digite a senha" 
                     type={showPasswordConfirmation ? 'text' : 'password'}

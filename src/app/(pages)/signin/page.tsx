@@ -87,6 +87,7 @@ export default function SignIn() {
                     <span className="signin-redirect">Não tem uma conta? <a href="./signup">Cadastrar-se</a></span>
                 </section>
             </section>
+            
             <section className="signin-footer">
                 <span>Copyright 2022. Todos os direitos reservados</span>
             </section>
