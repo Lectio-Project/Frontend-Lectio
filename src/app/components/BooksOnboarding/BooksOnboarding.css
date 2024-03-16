@@ -1,9 +1,10 @@
 .onboarding-container-book-list {
-    width: 47.5%;
-    height: 28.3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    grid-gap: 2rem;
 
+    width: 100%;
     margin-bottom: 2.8rem;
-
 }
 
 .onboarding-book-list {
@@ -17,14 +18,14 @@
 }
 
 .book-image-onboarding {
-    width: 16.2rem;
+    width: 16rem;
     height: 23.8rem;
 
     border-radius: 8px;
 }
 
-.book-title-onboarding, .book-author-onborading {
-    font-family: var(--primary-fontim);
+.book-title-onboarding, .book-author-onboarding {
+    font-family: var(--primary-font);
     text-transform: capitalize;
 
     color: var(--text-color-neutral-white);
@@ -38,14 +39,14 @@
     line-height: 1.96rem;
 }
 
-.book-author-onborading {
+.book-author-onboarding {
     font-size: 1.2rem;
     font-weight: 400;
     line-height: 1.68rem;
 }
 
-@media(min-width: 560px) {
+/* @media(min-width: 560px) {
     .onboarding-container-book-list {
-        max-width: 33%;
+        grid-template-columns: repeat(3, 1fr);
     }
-}
+} */
