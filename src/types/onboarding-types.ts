@@ -16,6 +16,6 @@ export interface BooksOnboarding {
 }
 
 export interface FooterOnboarding {
-    selectedBooks: Book[];
+    selectedItems: Book[];
     page: string;
 }
