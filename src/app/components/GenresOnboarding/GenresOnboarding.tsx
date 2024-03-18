@@ -5,9 +5,9 @@ import { getCookie } from '@/utils/cookies';
 
 import api from '@/api/api';
 
-import './ButtonsOnboarding.css';
+import './GenresOnboarding.css';
 
-export default function ButtonsOnboarding() {
+export default function GenresOnboarding() {
     const [genres, setGenres] = useState([]);
 
     useEffect(() => {

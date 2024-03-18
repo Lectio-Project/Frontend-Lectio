@@ -1,7 +1,7 @@
 'use client'
 
-import ButtonsOnboarding from '@/app/components/ButtonsOnboarding/ButtonsOnboarding';
 import HeaderOnboarding from '@/app/components/HeaderOnboarding/HeaderOnboarding';
+import GenresOnboarding from '@/app/components/GenresOnboarding/GenresOnboarding';
 import FooterOnboarding from '@/app/components/FooterOnboarding/FooterOnboarding';
 
 import '@/app/styles/OnboardingSteps.css';
@@ -12,7 +12,7 @@ export default function Page2() {
             <HeaderOnboarding title='gêneros' step={1}/>    
 
             <section className='onboarding-steps-options'>
-                <ButtonsOnboarding />
+                <GenresOnboarding />
             </section>
 
             <FooterOnboarding />
