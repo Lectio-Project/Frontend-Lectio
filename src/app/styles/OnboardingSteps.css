@@ -1,4 +1,7 @@
 .onboarding-steps-container {
+    display: flex;
+    flex-direction: column;
+
     width: 100vw;
     height: 100vh;
     padding: 4rem 2.4rem;
@@ -8,8 +11,16 @@
 
 .onboarding-steps-options {
     display: flex;
-    justify-content: space-between;
 
     width: 100%;
     height: auto;
+}
+
+@media (min-width: 768px) {
+    .onboarding-steps-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
 }

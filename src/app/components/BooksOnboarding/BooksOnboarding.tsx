@@ -3,6 +3,12 @@
 import { useEffect, useState } from 'react';
 import { getCookie } from '@/utils/cookies';
 import { Book, BooksOnboarding } from '@/types/onboarding-types';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import 'swiper/swiper-bundle.css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 import api from '@/api/api';
 
@@ -10,6 +16,8 @@ import './BooksOnboarding.css';
 
 export default function BooksOnboarding({ selectedBooks, setSelectedBooks }: BooksOnboarding) {
     const [books, setBooks] = useState<Book[]>([]);
+    const isTablet = useMediaQuery('(min-width:768px)');
+    const isDesktop = useMediaQuery('(min-width:1280px)');
 
     useEffect(() => {
         listBooks();
@@ -43,17 +51,34 @@ export default function BooksOnboarding({ selectedBooks, setSelectedBooks }: Boo
         }
     }
 
-    return (
-        <section className='onboarding-container-book-list'>
-            {books.map((book) => {
-                return (
-                    <section className='default-book-list'  onClick={(e) => handleBookSelection(e, book)} key={book.id}>
+    return isTablet ? (
+        <Swiper
+            className='onboarding-container-books'
+            modules={[Navigation, Pagination]}
+            slidesPerView={isDesktop ? 6 : (isTablet && 4)}
+            slidesPerGroup={6}
+            pagination={{ clickable: true }}
+            navigation
+        >
+            {books.map((book) => (
+                <SwiperSlide key={book.id}>
+                    <section className='default-book-list' onClick={(e) => handleBookSelection(e, book)}>
                         <img src={book.imageUrl} className='book-image-onboarding'/>
                         <span className='book-title-onboarding'>{book.name}</span>
                         <span className='book-author-onboarding'>{book.publishingCompany}</span>
                     </section>
-                )
-            })}
-        </section>
-    )
-}
+                </SwiperSlide>
+            ))}
+        </Swiper>
+        ) : (
+            <section className='onboarding-container-book-list'>
+                {books.map((book) => (
+                    <section className='default-book-list' onClick={(e) => handleBookSelection(e, book)} key={book.id}>
+                        <img src={book.imageUrl} className='book-image-onboarding'/>
+                        <span className='book-title-onboarding'>{book.name}</span>
+                        <span className='book-author-onboarding'>{book.publishingCompany}</span>
+                    </section>
+                ))}
+            </section>
+        );
+    }

@@ -8,7 +8,7 @@
     border: none;
 }
 
-.primary, .secondary, .continue-btn  {
+.primary, .secondary, .continue-btn {
     width: 16.3rem;
     height: 4.4rem;
     
@@ -22,13 +22,13 @@
     cursor: pointer;
 }
 
-.primary, .continue-btn{
+.primary, .continue-btn {
     color: var(--bg-color-primary);
     background-color: var(--bg-button);
 }
 
 .secondary {
-    border: 1px solid var(--bg-button);
+    border: 2px solid var(--bg-button);
     color: var(--bg-button);
     background-color: transparent;
 }
@@ -48,12 +48,6 @@
 
 .continue-btn {
     width: 100%;
-}
-
-.secondary {
-    border: 1px solid var(--bg-button);
-    color: var(--bg-button);
-    background-color: transparent;
 }
 
 .disabled {
