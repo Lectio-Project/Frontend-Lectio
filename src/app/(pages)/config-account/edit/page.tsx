@@ -59,6 +59,7 @@ export default function EditPage(){
                 return setErrorValidate('');
             }
 
+            
             const response = await api.patch(`/users/${userData.id}`,{
                 name: data.name,
                 username: '@' + data.userName,

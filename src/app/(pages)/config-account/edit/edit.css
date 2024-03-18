@@ -6,7 +6,7 @@
 
 .container-edit{
     width: 100%;
-    height: auto;
+    height: 100%;
 
     display: flex;
     flex-direction: column;
@@ -137,4 +137,112 @@
     justify-content: center;
     align-items: center;
     white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+    .container-edit{
+        height: 100%;
+    }
+
+    .header-container{
+        margin-top: 2.4rem;
+        margin-bottom: 8rem;
+    }
+
+    .logo-section img{
+        width: 12.7rem;
+        height: 4.8rem;
+    }
+
+    .image-area{
+        margin-bottom: 1.6rem;
+    }
+
+    .edit-form{
+        width: 57.8rem;
+    }
+
+    .buttons-area{
+        width: 57.8rem;
+        gap: 2rem;
+    }
+
+    .primary, .secondary, .active, .disabled{
+        width: 27.9rem;
+    }
+}
+
+
+@media  (min-width:1024px) {
+    .container-edit{
+        height: 100%;
+    }
+
+    .header-container{
+        margin-top: 2.4rem;
+        margin-bottom: 5rem;
+    }
+
+    .logo-section{
+        margin-left: 3.2rem;
+    }
+
+    .logo-section img{
+        width: 12.7rem;
+        height: 4.8rem;
+    }
+
+    .sandwich-menu{
+        display: none;
+    }
+
+    .header-container>nav{
+        display: block;
+    }
+
+    .edit-form{
+        width: 67.6rem;
+        gap: 0.5rem;
+    }
+
+    .buttons-area{
+        width: 67.6rem;
+        gap:2.8rem;
+    }
+
+    .primary, .secondary, .active, .disabled{
+        width: 32.5rem;
+    }
+}
+
+@media (width:540px) and (height:720px) {
+    .container-edit{
+        height: auto;
+    }
+}
+
+@media (min-width:1024px) and (min-height:600px) {
+    .container-edit{
+        height: auto;
+    }
+}
+
+
+@media (min-width:1024px) and (min-height:720px) {
+    .container-edit{
+        height: auto;
+    }
+}
+
+@media (min-width:1024px) and (min-height:1366px) {
+    .container-edit{
+        height: 100%;
+    }
+}
+
+
+@media (width: 1920px) {
+    .container-edit{
+        height: 100%;
+    }
 }
