@@ -106,6 +106,10 @@ nav{
     line-height: 140%;
 }
 
+.label-area img{
+    cursor: pointer;
+}
+
 .bio-area{
     display: flex;
     height: 6rem;
@@ -152,7 +156,7 @@ letter-spacing: 0em;
 text-align: left;
 }
 
-@media screen and (min-width: 834px) {
+@media (min-width: 834px) {
     .container-edit{
         height: 100%;
     }
@@ -220,7 +224,7 @@ text-align: left;
     }
 }
 
-@media screen and (min-width:1024px) {
+@media (min-width:1024px) {
     .container-edit{
         height: auto;
     }
@@ -235,5 +239,17 @@ text-align: left;
 
     .secure-option{
         margin-bottom: 35.1rem;
+    }
+}
+
+@media (width:1024px) and (height:1366px){
+    .container-edit{
+        height: 100%;
+    }
+}
+
+@media (width:1920px) {
+    .container-edit{
+        height: 100%;
     }
 }

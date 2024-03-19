@@ -21,6 +21,7 @@ import { editFormProps, schemaEdit } from '@/app/schemas/schemaEdit';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { getCookie } from '@/utils/cookies';
 import { useRouter } from 'next/navigation';
+import UploadImage from '@/app/components/modalUpload/modalUpload';
 
 
 export default function EditPage(){
@@ -58,6 +59,7 @@ export default function EditPage(){
                 return setErrorValidate('');
             }
 
+            
             const response = await api.patch(`/users/${userData.id}`,{
                 name: data.name,
                 username: '@' + data.userName,
@@ -124,6 +126,8 @@ export default function EditPage(){
             <span onClick={()=>setShowModalImage(true)}>Alterar foto</span>
         </section>
 
+        
+
         <form className='edit-form' onSubmit={handleSubmit(handleData)}>
             <Input 
             register={register('name',{required: 'campo obrigatório'})}
@@ -134,6 +138,7 @@ export default function EditPage(){
             />
             <label htmlFor='bio'>Bio</label>
             <textarea
+            
             {...register('bio')} 
             id='bio'
             placeholder="Digite sua bio"
@@ -151,6 +156,12 @@ export default function EditPage(){
             />
 
             <div className='buttons-area'>
+            <Button 
+            title='Cancelar' 
+            type='button' 
+            className='secondary'
+            onClick={()=>route.push('/config-account')}
+            />
 
             <Button 
             title='Salvar alterações' 
@@ -159,14 +170,11 @@ export default function EditPage(){
             disabled={Object.keys(errors).length > 0 ? 'disabled' : ''}
             />
 
-            <Button 
-            title='Cancelar' 
-            type='button' 
-            className='secondary'
-            />
             </div>
 
         </form>
+
+        { showModalImage && <UploadImage/>}
 
         </main>
     )
