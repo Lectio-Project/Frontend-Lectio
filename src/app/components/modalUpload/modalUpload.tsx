@@ -53,16 +53,15 @@ export default function UploadImage(){
                 getDownloadURL(uploadTask.snapshot.ref)
                     .then((url) => {
                         setImgUrl(url);
-                        setSelectedImageUrl(url);
+                        
     
-                        console.log(imgUrl);
-    
+                        
                         if (url) {
                             setRemoveLoad(false);
                             getCookie('token').then(async (token) => {
 
-                                const response = await api.patch(`/users/${token}}`, {
-                                    image: url
+                                const response = await api.patch(`/users`, {
+                                    imageUrl: url
                                 }, {
                                     headers: {
                                         authorization: `Bearer ${token}`,
@@ -73,12 +72,15 @@ export default function UploadImage(){
                                     ...userData,
                                     imageUrl: url
                                 }));
-    
-                                console.log('entrou no if e passou da requisicao');
+                                
+                                
+                                setSelectedImageUrl(url);
                                 setRemoveLoad(true);
+                                
     
-                                if (response.data.status === 200) {
+                                if (response.status === 200) {
                                     setShowModalImage(false);
+                                    return
                                 }
                             }).catch((error) => {
                                 console.log(error.message);
