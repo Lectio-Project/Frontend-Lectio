@@ -2,32 +2,26 @@
 
 import { useEffect, useState } from 'react';
 import { getCookie } from '@/utils/cookies';
+import { Author, AuthorsOnboarding } from '@/types/onboarding-types';
+
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+import { Pagination, Navigation, Grid } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/swiper-bundle.css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/grid';
 
 import api from '@/api/api';
 
 import './AuthorOnboarding.css';
 
-import { Pagination, Navigation, Grid } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/grid';
-
-export default function AuthorOnboarding() {
-    const [authors, setAuthors] = useState([]);
-
-    interface AuthorsGenders {
-        id: string;
-        name: string;
-        imageUrl: string;
-        birthplace: string;
-        carrerDescription: string;
-        createdAt: string;
-        updatedAt: string;
-        Genders: { gender: { id: string; gender: string } }[];
-    }
+export default function AuthorOnboarding({ selectedAuthors, setSelectedAuthors }: AuthorsOnboarding) {
+    const [authors, setAuthors] = useState<Author[]>([]);
+    const isTablet = useMediaQuery('(min-width:768px)');
+    const isDesktop = useMediaQuery('(min-width:1280px)'); 
     
     useEffect(() => {
         listAuthors();
@@ -48,15 +42,21 @@ export default function AuthorOnboarding() {
         }
     }
 
-    function handleChangeClassName(e: React.MouseEvent<HTMLButtonElement>) {
-        if (e.currentTarget.classList.value === 'onboarding-author-list') {
-            e.currentTarget.classList.replace('onboarding-author-list', 'onboarding-author-list-selected');
+    const handleAuthorSelection = (e: React.MouseEvent<HTMLElement>, author: Author) => {
+        const isAuthorSelected = selectedAuthors.includes(author);
+        
+        if (isAuthorSelected) {
+            setSelectedAuthors(selectedAuthors.filter((selectedAuthors: Author) => selectedAuthors !== author));
+            e.currentTarget.classList.replace('selected-author-list', 'default-author-list');
+        } else if (selectedAuthors.length < 3) {
+            setSelectedAuthors([...selectedAuthors, author]);
+            e.currentTarget.classList.replace('default-author-list', 'selected-author-list');
         } else {
-            e.currentTarget.classList.replace('onboarding-author-list-selected', 'onboarding-author-list');
+            alert('Você só pode selecionar no máximo 3 autores.');
         }
     }
 
-    function handleAuthorGenrer(authors: AuthorsGenders) {
+    function handleAuthorGenrer(authors: Author) {
         let authorsGenderArray: string[] = [];
         let authorGender: string;
 
@@ -75,81 +75,49 @@ export default function AuthorOnboarding() {
         return authorGender;
     }
 
-    return (
-        <div>
-            <section className='onboarding-container-author-list-mobile'>
-                {authors.map((author) => {
-                    const authorGender = handleAuthorGenrer(author);
-                            
-                    return (
-                        <section className='onboarding-author-list' key={author.id} onClick={handleChangeClassName}>
-                            <img src={author.imageUrl} className='author-image-onboarding' />
-        
-                            <article className='author-division-onboarding'>
-                                <span className='author-title-onboarding'>{author.name}</span>
-                                <span className='author-genre-onboarding'>{authorGender}</span>
-                            </article>
-                        </section> 
-                    );
-                })}
-            </section>
+    return isTablet ? (
+        <Swiper
+            className='onboarding-container-authors'
+            modules={[Pagination, Navigation, Grid]}
+            slidesPerView={isDesktop ? 3 : (isTablet && 2)}
+            slidesPerGroup={isDesktop ? 3 : (isTablet && 2)}
+            grid={isDesktop ? {rows: 2} : (isTablet && {rows: 3})}
+            spaceBetween={isDesktop ? 90 : (isTablet && 28)}
+            pagination={{ clickable: true, }}
+            navigation={isDesktop ? true : (isTablet && false)}
+        >
+            {authors.map((author) => {
+                const authorGender = handleAuthorGenrer(author);
 
-            <section className='onboarding-container-author-list-tablet'>
-                <Swiper
-                    modules={[Pagination, Grid]}
-                    slidesPerView={3}
-                    slidesPerGroup={3}
-                    grid={{rows: 2}}
-                    spaceBetween={24}
-                    pagination={{ clickable: true, }}
-                    className='onboarding-carrousel'
-                >
-                {authors.map((author) => {
-                    const authorGender = handleAuthorGenrer(author);
-                    return (
-                        <SwiperSlide key={author.id}>
-                            <div className='onboarding-author-list' onClick={handleChangeClassName}>
-                                <img src={author.imageUrl} alt={author.name} className="author-image-onboarding" />
-    
-                                <div className='author-division-onboarding'>
-                                    <span className="author-title-onboarding">{author.name}</span>
-                                    <span className="author-genre-onboarding">{authorGender}</span>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                    );
-                })}
-                </Swiper>
-            </section>
+                return (
+                    <SwiperSlide key={author.id}>
+                        <section className='default-author-list' onClick={(e) => handleAuthorSelection(e, author)}>
+                            <img src={author.imageUrl} alt={author.name} className="author-image-onboarding" />
 
-            <section className='onboarding-container-author-list-desktop'>
-                <Swiper
-                    modules={[Navigation, Pagination, Grid]}
-                    slidesPerView={3}
-                    slidesPerGroup={3}
-                    navigation
-                    grid={{rows: 2}}
-                    spaceBetween={24}
-                    pagination={{ clickable: true, }}
-                    className='onboarding-carrousel'
-                >
-                {authors.map((author) => {
-                    const authorGender = handleAuthorGenrer(author);
-                    return (
-                        <SwiperSlide key={author.id}>
-                            <div className='onboarding-author-list' onClick={handleChangeClassName}>
-                                <img src={author.imageUrl} alt={author.name} className="author-image-onboarding" />
-    
-                                <div className='author-division-onboarding'>
-                                    <span className="author-title-onboarding">{author.name}</span>
-                                    <span className="author-genre-onboarding">{authorGender}</span>
-                                </div>
+                            <div className='author-division-onboarding'>
+                                <span className="author-title-onboarding">{author.name}</span>
+                                <span className="author-genre-onboarding">{authorGender}</span>
                             </div>
-                        </SwiperSlide>
-                    );
-                })}
-                </Swiper>
-            </section>
-        </div>
-    )
-}
+                        </section>
+                    </SwiperSlide>
+                );
+            })}
+        </Swiper>
+        ) : (
+        <section className='onboarding-container-author-list'>
+        {authors.map((author) => {
+            const authorGender = handleAuthorGenrer(author);
+                    
+            return (
+                <section className='default-author-list' key={author.id} onClick={(e) => handleAuthorSelection(e, author)}>
+                    <img src={author.imageUrl} className='author-image-onboarding' />
+
+                    <article className='author-division-onboarding'>
+                        <span className='author-title-onboarding'>{author.name}</span>
+                        <span className='author-genre-onboarding'>{authorGender}</span>
+                    </article>
+                </section> 
+            );
+        })}
+    </section>
+)};

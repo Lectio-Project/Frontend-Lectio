@@ -3,6 +3,18 @@ export interface headerOnboarding {
     step: number;
 }
 
+export interface Author {
+    id: string;
+    name: string;
+    imageUrl: string;
+    Genders: { gender: { id: string; gender: string } }[];
+}
+
+export interface AuthorsOnboarding {
+    selectedAuthors: Author[];
+    setSelectedAuthors: React.Dispatch<React.SetStateAction<Author[]>>;
+}
+
 export interface Book {
     id: string;
     imageUrl: string;
@@ -16,6 +28,6 @@ export interface BooksOnboarding {
 }
 
 export interface FooterOnboarding {
-    selectedItems: Book[];
+    selectedItems: Book[] | Author[];
     page: string;
 }
