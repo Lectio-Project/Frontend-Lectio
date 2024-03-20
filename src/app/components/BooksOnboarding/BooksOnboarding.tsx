@@ -51,14 +51,14 @@ export default function BooksOnboarding({ selectedBooks, setSelectedBooks }: Boo
         }
     }
 
-    return isTablet ? (
+    return (books.length ? (isTablet ? (
         <Swiper
             className='onboarding-container-books'
             modules={[Navigation, Pagination]}
             slidesPerView={isDesktop ? 6 : (isTablet && 4)}
             slidesPerGroup={6}
             pagination={{ clickable: true }}
-            navigation
+            navigation={isDesktop ? true : false}
         >
             {books.map((book) => (
                 <SwiperSlide key={book.id}>
@@ -80,5 +80,8 @@ export default function BooksOnboarding({ selectedBooks, setSelectedBooks }: Boo
                     </section>
                 ))}
             </section>
-        );
-    }
+        )) : (
+            <span>Carregando...</span>
+        )
+    );
+}

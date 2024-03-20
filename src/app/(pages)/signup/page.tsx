@@ -37,7 +37,7 @@ export default function SignUp() {
                 email, 
                 password, 
                 confirmPassword: passwordConfirmation,
-                checked: termsAndConditions
+                termsOfUse: termsAndConditions
             });
             
             if (response.status === 201) {
