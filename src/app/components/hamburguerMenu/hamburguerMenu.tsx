@@ -1,8 +1,8 @@
 import './hamburguerMenu.css';
 import { Avatar, Box, Drawer, useTheme } from "@mui/material";
 import CloseIcon from '../../assets/closeIcon.svg';
-import GoIcon from '../../assets/arrowGo.svg';
-import GoIconY from '../../assets/arrowGoYellow.svg';
+import GoIcon from '../../assets/arrowBackHamburguer.svg';
+import GoIconY from '../../assets/arrowBackHamburguerYellow.svg';
 import { useDataContext } from '@/context/user';
 import { useRouter } from 'next/navigation';
 
@@ -20,10 +20,12 @@ export default function HamburguerMenu({select}:propsDrawner){
         <Drawer 
         open={openDrawer} 
         onClose={()=>setOpenDrawer(false)}
-        variant="temporary" anchor={'right'} 
+        variant="temporary" 
+        anchor={'right'} 
+        PaperProps={{ style: { boxShadow: '0px -8px 22.8px 0px rgba(0,0,0,1)' } }}
         >
 
-            <Box className='menu-box' width={theme.spacing(30)}>
+            <Box className='menu-box' width={theme.spacing(25)}>
 
                 <Box className= 'close-container' onClick= {()=> setOpenDrawer(false)}>
                     <Avatar className='avatar' src={CloseIcon} alt='close icon'/> 
@@ -34,24 +36,24 @@ export default function HamburguerMenu({select}:propsDrawner){
                     className={`item-menu ${select === 'inicio' ? 'selected': ''}`}
                     onClick={()=> router.push('/home')}
                     >
-                        <span>Início</span>
                         <img src={select === 'inicio'? GoIconY : GoIcon} alt='Icon go'/>
+                        <span>Início</span>
                     </div>
 
                     <div 
                     className={`item-menu ${select === 'feed' ? 'selected': ''}`}
                     onClick={()=> router.push('/feed')}
                     >
-                        <span>Feed</span>
                         <img src={select === 'feed'? GoIconY : GoIcon} alt='Icon go'/>
+                        <span>Feed</span>
                     </div>
 
                     <div 
                     className={`item-menu ${select === 'perfil' ? 'selected': ''}`}
                     onClick={()=> router.push('/dashboard/config-account')}
                     >
-                        <span>Perfil</span>
                         <img src={select === 'perfil'? GoIconY : GoIcon} alt='Icon go'/>
+                        <span>Perfil</span>
                     </div>
                 </Box>
                 
