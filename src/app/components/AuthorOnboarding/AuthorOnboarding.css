@@ -25,9 +25,11 @@
     
     border-radius: 8px;
     background-color: var(--bg-btn-darker);
+    transition: all 0.2s;
 }
 
 .default-author-list:hover {
+    transform: scale(1.05);
     outline: 2px solid var(--text-color-disabled);
 }
 
@@ -79,7 +81,7 @@
 }
 
 .swiper-button-next, .swiper-button-prev {
-    height: 8rem;
+    height: 7rem;
     width: 1rem;
 
     color: var(--text-color-yellow);
@@ -97,10 +99,10 @@
 @media(min-width: 1280px) {
     .onboarding-container-authors {
         max-width: 90%;
-        height: 340px;
+        height: 320px;
     } 
 
     .swiper {
-        padding: 4%;
+        padding: 3%;
     }
 }

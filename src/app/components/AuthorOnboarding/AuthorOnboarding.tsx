@@ -82,7 +82,7 @@ export default function AuthorOnboarding({ selectedAuthors, setSelectedAuthors }
             slidesPerView={isDesktop ? 3 : (isTablet && 2)}
             slidesPerGroup={isDesktop ? 3 : (isTablet && 2)}
             grid={isDesktop ? {rows: 2} : (isTablet && {rows: 3})}
-            spaceBetween={isDesktop ? 90 : (isTablet && 28)}
+            spaceBetween={isDesktop ? 60 : (isTablet && 28)}
             pagination={{ clickable: true, }}
             navigation={isDesktop ? true : (isTablet && false)}
         >
