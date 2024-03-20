@@ -1,5 +1,6 @@
 'use client'
 
+import { Genre, GenresOnboarding } from '@/types/onboarding-types';
 import { useEffect, useState } from 'react';
 import { getCookie } from '@/utils/cookies';
 
@@ -7,8 +8,8 @@ import api from '@/api/api';
 
 import './GenresOnboarding.css';
 
-export default function GenresOnboarding() {
-    const [genres, setGenres] = useState([]);
+export default function GenresOnboarding({ selectedGenres, setSelectedGenres }: GenresOnboarding) {
+    const [genres, setGenres] = useState<Genre[]>([]);
 
     useEffect(() => {
         listGenres();
@@ -28,11 +29,17 @@ export default function GenresOnboarding() {
         }
     }
 
-    function handleChangeClassName(e: React.MouseEvent<HTMLButtonElement>) {
-        if (e.currentTarget.classList.value === 'button-default-gender') {
-            e.currentTarget.classList.replace('button-default-gender', 'button-selected-gender');
+    const handleGenreSelection = (e: React.MouseEvent<HTMLElement>, genre: Genre) => {
+        const isGenreSelected = selectedGenres.includes(genre);
+        
+        if (isGenreSelected) {
+            setSelectedGenres(selectedGenres.filter((selectedGenres: Genre) => selectedGenres !== genre));
+            e.currentTarget.classList.replace('selected-genre-list', 'default-genre-list');
+        } else if (selectedGenres.length < 3) {
+            setSelectedGenres([...selectedGenres, genre]);
+            e.currentTarget.classList.replace('default-genre-list', 'selected-genre-list');
         } else {
-            e.currentTarget.classList.replace('button-selected-gender', 'button-default-gender');
+            alert('Você só pode selecionar no máximo 3 autores.');
         }
     }
 
@@ -43,8 +50,8 @@ export default function GenresOnboarding() {
                     <section className='onboarding-button-list' key={genre.id}>
                         <button
                             type='button'
-                            className='button-default-gender'
-                            onClick={handleChangeClassName} 
+                            className='default-genre-list'
+                            onClick={(e) => handleGenreSelection(e, genre)}
                             >
                             {genre.gender}
                         </button>

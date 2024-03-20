@@ -3,6 +3,16 @@ export interface headerOnboarding {
     step: number;
 }
 
+export interface Genre {
+    id: string;
+    gender: string;
+}
+
+export interface GenresOnboarding {
+    selectedGenres: Genre[];
+    setSelectedGenres: React.Dispatch<React.SetStateAction<Genre[]>>;
+}
+
 export interface Author {
     id: string;
     name: string;
@@ -28,6 +38,6 @@ export interface BooksOnboarding {
 }
 
 export interface FooterOnboarding {
-    selectedItems: Book[] | Author[];
+    selectedItems: Book[] | Author[] | Genre[];
     page: string;
 }
