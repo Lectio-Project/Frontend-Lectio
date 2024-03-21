@@ -3,6 +3,7 @@
 import { Genre, GenresOnboarding } from '@/types/onboarding-types';
 import { useEffect, useState } from 'react';
 import { getCookie } from '@/utils/cookies';
+import Loading from '../Loading/loading';
 
 import api from '@/api/api';
 
@@ -10,6 +11,7 @@ import './GenresOnboarding.css';
 
 export default function GenresOnboarding({ selectedGenres, setSelectedGenres }: GenresOnboarding) {
     const [genres, setGenres] = useState<Genre[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         listGenres();
@@ -26,6 +28,8 @@ export default function GenresOnboarding({ selectedGenres, setSelectedGenres }: 
             setGenres(response.data);
         } catch (error: any) {
             console.error(error)
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -43,8 +47,11 @@ export default function GenresOnboarding({ selectedGenres, setSelectedGenres }: 
         }
     }
 
-    return (
-        <section className='onboarding-container-button-list'>
+    return isLoading ? ( 
+            <div className='onboarding-button-loading'>
+                <Loading />
+            </div>
+        ) : (!isLoading && <section className='onboarding-container-button-list'>
             {genres.map((genre) => {
                 return (
                     <section className='onboarding-button-list' key={genre.id}>
@@ -59,5 +66,5 @@ export default function GenresOnboarding({ selectedGenres, setSelectedGenres }: 
                 );
             })}
         </section>
-    )
+    );
 }

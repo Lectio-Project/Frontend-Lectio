@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { getCookie } from '@/utils/cookies';
 import { Author, AuthorsOnboarding } from '@/types/onboarding-types';
+import Loading from '../Loading/loading';
 
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -20,6 +21,7 @@ import './AuthorOnboarding.css';
 
 export default function AuthorOnboarding({ selectedAuthors, setSelectedAuthors }: AuthorsOnboarding) {
     const [authors, setAuthors] = useState<Author[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const isTablet = useMediaQuery('(min-width:768px)');
     const isDesktop = useMediaQuery('(min-width:1280px)'); 
     
@@ -39,6 +41,8 @@ export default function AuthorOnboarding({ selectedAuthors, setSelectedAuthors }
             setAuthors(response.data);
         } catch (error: any) {
             console.error(error)
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -75,7 +79,11 @@ export default function AuthorOnboarding({ selectedAuthors, setSelectedAuthors }
         return authorGender;
     }
 
-    return isTablet ? (
+    return isTablet ? (isLoading ? (
+        <div className='onboarding-author-loading'>
+            <Loading />
+        </div>
+    ) : (
         <Swiper
             className='onboarding-container-authors'
             modules={[Pagination, Navigation, Grid]}
@@ -103,7 +111,11 @@ export default function AuthorOnboarding({ selectedAuthors, setSelectedAuthors }
                 );
             })}
         </Swiper>
-        ) : (
+        )) : (isLoading ? (
+            <div className='onboarding-author-loading'>
+                <Loading />
+            </div>
+    ) : (
         <section className='onboarding-container-author-list'>
         {authors.map((author) => {
             const authorGender = handleAuthorGenrer(author);
@@ -120,4 +132,4 @@ export default function AuthorOnboarding({ selectedAuthors, setSelectedAuthors }
             );
         })}
     </section>
-)};
+))};
