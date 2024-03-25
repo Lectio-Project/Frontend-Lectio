@@ -40,4 +40,5 @@ export interface BooksOnboarding {
 export interface FooterOnboarding {
     selectedItems: Book[] | Author[] | Genre[];
     page: string;
+    title: string;
 }

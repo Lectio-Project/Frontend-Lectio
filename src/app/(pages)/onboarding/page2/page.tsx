@@ -20,7 +20,7 @@ export default function Page2() {
                 <GenresOnboarding selectedGenres={selectedGenres} setSelectedGenres={setSelectedGenres} />
             </section>
 
-            <FooterOnboarding selectedItems={selectedGenres} page='./page3' />
+            <FooterOnboarding selectedItems={selectedGenres} page='./page3' title='gêneros'/>
         </main>
     )
 }

@@ -4,11 +4,7 @@
     background-color: var(--bg-btn-disabled);
 }
 
-.primary, .secondary, .disabled, .active, .continue-btn {
-    border: none;
-}
-
-.primary, .secondary, .continue-btn {
+.primary, .secondary, .continue-btn, .error-btn {
     width: 16.3rem;
     height: 4.4rem;
     
@@ -27,6 +23,11 @@
     background-color: var(--bg-button);
 }
 
+.error-btn {
+    color: var(--bg-color-primary);
+    background-color: var(--input-error);
+}
+
 .secondary {
     border: 2px solid var(--bg-button);
     color: var(--bg-button);
@@ -42,6 +43,7 @@
     font-weight: 700;
     line-height: 2.24rem;
     
+    border: none;
     border-radius: 8px;
     cursor: pointer;
 }
@@ -65,7 +67,7 @@
 }
 
 @media (min-width: 768px) {
-    .primary, .secondary  {
+    .primary, .secondary, .continue-btn, .error-btn  {
         width: 17.3rem;
         height: 6.5rem;
 

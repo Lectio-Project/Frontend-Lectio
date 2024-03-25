@@ -42,9 +42,7 @@ export default function GenresOnboarding({ selectedGenres, setSelectedGenres }: 
         } else if (selectedGenres.length < 3) {
             setSelectedGenres([...selectedGenres, genre]);
             e.currentTarget.classList.replace('default-genre-list', 'selected-genre-list');
-        } else {
-            alert('Você só pode selecionar no máximo 3 autores.');
-        }
+        } 
     }
 
     return isLoading ? ( 

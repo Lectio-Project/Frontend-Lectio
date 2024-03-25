@@ -55,9 +55,7 @@ export default function AuthorOnboarding({ selectedAuthors, setSelectedAuthors }
         } else if (selectedAuthors.length < 3) {
             setSelectedAuthors([...selectedAuthors, author]);
             e.currentTarget.classList.replace('default-author-list', 'selected-author-list');
-        } else {
-            alert('Você só pode selecionar no máximo 3 autores.');
-        }
+        } 
     }
 
     function handleAuthorGenrer(authors: Author) {

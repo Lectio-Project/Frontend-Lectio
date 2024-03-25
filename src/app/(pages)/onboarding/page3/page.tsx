@@ -20,7 +20,7 @@ export default function Page3() {
                 <AuthorOnboarding selectedAuthors={selectedAuthors} setSelectedAuthors={setSelectedAuthors}/>
             </section>
 
-            <FooterOnboarding selectedItems={selectedAuthors} page='./page4'/>
+            <FooterOnboarding selectedItems={selectedAuthors} page='./page4' title='autores' />
         </main>
     )
 }
