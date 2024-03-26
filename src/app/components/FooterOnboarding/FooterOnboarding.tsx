@@ -6,11 +6,15 @@ import Button from '@/app/components/Button/Button';
 
 import './FooterOnboarding.css';
 import { useEffect, useState } from 'react';
+import { Onboarding, useDataContext } from '@/context/user';
+// import api from '@/api/api';
+// import { getCookie } from '@/utils/cookies';
 
 export default function FooterOnboarding({ selectedItems = [], page, title }: FooterOnboarding) {
     const [error, setError] = useState<boolean>(false);
+    const {onboarding, setOnboarding} = useDataContext();
     const router = useRouter();
-    
+
     useEffect(() => {
         if (selectedItems.length === 3) {
             return setError(false);
@@ -22,7 +26,39 @@ export default function FooterOnboarding({ selectedItems = [], page, title }: Fo
             return setError(true);
         } 
 
+        let titleForOnboarding: string;
+        const idsForOnboarding = selectedItems.map(item => item.id);
+
+        if (title === "gêneros") {
+            titleForOnboarding = "genresId";
+        }
+        else if (title === "autores") {
+            titleForOnboarding = "authorsId";
+        } else {
+            titleForOnboarding = "booksId";
+        }
+
+        const newOnboardingItem: Onboarding = {
+            ...onboarding,
+            [titleForOnboarding]: idsForOnboarding
+          };
+
+        setOnboarding(newOnboardingItem);
         return router.replace(page);
+        
+        // try {
+        //     if (window.location.pathname === '/onboarding/page4') {
+        //         const token = await getCookie('token');
+
+        //         await api.patch('/users', onboarding, {
+        //             headers: { Authorization: `Bearer ${token}` }
+        //         });
+        //     }
+
+        //     return router.replace(page);
+        // } catch (error) {
+        //     return console.error(error);
+        // }
     }
 
     return (
@@ -35,7 +71,7 @@ export default function FooterOnboarding({ selectedItems = [], page, title }: Fo
             }
 
             <section className='onboarding-buttons'>
-                <Button className='secondary' title='Pular' type='button' onClick={() => router.push(page)} />
+                <Button className='secondary' title='Pular' type='button' onClick={() => router.replace(page)} />
                 <Button className={error ? 'error-btn' :'continue-btn'} title='Continuar' type='submit' onClick={handleContinue} />
             </section>
         </footer>

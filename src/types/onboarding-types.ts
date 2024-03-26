@@ -37,6 +37,12 @@ export interface BooksOnboarding {
     setSelectedBooks: React.Dispatch<React.SetStateAction<Book[]>>;
 }
 
+export interface Onboarding {
+    genresId: string[],
+    authorsId: string[],
+    booksId: string[]
+}
+
 export interface FooterOnboarding {
     selectedItems: Book[] | Author[] | Genre[];
     page: string;
