@@ -1,12 +1,12 @@
 import { useRouter } from 'next/navigation';
-import { FooterOnboarding } from '@/types/onboarding-types';
+import { FooterOnboarding, Onboarding } from '@/types/onboarding-types';
 import AlertIcon from '@/app/assets/alertIcon.svg'
 
 import Button from '@/app/components/Button/Button';
 
 import './FooterOnboarding.css';
 import { useEffect, useState } from 'react';
-import { Onboarding, useDataContext } from '@/context/user';
+import { useDataContext } from '@/context/user';
 // import api from '@/api/api';
 // import { getCookie } from '@/utils/cookies';
 
