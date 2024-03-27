@@ -1,0 +1,126 @@
+@import url('../../../globals.css');
+
+main {
+    padding: 0 2.4rem;
+}
+
+.details-book {
+    display: flex;
+    flex-direction: column;
+}
+
+.details-book-title {
+    padding-top: 5.2rem;
+
+    text-align: center;
+    font-size: 2.4rem;
+
+    color: var(--text-color-yellow);
+}
+
+.details-book-author {
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.details-book-author span {
+    text-decoration: underline;
+}
+
+.details-book-image {
+    width: 192px;
+    height: 290px;
+    object-fit: cover;
+    
+    padding: 1.6rem 0;
+    border-radius: 8px;
+    margin: 0 auto;
+}
+
+.list-genres-book {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.genre-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--neutral-medium-gray);
+}
+
+.book-genre {
+    padding: 0.8rem;
+    font-size: 1.4rem;
+
+    border-radius: 50px;
+
+    color: var(--text-color-yellow);
+    background-color: var(--bg-btn-darker);
+}
+
+.book-review {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.rating-book {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rating-stars {
+    font-size: 2rem;
+}
+
+.MuiBox-root {
+    font-weight: 700;
+    font-size: 2rem;
+
+    color: var(--text-color-yellow);
+}
+
+.assessments-and-reviews {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.assessments-and-reviews span {
+    font-size: 1.2rem;
+    color: var(--text-color-neutral-white);
+}
+
+.button-book {
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+.button-book button {
+    position: relative;
+    width: 40%;
+    height: 54px;
+
+    font-size: 1.6rem;
+    font-weight: bold;
+
+    border: none;
+    border-radius: 8px;
+
+    color: black;
+    background-color: var(--text-color-yellow);
+}
+
+.button-book img {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+    background-color: brown;
+}
