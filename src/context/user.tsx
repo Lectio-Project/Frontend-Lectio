@@ -29,6 +29,8 @@ type IUserContextData = {
     setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
     onboarding: Onboarding,
     setOnboarding: React.Dispatch<React.SetStateAction<Onboarding>>;
+    bookId: string;
+    setBookId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface AppProviderProps {
@@ -57,6 +59,7 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
     const [selectedImageUrl, setSelectedImageUrl] = useState(userData.imageUrl || '');
     const [openDrawer, setOpenDrawer]= useState(false);
     const [onboarding, setOnboarding] = useState<Onboarding>();
+    const [bookId, setBookId] = useState<string>('');
 
     const contextValue = {
         userData,
@@ -70,7 +73,9 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         openDrawer,
         setOpenDrawer,
         onboarding,
-        setOnboarding
+        setOnboarding,
+        bookId,
+        setBookId
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;
