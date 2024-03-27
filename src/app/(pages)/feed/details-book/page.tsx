@@ -1,7 +1,10 @@
 'use client'
 
 import ArrowButton from '../../../assets/arrowButton.svg';
+import ArrowRead from '../../../assets/arrowGoYellow.svg';
 import CommentUser from '../../../assets/commentUser.svg';
+import Book from '../../../assets/book.svg';
+import ArrowBottom from '../../../assets/arrowBottom.svg';
 
 import Header from '@/app/components/Header/Header';
 import { Box, Rating } from '@mui/material';
@@ -14,6 +17,8 @@ import './details-book.css';
 
 export default function DetailsBook() {
     const [book, setBook] = useState<BookProps>();
+    const [showDescription, setShowDescription] = useState(false);
+    const [showInfoTechnical, setShowInfoTechnical] = useState(false);
     const [genderForBook, setGenderForBook] = useState<GenderProps>();
 
     const id = '65fc791b65536490790636c6';
@@ -29,21 +34,24 @@ export default function DetailsBook() {
         gender: string;
     }
 
-    useEffect(() => {
-        handleBook();
-        // let handleFindGenders;
-        
-        // if (book?.gender.length > 1) {
-        //     handleFindGenders = book?.gender.map((item: GenderProps) => item.gender);
-        // } else {
-        //     handleFindGenders = book?.gender.gender;
-        // }
+    console.log(showInfoTechnical);
+    
 
-        // console.log(handleFindGenders);
-        // setGenderForBook(handleFindGenders);
+    // useEffect(() => {
+    //     handleBook();
+    //     // let handleFindGenders;
+        
+    //     // if (book?.gender.length > 1) {
+    //     //     handleFindGenders = book?.gender.map((item: GenderProps) => item.gender);
+    //     // } else {
+    //     //     handleFindGenders = book?.gender.gender;
+    //     // }
+
+    //     // console.log(handleFindGenders);
+    //     // setGenderForBook(handleFindGenders);
         
         
-    }, [])
+    // }, [])
 
     async function handleBook() {
         try {
@@ -96,65 +104,132 @@ export default function DetailsBook() {
                 </div>
             </section>
 
-                <div className='button-book'>
-                    <button>Quero ler!</button>
+                <a className='button-book' href="https://www.amazon.com.br/s?k=Olhos+D'Água">
+                    <span>Quero ler!</span>
                     <img src={ArrowButton} alt="" />
+                </a>
+
+                <div className='book-rating'>
+                    <Rating defaultValue={0} precision={0.5} size='large' readOnly />
+                    <span className='book-rating-title'>Avalie a obra</span>
+                </div> 
+
+                <div className={showDescription ? 'book-description-open' : 'book-description'}>
+                    <p className='book-description-text'>
+                        Publicado em 2014, “Olhos D’Água” reúne 15 contos que retratam a violência urbana que atinge a população negra brasileira. 
+                    </p>
+                    <p className='book-description-text'>
+                    As mulheres são as personagens centrais desse contexto de desigualdade social, narrado com propriedade por Conceição Evaristo. Mães, filhas, avós, amantes, mulheres e, também, homens, com histórias de várias realidades brasileiras, protagonizam essas narrativas.
+                    </p>
                 </div>
-                    
-                <Rating defaultValue={0} precision={0.5} size='large' readOnly />
-                <span>Avalie a obra</span>
 
-                <p>
-                    Publicado em 2014, “Olhos D’Água” reúne 15 contos que retratam a violência urbana que atinge a população negra brasileira. As mulheres são as personagens centrais desse contexto de desigualdade social, narrado com propriedade por Conceição Evaristo. Mães, filhas, avós, amantes, mulheres e, também, homens, com histórias de várias realidades brasileiras, protagonizam essas narrativas.
-                </p>
+                <div className='book-description-read' onClick={() => setShowDescription(!showDescription)}>
+                    <span>{showDescription ? 'Minimizar' : 'Saiba mais' }</span>
+                    <img className={showDescription ? 'arrow-top' : 'arrow-bottom'} src={ArrowRead} alt="" />
+                </div>
 
-                <span>Saiba mais</span>
-                <img src="" alt="" />
+                <button 
+                    className={showInfoTechnical ? 'button-informations-open' : 'button-informations-close'} 
+                >
+                    <div className='button-informations-top' onClick={() => setShowInfoTechnical(true)}>
+                        <strong>Informações técnicas</strong>
+                        <img src={ArrowBottom} 
+                            alt='ícone para expandir o botão'
+                            className={showInfoTechnical ? 'button-informations-arrowTop' : 'button-informations-arrowBottom' }
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setShowInfoTechnical(false)
+                            }}
+                        />
+                    </div>
 
-                <button>Informações técnicas</button>
+                    {showInfoTechnical && (
+                        <section className='button-informations'>
+                            <div className='button-informations-info'>
+                                <h3>Editora</h3>
+                                <h3>Prêmios literários</h3>
+                                <h3>Número de páginas</h3>
+                                <h3>ISBN</h3>
+                            </div>
 
-                <h3>Comentários</h3>
-                <span>3 comentários publicados</span>
+                            <div className='button-informations-info'>
+                                <p>2014</p>
+                                <p>Pallas</p>
+                                <p>Prêmio Jabuti (2015)</p>
+                                <p>116</p>
+                                <p>9788533307391, 9788534705974, & 9788534705257.</p>
+                            </div>
+                        </section>
+                    )}
+                </button>
 
-                <section className='comments'>
-                    <article className='comment-user'>
-                        <img src="" alt="" />
-                        
-                        <strong>Marcelo Tavares</strong>
-                        <Rating defaultValue={5} precision={0.5} size='small' readOnly />
-                        
-                        <span>postado em 25 de junho às 14:30</span>
+                <section className='container-comments'>
+                    <h3 className='comments-title'>Comentários</h3>
+                    <span className='comments-published'>3 comentários publicados</span>
 
-                        <p>Este livro é uma verdadeira jóia literária. Com uma trama envolvente, personagens cativantes e escrita habilidosa, Evaristo proporciona uma experiência de leitura memorável. Recomendo sem hesitação!</p>
-                    </article>
+                    <section className='comments'>
+                        <article className='comment-user'>
+                            <div className='comment-user-intern'>
+                                <img src={CommentUser} alt="" />
+                                
+                                <div className='comment-user-info'>
+                                    <div>
+                                        <strong className='comment-username'>Marcelo Tavares</strong>
+                                        <Rating defaultValue={5} precision={0.5} size='medium' readOnly />
+                                    </div>
+                                
+                                    <span className='comment-date'>postado em 25 de junho às 14:30</span>
+                                </div>
+                            </div>
 
-                    <article className='comment-user'>
-                        <img src={CommentUser} alt="" />
-                        
-                        <strong>Marcelo Tavares</strong>
-                        <Rating defaultValue={5} precision={0.5} size='small' readOnly />
-                        
-                        <span>postado em 25 de junho às 14:30</span>
+                            <p>Este livro é uma verdadeira jóia literária. Com uma trama envolvente, personagens cativantes e escrita habilidosa, Evaristo proporciona uma experiência de leitura memorável. Recomendo sem hesitação!</p>
+                        </article>
 
-                        <p>Este livro é uma verdadeira jóia literária. Com uma trama envolvente, personagens cativantes e escrita habilidosa, Evaristo proporciona uma experiência de leitura memorável. Recomendo sem hesitação!</p>
-                    </article>
+                        <article className='comment-user'>
+                            <div className='comment-user-intern'>
+                                <img src={CommentUser} alt="" />
+                                
+                                <div className='comment-user-info'>
+                                    <div>
+                                        <strong className='comment-username'>Marcelo Tavares</strong>
+                                        <Rating defaultValue={5} precision={0.5} size='medium' readOnly />
+                                    </div>
+                                
+                                    <span className='comment-date'>postado em 25 de junho às 14:30</span>
+                                </div>
+                            </div>
 
-                    <article className='comment-user'>
-                        <img src={CommentUser} alt="" />
-                        
-                        <strong>Marcelo Tavares</strong>
-                        <Rating defaultValue={5} precision={0.5} size='small' readOnly />
-                        
-                        <span>postado em 25 de junho às 14:30</span>
+                            <p>Este livro é uma verdadeira jóia literária. Com uma trama envolvente, personagens cativantes e escrita habilidosa, Evaristo proporciona uma experiência de leitura memorável. Recomendo sem hesitação!</p>
+                        </article>
 
-                        <p>Este livro é uma verdadeira jóia literária. Com uma trama envolvente, personagens cativantes e escrita habilidosa, Evaristo proporciona uma experiência de leitura memorável. Recomendo sem hesitação!</p>
-                    </article>
+                        <article className='comment-user'>
+                            <div className='comment-user-intern'>
+                                <img src={CommentUser} alt="" />
+                                
+                                <div className='comment-user-info'>
+                                    <div>
+                                        <strong className='comment-username'>Marcelo Tavares</strong>
+                                        <Rating defaultValue={5} precision={0.5} size='medium' readOnly />
+                                    </div>
+                                
+                                    <span className='comment-date'>postado em 25 de junho às 14:30</span>
+                                </div>
+                            </div>
+
+                            <p>Este livro é uma verdadeira jóia literária. Com uma trama envolvente, personagens cativantes e escrita habilidosa, Evaristo proporciona uma experiência de leitura memorável. Recomendo sem hesitação!</p>
+                        </article>
+                    </section>
+              
+                    <a className='button-more-comments' href='#'>
+                        <span>Ver mais comentários</span>
+                        <img src={ArrowRead} alt="" />
+                    </a>
                 </section>
 
-                    <button>Ver mais comentários</button>
-
+                <section className='more-books-author'>
                     <h3>Você também pode se interessar...</h3>
                     <span>Livros também escritos por Conceição Evaristo:</span>
+                </section>
         </main>
     )
 }

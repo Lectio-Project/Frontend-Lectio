@@ -6,7 +6,7 @@ import { getCookie } from "@/utils/cookies";
 import { useEffect } from "react";
 
 export default function Home() {
-    const {onboarding} = useDataContext();
+    const {onboarding, setOnboarding} = useDataContext();
 
     useEffect(() => {
         handleOnboardingSteps();
@@ -23,7 +23,7 @@ export default function Home() {
             }
         } catch (error) {
             return console.error(error);
-        }
+        } 
     }
     return (
         <main>
