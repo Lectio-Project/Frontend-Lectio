@@ -29,6 +29,8 @@ type IUserContextData = {
     setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
     onboarding: Onboarding,
     setOnboarding: React.Dispatch<React.SetStateAction<Onboarding>>;
+    bookId: string;
+    setBookId: React.Dispatch<React.SetStateAction<string>>;
     idManage: string;
     setIdManage: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -64,6 +66,7 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         booksId: []
     });
     const [idManage, setIdManage]= useState('6051a5fe4a3d7e126c9d24b3')
+    const [bookId, setBookId] = useState<string>('');
 
     const contextValue = {
         userData,
@@ -78,6 +81,8 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         setOpenDrawer,
         onboarding,
         setOnboarding,
+        bookId,
+        setBookId,
         idManage,
         setIdManage
     };

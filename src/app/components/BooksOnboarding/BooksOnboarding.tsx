@@ -6,6 +6,7 @@ import { Book, BooksOnboarding } from '@/types/onboarding-types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import Loading from '../Loading/loading';
 import 'swiper/swiper-bundle.css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -16,6 +17,7 @@ import './BooksOnboarding.css';
 
 export default function BooksOnboarding({ selectedBooks, setSelectedBooks }: BooksOnboarding) {
     const [books, setBooks] = useState<Book[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const isTablet = useMediaQuery('(min-width:768px)');
     const isDesktop = useMediaQuery('(min-width:1280px)');
 
@@ -34,6 +36,8 @@ export default function BooksOnboarding({ selectedBooks, setSelectedBooks }: Boo
             setBooks(response.data);
         } catch (error: any) {
             console.error(error);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -46,12 +50,10 @@ export default function BooksOnboarding({ selectedBooks, setSelectedBooks }: Boo
         } else if (selectedBooks.length < 3) {
             setSelectedBooks([...selectedBooks, book]);
             e.currentTarget.classList.replace('default-book-list', 'selected-book-list');
-        } else {
-            alert('Você só pode selecionar no máximo 3 livros.');
         }
     }
 
-    return (books.length ? (isTablet ? (
+    return (!isLoading ? (isTablet ? (
         <Swiper
             className='onboarding-container-books'
             modules={[Navigation, Pagination]}
@@ -65,7 +67,7 @@ export default function BooksOnboarding({ selectedBooks, setSelectedBooks }: Boo
                     <section className='default-book-list' onClick={(e) => handleBookSelection(e, book)}>
                         <img src={book.imageUrl} className='book-image-onboarding'/>
                         <span className='book-title-onboarding'>{book.name}</span>
-                        <span className='book-author-onboarding'>{book.publishingCompany}</span>
+                        <span className='book-author-onboarding'>{book.AuthorBook[0].author.name}</span>
                     </section>
                 </SwiperSlide>
             ))}
@@ -76,12 +78,14 @@ export default function BooksOnboarding({ selectedBooks, setSelectedBooks }: Boo
                     <section className='default-book-list' onClick={(e) => handleBookSelection(e, book)} key={book.id}>
                         <img src={book.imageUrl} className='book-image-onboarding'/>
                         <span className='book-title-onboarding'>{book.name}</span>
-                        <span className='book-author-onboarding'>{book.publishingCompany}</span>
+                        <span className='book-author-onboarding'>{book.AuthorBook[0].author.name}</span>
                     </section>
                 ))}
             </section>
         )) : (
-            <span>Carregando...</span>
+            <div className='onboarding-books-loading'>
+                <Loading />
+            </div>
         )
     );
 }
