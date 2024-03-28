@@ -1,0 +1,16 @@
+.ratingStars {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.starIcon {
+    color: var(--neutral-gray);
+}
+
+.rating-note {
+    font-size: 2rem;
+    
+    color: var(--text-color-yellow);
+}
