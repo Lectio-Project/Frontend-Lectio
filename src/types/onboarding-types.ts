@@ -29,7 +29,9 @@ export interface Book {
     id: string;
     imageUrl: string;
     name: string;
-    publishingCompany: string;
+    AuthorBook: {
+        author: Author;
+    }[];
 }
 
 export interface BooksOnboarding {

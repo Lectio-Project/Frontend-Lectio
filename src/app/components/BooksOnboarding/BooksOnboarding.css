@@ -100,6 +100,20 @@
     color: transparent;
 }
 
+.onboarding-books-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 38rem;
+}
+
+.loader {
+    width: 20rem;
+    height: 20rem;
+}
+
 @media (min-width: 1280px) {
     .onboarding-container-books{
         width: 90%;

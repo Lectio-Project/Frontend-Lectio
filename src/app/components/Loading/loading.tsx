@@ -1,4 +1,4 @@
-import LoadFrame from '../../assets/logoLectio.svg';
+import LoadFrame from '../../assets/loadingFrame.svg';
 import './loading.css';
 
 export default function Loading(){
