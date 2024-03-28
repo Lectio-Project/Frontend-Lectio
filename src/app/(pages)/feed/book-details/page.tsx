@@ -7,7 +7,6 @@ import ArrowGray from '../../../assets/arrowBottom.svg';
 import CommentUser from '../../../assets/commentUser.svg';
 
 import Header from '@/app/components/Header/Header';
-import { Rating } from '@mui/material';
 
 import api from '@/api/api';
 
@@ -17,12 +16,13 @@ import './book-details.css';
 import { getCookie } from '@/utils/cookies';
 import RatingStars from '@/app/components/Rating/Rating';
 import ButtonViewMore from '@/app/components/ButtonViewMore/ButtonViewMore';
-import Button from '@/app/components/Button/Button';
+import { useMediaQuery } from '@mui/material';
 
 export default function BookDetails() {
-    const [bookData, setBookData] = useState<BookProps>({name: '', synopsis: '', imageUrl: '', avgGrade: 0, gender: {id: '', gender: ''}, AuthorBook: [{ author: {id: "", name: "", imageUrl: ""}}], Comment: ['']});
+    const [bookData, setBookData] = useState<BookProps>({name: '', publishYear: '', publishingCompany: '', synopsis: '', imageUrl: '', avgGrade: 0, gender: {id: '', gender: ''}, AuthorBook: [{ author: {id: "", name: "", imageUrl: ""}}], Comment: ['']});
     const [showDescription, setShowDescription] = useState(false);
     const [showInfoTechnical, setShowInfoTechnical] = useState(false);
+    const isTablet = useMediaQuery('(min-width: 768px) and (max-width: 1023px)');
 
     const id = '65fc791b65536490790636c6';
     
@@ -56,6 +56,8 @@ export default function BookDetails() {
 
     interface BookProps {
         name: string;
+        publishYear: string;
+        publishingCompany: string
         synopsis: string;
         avgGrade: number;
         imageUrl: string;
@@ -102,53 +104,79 @@ export default function BookDetails() {
     }
 
     return (
-        <main className='container-book'>
-           <Header search='able' select='feed' />
+        <section className='container-book'>
+            <Header search='able' select='feed' />
 
-           <section className='content-container'>
-                <h2 className='book-title'>{bookData.name}</h2>
-                <span className='book-author'>por <span>{bookData.AuthorBook[0].author.name}</span></span>
-
-                <img src={bookData.imageUrl} className='book-image'/>
-
-                <div className='local-genres-area'>
-                    <span className='genre-title'>Gênero</span>
-                    <span className='genre-book'>{bookData.gender.gender}</span>
-                </div>
-
-                <div className='book-review'>
-                    <div className='note-book'>
-                        <RatingStars starsValues={bookData.avgGrade} size='large' readOnly bookValue={bookData.avgGrade} />
+            <main className='content-container'>
+                <div className='book-info-reduced'>
+                    <div className='book-title-author-mobile'>
+                        <h3 className='book-title'>{bookData.name}</h3>
+                        <span className='book-author'>por <span>{bookData.AuthorBook[0].author.name}</span></span>
                     </div>
 
-                    <div className='assessments-and-reviews'>
-                        <span>16.648 avaliações</span>
-                        <span>·</span>
-                        <span>1.519 resenhas</span>
+                    <img src={bookData.imageUrl} className='book-image' />
+
+                    <div className='local-genres-area-mobile'>
+                        <span className='genre-title'>Gênero</span>
+                        <span className='genre-book'>{bookData.gender.gender}</span>
                     </div>
-                </div>
-            </section>
 
-                <a className='button-book' href={`https://www.amazon.com.br/s?k=${handleFindBook()}`} >
-                    <span>Quero ler!</span>
-                    <img src={ArrowBlack} alt="" />
-                </a>
+                    <div className='book-review-mobile'>
+                        <div className='note-book'>
+                            <RatingStars starsValues={bookData.avgGrade} size='medium' readOnly bookValue={bookData.avgGrade} />
+                        </div>
+                        
+                        <div className='assessments-and-reviews'>
+                            <span>16.648 avaliações</span>
+                            <span>·</span>
+                            <span>1.519 resenhas</span>
+                        </div>
+                    </div>
 
-                <div className='rating-book'>
-                    <RatingStars starsValues={0} size='large' readOnly />
-                    <span className='rating-book-title'>Avalie a obra</span>
+                    <a className='button-book' href={`https://www.amazon.com.br/s?k=${handleFindBook()}`} >
+                        <span>Quero ler!</span>
+                        <img src={ArrowBlack} alt="" />
+                    </a>
+
+                    <div className='rating-book'>
+                        <RatingStars starsValues={0} size='medium' readOnly />
+                        <span className='rating-book-title'>Avalie a obra</span>
+                    </div>
                 </div> 
 
-                <div className={showDescription ? 'book-description-open' : 'book-description'}>
-                    <p className='book-description-text'>
-                        {bookData.synopsis} 
-                    </p>
-                </div>
+                <div className='book-info-large'>
+                    <div className='book-title-author-desktop'>
+                        <h3 className='book-title'>{bookData.name}</h3>
+                        <span className='book-author'>por <span>{bookData.AuthorBook[0].author.name}</span></span>
+                    </div>
 
-                <div className='book-description-button' onClick={() => setShowDescription(!showDescription)}>
-                    <span>{showDescription ? 'Minimizar' : 'Saiba mais' }</span>
-                    <img className={showDescription ? 'arrow-top-button' : 'arrow-bottom-button'} src={ArrowYellow} alt="" />
-                </div>
+                    <div className='book-review-desktop'>
+                        <div className='note-book'>
+                            <RatingStars starsValues={bookData.avgGrade} size={isTablet ? 'medium' : 'large'} readOnly bookValue={bookData.avgGrade} />
+                        </div>
+                        
+                        <div className='assessments-and-reviews'>
+                            <span>16.648 avaliações</span>
+                            <span>·</span>
+                            <span>1.519 resenhas</span>
+                        </div>
+                    </div>
+
+                    <div className='local-genres-area-desktop'>
+                        <span className='genre-title'>Gênero</span>
+                        <span className='genre-book'>{bookData.gender.gender}</span>
+                    </div>
+
+                    <div className={showDescription ? 'book-description-open' : 'book-description'}>
+                        <p className='book-description-text'>
+                            {bookData.synopsis} 
+                        </p>
+                    </div>
+
+                    <div className='book-description-button' onClick={() => setShowDescription(!showDescription)}>
+                        <span>{showDescription ? 'Minimizar' : 'Saiba mais' }</span>
+                        <img className={showDescription ? 'arrow-top-button' : 'arrow-bottom-button'} src={ArrowYellow} alt="" />
+                    </div>
 
                 <button 
                     className={showInfoTechnical ? 'button-informations-open' : 'button-informations-close'} 
@@ -168,6 +196,7 @@ export default function BookDetails() {
                     {showInfoTechnical && (
                         <section className='button-informations'>
                             <div className='button-informations-info'>
+                                <h3>Ano de publicação</h3>
                                 <h3>Editora</h3>
                                 <h3>Prêmios literários</h3>
                                 <h3>Número de páginas</h3>
@@ -175,8 +204,8 @@ export default function BookDetails() {
                             </div>
 
                             <div className='button-informations-info'>
-                                <p>2014</p>
-                                <p>Pallas</p>
+                                <p>{bookData.publishYear}</p>
+                                <p>{bookData.publishingCompany}</p>
                                 <p>Prêmio Jabuti (2015)</p>
                                 <p>116</p>
                                 <p>9788533307391, 9788534705974, & 9788534705257.</p>
@@ -197,7 +226,7 @@ export default function BookDetails() {
                                 <div className='comment-user-info'>
                                     <div>
                                         <strong className='comment-username'>Marcelo Tavares</strong>
-                                        <RatingStars starsValues={5} size='medium' readOnly />
+                                        <RatingStars starsValues={5} size='small' readOnly />
                                     </div>
                                 
                                     <span className='comment-date'>postado em 25 de junho às 14:30</span>
@@ -214,7 +243,7 @@ export default function BookDetails() {
                                 <div className='comment-user-info'>
                                     <div>
                                         <strong className='comment-username'>Marcelo Tavares</strong>
-                                        <RatingStars starsValues={5} size='medium' readOnly />
+                                        <RatingStars starsValues={5} size='small' readOnly />
                                     </div>
                                 
                                     <span className='comment-date'>postado em 25 de junho às 14:30</span>
@@ -231,7 +260,7 @@ export default function BookDetails() {
                                 <div className='comment-user-info'>
                                     <div>
                                         <strong className='comment-username'>Marcelo Tavares</strong>
-                                        <RatingStars starsValues={5} size='medium' readOnly />
+                                        <RatingStars starsValues={5} size='small' readOnly />
                                     </div>
                                 
                                     <span className='comment-date'>postado em 25 de junho às 14:30</span>
@@ -245,12 +274,14 @@ export default function BookDetails() {
                     <ButtonViewMore className='button-more-comments' title='Ver mais comentários' type='button' />
                 </section>
 
-                <section className='more-books-author'>
-                    <h3>Você também pode se interessar...</h3>
-                    <span>Livros também escritos por {bookData.AuthorBook[0].author.name}:</span>
-                </section>
+                    <section className='more-books-author'>
+                        <h3>Você também pode se interessar...</h3>
+                        <span>Livros também escritos por {bookData.AuthorBook[0].author.name}:</span>
+                    </section>
 
-                <p>Component</p>
-        </main>
+                    <p>Component</p>
+                </div>
+                </main>
+        </section>
     )
 }

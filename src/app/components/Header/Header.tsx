@@ -13,7 +13,6 @@ import HamburguerMenu from '../hamburguerMenu/hamburguerMenu';
 interface HeaderProps {
     search: 'able' | 'disabled';
     select: 'home' | 'feed' | 'perfil';
-
 }
 
 export default function Header({ search, select }: HeaderProps) {
@@ -38,7 +37,7 @@ export default function Header({ search, select }: HeaderProps) {
                 <NavBar select={select} />
             </nav>
 
-            <HamburguerMenu select= 'perfil'/>
+            <HamburguerMenu select={select} />
         </header>
     )
 }
