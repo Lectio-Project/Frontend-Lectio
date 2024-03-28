@@ -1,0 +1,352 @@
+@import url('../../../globals.css');
+
+main {
+    padding: 0 2.4rem;
+    background-color: var(--bg-color-primary);
+}
+
+.details-book {
+    display: flex;
+    flex-direction: column;
+}
+
+.details-book-title {
+    padding-top: 5.2rem;
+
+    text-align: center;
+    font-size: 2.4rem;
+
+    color: var(--text-color-yellow);
+}
+
+.details-book-author {
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.details-book-author span {
+    text-decoration: underline;
+}
+
+.details-book-image {
+    width: 192px;
+    height: 290px;
+    object-fit: cover;
+    
+    padding: 1.6rem 0;
+    border-radius: 8px;
+    margin: 0 auto;
+}
+
+.list-genres-book {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.genre-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--neutral-medium-gray);
+}
+
+.book-genre {
+    padding: 0.8rem;
+    font-size: 1.4rem;
+
+    border-radius: 50px;
+
+    color: var(--text-color-yellow);
+    background-color: var(--bg-btn-darker);
+}
+
+.book-review {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.rating-book {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rating-stars {
+    font-size: 2rem;
+}
+
+.MuiBox-root {
+    font-weight: 700;
+    font-size: 2rem;
+
+    color: var(--text-color-yellow);
+}
+
+.assessments-and-reviews {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.assessments-and-reviews span {
+    font-size: 1.2rem;
+    color: var(--text-color-neutral-white);
+}
+
+.button-book {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+
+    width: 40%;
+    height: 54px;
+    margin: 1rem auto;
+
+    border-radius: 8px;
+
+    color: black;
+    background-color: var(--text-color-yellow);
+}
+
+.button-book span {
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.button-book:active {
+    background-color: var(--bg-btn-active);
+}
+
+.book-rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+
+    margin-bottom: 2rem;
+}
+
+.book-rating-title {
+    font-size: 1.6rem;
+    text-decoration: underline;
+
+    color: var(--text-color-yellow);
+}
+
+.book-description, .book-description-open {
+    position: relative;
+    height: 11rem;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+
+    overflow: hidden;
+}
+
+.book-description::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 9rem;
+
+    background: linear-gradient(transparent, #121418);
+}
+
+.book-description-open {
+    height: fit-content;
+}
+
+.book-description-text {
+    font-size: 1.4rem;
+    line-height: 18px;
+}
+
+.book-description-read {
+    display: flex;
+    gap: 0.4rem;
+
+    width: 12rem;
+    padding: 0 1rem;
+}
+
+.book-description-read span {
+    font-size: 1.4rem;
+    font-weight: bold;
+
+    color: var(--text-color-yellow);
+}
+
+.arrow-top {
+    transform: rotate(-90deg); 
+}
+
+.arrow-bottom {
+    transform: rotate(90deg); 
+}
+
+.button-informations-close, .button-informations-open {
+    width: 100%;
+    margin: 2rem 0 3rem;
+
+    border: 1px solid var(--border-input);
+    border-radius: 8px;
+
+    font-size: 1.6rem;
+    font-weight: bold;
+
+    color: var(--neutral-medium-gray);
+    background-color: var(--bg-btn-darker);
+}
+
+.button-informations-close {
+    height: 4rem;
+    padding: 0 1.2rem;
+}
+
+.button-informations-open {
+    height: 25rem;
+    padding: 1.8rem 1.2rem;
+}
+
+.button-informations-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.button-informations-arrowTop{
+    transform: rotate(180deg);
+}
+
+.button-informations {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.button-informations-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    padding: 26px 0 16px;
+}
+
+.button-informations-info h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: start;
+}
+
+.button-informations-info p {
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-align: start;
+}
+
+.comments-title {
+    font-size: 1.6rem;
+    margin-bottom: 0.4rem;
+
+    color: var(--neutral-medium-gray);
+}
+
+.comments-published {
+    font-size: 1.2rem;
+
+    color: var(--neutral-medium-gray);
+}
+
+.comments {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    margin-top: 24px;
+}
+
+.comment-user-intern {
+    display: flex;
+    gap: 12px;
+}
+
+.comment-user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.comment-user-info div {
+    display: flex;
+    gap: 2px;
+}
+
+.comment-username {
+    font-size: 1.4rem;
+    font-weight: bold;
+
+    width: 12rem;
+
+    color: var(--neutral-medium-gray);
+}
+
+.comment-date {
+    font-size: 1.2rem;
+    color: var(--neutral-medium-gray);
+}
+
+.comment-user p {
+    font-size: 1.4rem;
+    color: #FFFFFF;
+
+    margin-top: 8px;
+}
+
+.button-more-comments {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+
+    width: 65%;
+    height: 54px;
+    margin: 2.8rem auto 6.8rem;
+
+    font-size: 1.6rem;
+    font-weight: bold;
+
+    border: 2px solid var(--text-color-yellow);
+    border-radius: 8px;
+
+    color: var(--text-color-yellow);
+}
+
+.button-more-comments span:active {
+    color: var(--bg-btn-active);
+}
+
+.button-more-comments:active {
+    border: 2px solid var(--bg-btn-active);
+}
+
+.more-books-author {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    padding-bottom: 3rem;
+}
+
+.more-books-author h3 {
+    font-size: 1.6rem;
+    color: var(--text-color-neutral-white);
+}
+
+.more-books-author {
+    font-size: 1.4rem;
+    color: var(--text-color-neutral-white);
+}

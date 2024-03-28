@@ -1,49 +1,26 @@
 'use client'
 
-import LogoWithName from '@/app/assets/logoWithName.svg';
+import { Genre } from '@/types/onboarding-types';
+import { useState } from 'react';
 
-import ButtonGender from '@/app/components/ButtonGender/ButtonGender';
-import Button from '@/app/components/Button/Button';
-import { listGender } from '@/app/data/gender';
+import HeaderOnboarding from '@/app/components/HeaderOnboarding/HeaderOnboarding';
+import GenresOnboarding from '@/app/components/GenresOnboarding/GenresOnboarding';
+import FooterOnboarding from '@/app/components/FooterOnboarding/FooterOnboarding';
 
-import './page2.css';
+import '@/app/styles/OnboardingSteps.css';
 
 export default function Page2() {
-    function handleChangeClassName(e: React.MouseEvent<HTMLButtonElement>) {
-        if (e.currentTarget.classList.value === 'button-default-gender') {
-            e.currentTarget.classList.replace('button-default-gender', 'button-selected-gender');
-        } else {
-            e.currentTarget.classList.replace('button-selected-gender', 'button-default-gender');
-        }
-    }
+    const [selectedGenres, setSelectedGenres] = useState<Genre[]>([]);
 
     return (
-        <main className='gender-container'>
-            <header><img src={LogoWithName} alt="Logo Lectio and name" className='gender-logo-with-name'/></header>
+        <main className='onboarding-steps-container'>
+            <HeaderOnboarding title='gêneros' step={1}/>    
 
-            <div className='onboarding-step'>
-                <span>1/3</span>
-            </div>
-
-            <h2 className='gender-title'>Escolha 3 gêneros que você gosta</h2>
-
-            <section className='gender-buttons'>
-                {listGender.map((nameGender, key) => {
-                    return (
-                        <ButtonGender 
-                            key={key} 
-                            title={nameGender} 
-                            className="button-default-gender" 
-                            onClick={handleChangeClassName} 
-                        />
-                    );
-                })}
+            <section className='onboarding-steps-options'>
+                <GenresOnboarding selectedGenres={selectedGenres} setSelectedGenres={setSelectedGenres} />
             </section>
 
-            <div className='gender-button-action'>
-                <Button className='secondary' title='Pular' type='button' />
-                <Button className='primary' title='Continuar' type='submit' />
-            </div>
+            <FooterOnboarding selectedItems={selectedGenres} page='./page3' title='gêneros'/>
         </main>
     )
 }

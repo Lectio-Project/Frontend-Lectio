@@ -1,5 +1,6 @@
 'use client'
 
+import { Onboarding } from '@/types/onboarding-types';
 import { ReactNode, createContext, useContext, useState } from 'react';
 
 
@@ -15,7 +16,6 @@ interface User {
     updatedAt?: string
 }
 
-
 type IUserContextData = {
     userData: User;
     setUserData: React.Dispatch<React.SetStateAction<User>>;
@@ -27,6 +27,8 @@ type IUserContextData = {
     setSelectedImageUrl: React.Dispatch<React.SetStateAction<string>>;
     openDrawer: boolean;
     setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
+    onboarding: Onboarding,
+    setOnboarding: React.Dispatch<React.SetStateAction<Onboarding>>;
     idManage: string;
     setIdManage: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -56,6 +58,11 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
     const [showModalImage, setShowModalImage] = useState<boolean>(false);
     const [selectedImageUrl, setSelectedImageUrl] = useState(userData.imageUrl || '');
     const [openDrawer, setOpenDrawer]= useState(false);
+    const [onboarding, setOnboarding] = useState<Onboarding>({
+        genresId: [],
+        authorsId: [],
+        booksId: []
+    });
     const [idManage, setIdManage]= useState('6051a5fe4a3d7e126c9d24b3')
 
     const contextValue = {
@@ -69,6 +76,8 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         setSelectedImageUrl,
         openDrawer,
         setOpenDrawer,
+        onboarding,
+        setOnboarding,
         idManage,
         setIdManage
     };

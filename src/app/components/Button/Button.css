@@ -4,11 +4,7 @@
     background-color: var(--bg-btn-disabled);
 }
 
-.primary, .secondary, .disabled, .active {
-    border: none;
-}
-
-.primary, .secondary  {
+.primary, .secondary, .continue-btn, .error-btn {
     width: 16.3rem;
     height: 4.4rem;
     
@@ -22,13 +18,18 @@
     cursor: pointer;
 }
 
-.primary {
+.primary, .continue-btn {
     color: var(--bg-color-primary);
     background-color: var(--bg-button);
 }
 
+.error-btn {
+    color: var(--bg-color-primary);
+    background-color: var(--input-error);
+}
+
 .secondary {
-    border: 1px solid var(--bg-button);
+    border: 2px solid var(--bg-button);
     color: var(--bg-button);
     background-color: transparent;
 }
@@ -42,14 +43,13 @@
     font-weight: 700;
     line-height: 2.24rem;
     
+    border: none;
     border-radius: 8px;
     cursor: pointer;
 }
 
-.secondary {
-    border: 1px solid var(--bg-button);
-    color: var(--bg-button);
-    background-color: transparent;
+.continue-btn {
+    width: 100%;
 }
 
 .disabled {
@@ -67,7 +67,7 @@
 }
 
 @media (min-width: 768px) {
-    .primary, .secondary  {
+    .primary, .secondary, .continue-btn, .error-btn  {
         width: 17.3rem;
         height: 6.5rem;
 

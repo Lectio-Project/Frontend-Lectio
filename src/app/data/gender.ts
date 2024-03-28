@@ -1,1 +1,0 @@
-export const listGender = ['Suspense', 'Fantasia', 'Ficção cientifíca', 'Biografia', 'Terror', 'Crimes reais', 'Drama', 'Poema', 'Romance', 'Crônica', 'Aventura', 'Conto']

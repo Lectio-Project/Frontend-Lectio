@@ -6,6 +6,6 @@ export type button = {
     onClick ?: () => void;
     title: string,
     type: 'button' | 'submit' | 'reset' | undefined,
-    className: 'primary' | 'secondary' | 'disabled' | 'active',
-    disabled?: 'disabled' | 'active' | '' | undefined
+    className: string,
+    disabled?: any,
 }
