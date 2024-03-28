@@ -138,7 +138,7 @@ export default function DetailsBook() {
                             className={showInfoTechnical ? 'button-informations-arrowTop' : 'button-informations-arrowBottom' }
                             onClick={(e) => {
                                 e.stopPropagation();
-                                setShowInfoTechnical(false)
+                                setShowInfoTechnical(!showInfoTechnical)
                             }}
                         />
                     </div>

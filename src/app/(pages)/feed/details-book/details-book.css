@@ -191,6 +191,7 @@ main {
 
 .button-informations-close, .button-informations-open {
     width: 100%;
+    padding: 0 1.2rem;
     margin: 2rem 0 3rem;
 
     border: 1px solid var(--border-input);
@@ -205,12 +206,10 @@ main {
 
 .button-informations-close {
     height: 4rem;
-    padding: 0 1.2rem;
 }
 
 .button-informations-open {
     height: 25rem;
-    padding: 1.8rem 1.2rem;
 }
 
 .button-informations-top {
