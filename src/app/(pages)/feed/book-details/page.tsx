@@ -1,99 +1,124 @@
 'use client'
 
-import ArrowButton from '../../../assets/arrowButton.svg';
-import ArrowRead from '../../../assets/arrowGoYellow.svg';
+import ArrowBlack from '../../../assets/arrowButton.svg';
+import ArrowYellow from '../../../assets/arrowGoYellow.svg';
+import ArrowGray from '../../../assets/arrowBottom.svg';
+
 import CommentUser from '../../../assets/commentUser.svg';
-import Book from '../../../assets/book.svg';
-import ArrowBottom from '../../../assets/arrowBottom.svg';
 
 import Header from '@/app/components/Header/Header';
-import { Box, Rating } from '@mui/material';
+import { Rating } from '@mui/material';
 
 import api from '@/api/api';
 
 import { useEffect, useState } from 'react';
 
-import './details-book.css';
+import './book-details.css';
+import { getCookie } from '@/utils/cookies';
+import RatingStars from '@/app/components/Rating/Rating';
+import ButtonViewMore from '@/app/components/ButtonViewMore/ButtonViewMore';
+import Button from '@/app/components/Button/Button';
 
-export default function DetailsBook() {
-    const [book, setBook] = useState<BookProps>();
+export default function BookDetails() {
+    const [bookData, setBookData] = useState<BookProps>({name: '', synopsis: '', imageUrl: '', avgGrade: 0, gender: {id: '', gender: ''}, AuthorBook: [{ author: {id: "", name: "", imageUrl: ""}}], Comment: ['']});
     const [showDescription, setShowDescription] = useState(false);
     const [showInfoTechnical, setShowInfoTechnical] = useState(false);
-    const [genderForBook, setGenderForBook] = useState<GenderProps>();
 
     const id = '65fc791b65536490790636c6';
+    
+    // {
+    //     "id": "65fc791b65536490790636c6",
+    //     "name": "Olhos D'água",
+    //     "publishYear": "2014",
+    //     "publishingCompany": "Pallas",
+    //     "synopsis": "Em Olhos d’água, Conceição Evaristo ajusta o foco de seu interesse na população afro-brasileira abordando, sem meias palavras, a pobreza e a violência urbana que acometem.",
+    //     "imageUrl": "https://lectio.s3.us-east-005.backblazeb2.com/books/olhos-dagua.jpg",
+    //     "totalGrade": 0,
+    //     "counterGrade": 0,
+    //     "avgGrade": 0,
+    //     "createdAt": "2024-03-21T18:14:51.672Z",
+    //     "updatedAt": "2024-03-21T18:14:51.672Z",
+    //     "gender": {
+    //       "id": "65f31ea8c60b72e59511c8d3",
+    //       "gender": "Ficção Científica"
+    //     },
+    //     "AuthorBook": [
+    //       {
+    //         "author": {
+    //           "id": "6051a5fe4a3d7e126c9d24b8",
+    //           "name": "Conceição Evaristo",
+    //           "imageUrl": "https://lectio.s3.us-east-005.backblazeb2.com/authors/concei%C3%A7%C3%A3o-evaristo.jpg"
+    //         }
+    //       }
+    //     ],
+    //     "Comment": []
+    // }
 
     interface BookProps {
         name: string;
+        synopsis: string;
+        avgGrade: number;
+        imageUrl: string;
         gender: {id: string; gender: string};
         AuthorBook: { author: { id: string; name: string; imageUrl: string } }[];
+        Comment: string[];
     }
 
-    interface GenderProps {
-        id: string;
-        gender: string;
-    }
-
-    console.log(showInfoTechnical);
-    
-
-    // useEffect(() => {
-    //     handleBook();
-    //     // let handleFindGenders;
-        
-    //     // if (book?.gender.length > 1) {
-    //     //     handleFindGenders = book?.gender.map((item: GenderProps) => item.gender);
-    //     // } else {
-    //     //     handleFindGenders = book?.gender.gender;
-    //     // }
-
-    //     // console.log(handleFindGenders);
-    //     // setGenderForBook(handleFindGenders);
-        
-        
-    // }, [])
-
-    async function handleBook() {
+    async function handleBookData() {
         try {
-            const response = await api.get(`/books/${id}`);
-            setBook(response.data)
+            const token = await getCookie('token');
+            const response = await api.get(`/books/${id}?add=comment`, {
+                headers: {
+                authorization: `Bearer ${token}`
+                },
+            });
+
+            setBookData(response.data);
         } catch (error) {
             console.error(error)
         }
     }
 
-    const labels: { [index: string]: string } = {
-        0.5: 'Useless',
-        1: 'Useless+',
-        1.5: 'Poor',
-        2: 'Poor+',
-        2.5: 'Ok',
-        3: 'Ok+',
-        3.5: 'Good',
-        4: '4.0',
-        4.5: 'Excellent',
-        5: 'Excellent+',
-      };
+    useEffect(() => {
+        handleBookData();
+
+        // let handleFindGenders;
+        
+        // if (book?.gender.length > 1) {
+        //     handleFindGenders = book?.gender.map((item: GenderProps) => item.gender);
+        // } else {
+        //     handleFindGenders = book?.gender.gender;
+        // }
+
+        // console.log(handleFindGenders);
+        // setGenderForBook(handleFindGenders);
+        
+        
+    }, [])
+
+    function handleFindBook() {
+        const bookName = bookData?.name;
+        return bookName.replaceAll(' ', '+');
+    }
 
     return (
-        <main>
+        <main className='container-book'>
            <Header search='able' select='feed' />
 
-           <section className='details-book'>
-                <h2 className='details-book-title'>{book?.name}</h2>
-                <span className='details-book-author'>por <span>{book?.AuthorBook[0].author.name}</span></span>
+           <section className='content-container'>
+                <h2 className='book-title'>{bookData.name}</h2>
+                <span className='book-author'>por <span>{bookData.AuthorBook[0].author.name}</span></span>
 
-                <img src={book?.imageUrl} className='details-book-image'/>
+                <img src={bookData.imageUrl} className='book-image'/>
 
-                <div className='list-genres-book'>
+                <div className='local-genres-area'>
                     <span className='genre-title'>Gênero</span>
-                    <span className='book-genre'>{book?.gender.gender}</span>
+                    <span className='genre-book'>{bookData.gender.gender}</span>
                 </div>
 
                 <div className='book-review'>
-                    <div className='rating-book'>
-                        <Rating className='rating-stars' defaultValue={4} precision={0.5} size='large' readOnly />
-                        <Box sx={{ ml: 2 }}>{labels[4]}</Box>
+                    <div className='note-book'>
+                        <RatingStars starsValues={bookData.avgGrade} size='large' readOnly bookValue={bookData.avgGrade} />
                     </div>
 
                     <div className='assessments-and-reviews'>
@@ -104,28 +129,25 @@ export default function DetailsBook() {
                 </div>
             </section>
 
-                <a className='button-book' href="https://www.amazon.com.br/s?k=Olhos+D'Água">
+                <a className='button-book' href={`https://www.amazon.com.br/s?k=${handleFindBook()}`} >
                     <span>Quero ler!</span>
-                    <img src={ArrowButton} alt="" />
+                    <img src={ArrowBlack} alt="" />
                 </a>
 
-                <div className='book-rating'>
-                    <Rating defaultValue={0} precision={0.5} size='large' readOnly />
-                    <span className='book-rating-title'>Avalie a obra</span>
+                <div className='rating-book'>
+                    <RatingStars starsValues={0} size='large' readOnly />
+                    <span className='rating-book-title'>Avalie a obra</span>
                 </div> 
 
                 <div className={showDescription ? 'book-description-open' : 'book-description'}>
                     <p className='book-description-text'>
-                        Publicado em 2014, “Olhos D’Água” reúne 15 contos que retratam a violência urbana que atinge a população negra brasileira. 
-                    </p>
-                    <p className='book-description-text'>
-                    As mulheres são as personagens centrais desse contexto de desigualdade social, narrado com propriedade por Conceição Evaristo. Mães, filhas, avós, amantes, mulheres e, também, homens, com histórias de várias realidades brasileiras, protagonizam essas narrativas.
+                        {bookData.synopsis} 
                     </p>
                 </div>
 
-                <div className='book-description-read' onClick={() => setShowDescription(!showDescription)}>
+                <div className='book-description-button' onClick={() => setShowDescription(!showDescription)}>
                     <span>{showDescription ? 'Minimizar' : 'Saiba mais' }</span>
-                    <img className={showDescription ? 'arrow-top' : 'arrow-bottom'} src={ArrowRead} alt="" />
+                    <img className={showDescription ? 'arrow-top-button' : 'arrow-bottom-button'} src={ArrowYellow} alt="" />
                 </div>
 
                 <button 
@@ -133,7 +155,7 @@ export default function DetailsBook() {
                 >
                     <div className='button-informations-top' onClick={() => setShowInfoTechnical(true)}>
                         <strong>Informações técnicas</strong>
-                        <img src={ArrowBottom} 
+                        <img src={ArrowGray} 
                             alt='ícone para expandir o botão'
                             className={showInfoTechnical ? 'button-informations-arrowTop' : 'button-informations-arrowBottom' }
                             onClick={(e) => {
@@ -175,7 +197,7 @@ export default function DetailsBook() {
                                 <div className='comment-user-info'>
                                     <div>
                                         <strong className='comment-username'>Marcelo Tavares</strong>
-                                        <Rating defaultValue={5} precision={0.5} size='medium' readOnly />
+                                        <RatingStars starsValues={5} size='medium' readOnly />
                                     </div>
                                 
                                     <span className='comment-date'>postado em 25 de junho às 14:30</span>
@@ -192,7 +214,7 @@ export default function DetailsBook() {
                                 <div className='comment-user-info'>
                                     <div>
                                         <strong className='comment-username'>Marcelo Tavares</strong>
-                                        <Rating defaultValue={5} precision={0.5} size='medium' readOnly />
+                                        <RatingStars starsValues={5} size='medium' readOnly />
                                     </div>
                                 
                                     <span className='comment-date'>postado em 25 de junho às 14:30</span>
@@ -209,7 +231,7 @@ export default function DetailsBook() {
                                 <div className='comment-user-info'>
                                     <div>
                                         <strong className='comment-username'>Marcelo Tavares</strong>
-                                        <Rating defaultValue={5} precision={0.5} size='medium' readOnly />
+                                        <RatingStars starsValues={5} size='medium' readOnly />
                                     </div>
                                 
                                     <span className='comment-date'>postado em 25 de junho às 14:30</span>
@@ -220,16 +242,15 @@ export default function DetailsBook() {
                         </article>
                     </section>
               
-                    <a className='button-more-comments' href='#'>
-                        <span>Ver mais comentários</span>
-                        <img src={ArrowRead} alt="" />
-                    </a>
+                    <ButtonViewMore className='button-more-comments' title='Ver mais comentários' type='button' />
                 </section>
 
                 <section className='more-books-author'>
                     <h3>Você também pode se interessar...</h3>
-                    <span>Livros também escritos por Conceição Evaristo:</span>
+                    <span>Livros também escritos por {bookData.AuthorBook[0].author.name}:</span>
                 </section>
+
+                <p>Component</p>
         </main>
     )
 }
