@@ -27,6 +27,8 @@ type IUserContextData = {
     setSelectedImageUrl: React.Dispatch<React.SetStateAction<string>>;
     openDrawer: boolean;
     setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
+    idManage: string;
+    setIdManage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface AppProviderProps {
@@ -54,6 +56,7 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
     const [showModalImage, setShowModalImage] = useState<boolean>(false);
     const [selectedImageUrl, setSelectedImageUrl] = useState(userData.imageUrl || '');
     const [openDrawer, setOpenDrawer]= useState(false);
+    const [idManage, setIdManage]= useState('6051a5fe4a3d7e126c9d24b3')
 
     const contextValue = {
         userData,
@@ -65,7 +68,9 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         selectedImageUrl,
         setSelectedImageUrl,
         openDrawer,
-        setOpenDrawer
+        setOpenDrawer,
+        idManage,
+        setIdManage
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;

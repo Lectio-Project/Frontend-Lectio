@@ -42,14 +42,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background-color: aqua;
-    width: 342px;
-    height: 226px;
-    flex-shrink: 0;
-
-    border-radius: 8px;
     margin-bottom: 4rem;
+}
+
+.image-autor img{
+    width: 34.2rem;
+    height: 22.6rem;
+
+    border-radius: 0.8rem;
 }
 
 .infos{
@@ -143,6 +143,7 @@
     align-items: center;
     gap: 2rem;
     padding: 0 2.4rem 0;
+    margin-top: 4rem;
     margin-bottom: 3.2rem;
 }
 
@@ -158,4 +159,52 @@
 
 .btn-view-more{
     margin-bottom: 3.7rem;
+    cursor: pointer;
+}
+
+@media (min-width:1024px) {
+
+    .header-container>nav{
+        display: block;
+    }
+
+    .sandwich-menu{
+        display: none;
+    }
+
+    .header-container{
+        margin-top: 2.4rem;
+        margin-bottom: 6.4rem;
+    }
+
+    .logo-section img{
+        width: 12.7rem;
+        height: 4.8rem;
+    }
+
+    .content-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 3.2rem 0;
+        margin-bottom: 12.4rem;
+    }
+
+    .local-text{
+        display: flex;
+        width: 31.4rem;
+    }
+
+    .books-indication{
+        padding: 0 14.9rem 0 ;
+    }
+
+    .books-indication span{
+    font-size: 3.2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 125%;
+    }
+
+
 }
