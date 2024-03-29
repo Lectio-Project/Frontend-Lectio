@@ -151,14 +151,6 @@
     margin-bottom: 2rem;
 }
 
-.rating-book-title {
-    font-size: 1.6rem;
-    text-decoration: underline;
-    cursor: pointer;
-
-    color: var(--text-color-yellow);
-}
-
 .book-description, .book-description-open {
     position: relative;
     height: 5.3rem;

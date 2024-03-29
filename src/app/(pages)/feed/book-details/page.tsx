@@ -3,20 +3,19 @@
 import ArrowBlack from '../../../assets/arrowButton.svg';
 import ArrowYellow from '../../../assets/arrowGoYellow.svg';
 import ArrowGray from '../../../assets/arrowBottom.svg';
-
 import CommentUser from '../../../assets/commentUser.svg';
 
 import Header from '@/app/components/Header/Header';
-
-import api from '@/api/api';
-
-import { useEffect, useState } from 'react';
-
-import './book-details.css';
-import { getCookie } from '@/utils/cookies';
 import RatingStars from '@/app/components/Rating/Rating';
 import ButtonViewMore from '@/app/components/ButtonViewMore/ButtonViewMore';
+import ModalRate from '@/app/components/ModalRate/ModalRate';
+
+import { getCookie } from '@/utils/cookies';
 import { useMediaQuery } from '@mui/material';
+import { useEffect, useState } from 'react';
+import api from '@/api/api';
+
+import './book-details.css';
 
 export default function BookDetails() {
     const [bookData, setBookData] = useState<BookProps>({name: '', publishYear: '', publishingCompany: '', synopsis: '', imageUrl: '', avgGrade: 0, gender: {id: '', gender: ''}, AuthorBook: [{ author: {id: "", name: "", imageUrl: ""}}], Comment: ['']});
@@ -24,10 +23,10 @@ export default function BookDetails() {
     const [showInfoTechnical, setShowInfoTechnical] = useState(false);
     const isTablet = useMediaQuery('(min-width: 768px) and (max-width: 1023px)');
 
-    const id = '65fc791b65536490790636c6';
+    const id = '6051a5fe4a3d7e126c9d24b2';
     
     // {
-    //     "id": "65fc791b65536490790636c6",
+    //     "id": "6051a5fe4a3d7e126c9d24b2",
     //     "name": "Olhos D'água",
     //     "publishYear": "2014",
     //     "publishingCompany": "Pallas",
@@ -139,8 +138,7 @@ export default function BookDetails() {
                     </a>
 
                     <div className='rating-book'>
-                        <RatingStars starsValues={0} size='medium' readOnly />
-                        <span className='rating-book-title'>Avalie a obra</span>
+                        <ModalRate title='Avalie a obra'/>
                     </div>
                 </div> 
 
@@ -281,6 +279,7 @@ export default function BookDetails() {
 
                     <p>Component</p>
                 </div>
+
                 </main>
         </section>
     )
