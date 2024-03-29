@@ -15,7 +15,7 @@ import api from "@/api/api";
 import './home.css';
 
 export default function Home() {
-    const {onboarding, setOnboarding} = useDataContext();
+    const {onboarding} = useDataContext();
     const [books, setBooks] = useState<Book[]>([]);
     const isTablet = useMediaQuery('(min-width:768px)');
     const isDesktop = useMediaQuery('(min-width:1280px)');
@@ -26,12 +26,18 @@ export default function Home() {
 
     async function handleOnboardingSteps() {
         try {
-            if (onboarding !== undefined) {
-                const token = await getCookie('token');
+            if (onboarding.genresId.length > 0 || onboarding.authorsId.length > 0 || onboarding.booksId.length > 0) {
+                const token = await getCookie('token');      
     
+                for (const item in onboarding) {
+                    if (onboarding.hasOwnProperty(item) && Array.isArray(onboarding[item]) && onboarding[item].length === 0) {
+                        delete onboarding[item];
+                    }
+                }
+                  
                 await api.patch('/users', onboarding, {
                     headers: { Authorization: `Bearer ${token}` }
-                });
+                });  
             }
         } catch (error) {
             return console.error(error);
