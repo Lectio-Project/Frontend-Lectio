@@ -25,6 +25,12 @@ export interface ContainerBookHome {
     sort?: boolean;
 }
 
+export interface ContainerAuthorHome {
+    authors: Author[];
+    isTablet: boolean;
+    isDesktop: boolean;
+}
+
 export interface ContainerThoughtHome {
     books: Book[];
     isTablet: boolean;

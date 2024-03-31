@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import { Rating } from "@mui/material";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -12,11 +13,19 @@ import './ContainerBookHome.css';
 
 const ContainerBookHome = ({books, isTablet, isDesktop, sort}: ContainerBookHome) => {
     const {setBookId} = useDataContext();
+    const router = useRouter();
 
     let displayedBooks = books;
 
     if (sort) {
         displayedBooks = [...books].sort((a, b) => b.avgGrade - a.avgGrade);
+    } else {
+        displayedBooks = [...books].sort(() => Math.random() - 0.5);
+    }
+
+    const handleBookDetails = (bookId: string) => {
+        setBookId(bookId);
+        router.push(`/feed/details-book/${bookId}`);
     }
 
     return (
@@ -29,7 +38,7 @@ const ContainerBookHome = ({books, isTablet, isDesktop, sort}: ContainerBookHome
             navigation={isDesktop ? true : false}
         >
             {displayedBooks.slice(0,12).map((book) => (
-                <SwiperSlide key={book.id} onClick={() => setBookId(book.id)}>
+                <SwiperSlide key={book.id} onClick={() => handleBookDetails(book.id)}>
                     <section className='default-book-list-home'>
                         <img src={book.imageUrl} className='book-image-home'/>
                         <section className='info-book-home'>

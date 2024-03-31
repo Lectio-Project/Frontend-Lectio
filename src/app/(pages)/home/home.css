@@ -1,3 +1,7 @@
+.container-home {
+    padding-bottom: 2.4rem;
+}
+
 .introduction-section-home,
 .container-books-section-home,
 .container-top-rating-books-home {
@@ -14,6 +18,8 @@
     flex-direction: column;
     align-items: center;
     gap: 0.2rem;
+
+    margin-top: 2.8rem;
 }
 
 .title-home {
@@ -61,4 +67,16 @@
     line-height: 1.96rem;
 
     color: var(--text-color-neutral-white);
+}
+
+.copyright {
+    display: flex;
+    justify-content: center;
+
+    margin: 5.4rem 0 1.6rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.68rem;
+    
+    color: var(--text-color-lightgray);
 }

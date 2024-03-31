@@ -31,6 +31,8 @@ type IUserContextData = {
     setOnboarding: React.Dispatch<React.SetStateAction<Onboarding>>;
     bookId: string;
     setBookId: React.Dispatch<React.SetStateAction<string>>;
+    authorId: string;
+    setAuthorId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface AppProviderProps {
@@ -60,6 +62,7 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
     const [openDrawer, setOpenDrawer]= useState(false);
     const [onboarding, setOnboarding] = useState<Onboarding>();
     const [bookId, setBookId] = useState<string>('');
+    const [authorId, setAuthorId] = useState<string>('');
 
     const contextValue = {
         userData,
@@ -75,7 +78,9 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         onboarding,
         setOnboarding,
         bookId,
-        setBookId
+        setBookId,
+        authorId,
+        setAuthorId
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;

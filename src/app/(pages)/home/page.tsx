@@ -3,12 +3,14 @@
 import { useDataContext } from "@/context/user";
 import { getCookie } from "@/utils/cookies";
 import { useEffect, useState } from "react";
-import { Book } from '@/types/home-types';
 import { useMediaQuery } from "@mui/material";
+import { Book } from '@/types/home-types';
+import { Author } from "@/types/onboarding-types";
 
 import Header from "@/app/components/Header/Header";
 import HomeImage from "@/app/assets/homeImage.svg";
 import ContainerBookHome from "@/app/components/ContainerBookHome/ContainerBookHome";
+import ContainerAuthorHome from "@/app/components/ContainerAuthorHome/ContainerAuthorHome";
 import ContainerThoughtHome from "@/app/components/ContainerThoughtHome/ContainerThoughtHome";
 
 import api from "@/api/api";
@@ -18,6 +20,7 @@ import './home.css';
 export default function Home() {
     const {onboarding} = useDataContext();
     const [books, setBooks] = useState<Book[]>([]);
+    const [authors, setAuthors] = useState<Author[]>([]);
     const isTablet = useMediaQuery('(min-width:768px)');
     const isDesktop = useMediaQuery('(min-width:1280px)');
     
@@ -41,6 +44,7 @@ export default function Home() {
 
     useEffect(() => {
         listBooks();
+        listAuthors();
     }, []);
 
     const listBooks = async () => {
@@ -52,6 +56,20 @@ export default function Home() {
                     Authorization: `Bearer ${token}`
                 }});
             setBooks(response.data);
+        } catch (error: any) {
+            console.error(error);
+        }
+    }
+
+    const listAuthors = async () => {
+        try {
+            const token = await getCookie('token');
+            
+            const response = await api.get('/authors?add=gender', 
+                { headers: {
+                    Authorization: `Bearer ${token}`
+                }});
+            setAuthors(response.data);
         } catch (error: any) {
             console.error(error);
         }
@@ -73,6 +91,7 @@ export default function Home() {
             <section className='container-authors-section-home'>
                 <h4 className='title-section-home'>Autores em destaque</h4>
                 <p className='text-section-home'>Conheça os brilhantes autores em evidência</p>
+                <ContainerAuthorHome authors={authors} isTablet={isTablet} isDesktop={isDesktop}/>
             </section>
             <section className='container-thoughts-section-home'>
                 <h4 className='title-section-home'>Pensamentos brasileiros</h4>
@@ -84,6 +103,7 @@ export default function Home() {
                 <p className='text-section-home'>Livros em destaque para você</p>
                 <ContainerBookHome books={books} isTablet={isTablet} isDesktop={isDesktop} sort={true}/>
             </section>
+            <span className='copyright'>Copyright 2022. Todos os direitos reservados.</span>
         </main>
     )
 }
