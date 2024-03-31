@@ -9,6 +9,7 @@ import { useMediaQuery } from "@mui/material";
 import Header from "@/app/components/Header/Header";
 import HomeImage from "@/app/assets/homeImage.svg";
 import ContainerBookHome from "@/app/components/ContainerBookHome/ContainerBookHome";
+import ContainerThoughtHome from "@/app/components/ContainerThoughtHome/ContainerThoughtHome";
 
 import api from "@/api/api";
 
@@ -46,7 +47,7 @@ export default function Home() {
         try {
             const token = await getCookie('token');
             
-            const response = await api.get('/books', 
+            const response = await api.get('/books?add=thought', 
                 { headers: {
                     Authorization: `Bearer ${token}`
                 }});
@@ -59,15 +60,29 @@ export default function Home() {
     return (
         <main className='container-home'>
             <Header search='able' select='home' />
-            <section>
-                <h3>Boas vindas Nome!</h3>
-                <h4>Veja o que está rolando na literatura brasileira</h4>
+            <section className='introduction-section-home'>
+                <h3 className='title-home'>Boas vindas <span>Nome</span>!</h3>
+                <h4 className='text-home'>Veja o que está rolando de melhor na literatura brasileira</h4>
+                <img src={HomeImage} alt='' className='lover-books-home'/>
             </section>
-            <img src={HomeImage} alt='' className='lover-books-home'/>
-            <section>
-                <h4>De olho na Flip</h4>
-                <p>O melhor da literatura nacional para você</p>
+            <section className='container-books-section-home'>
+                <h4 className='title-section-home'>De olho na Flip</h4>
+                <p className='text-section-home'>O melhor da literatura nacional para você</p>
                 <ContainerBookHome books={books} isTablet={isTablet} isDesktop={isDesktop}/>
+            </section>
+            <section className='container-authors-section-home'>
+                <h4 className='title-section-home'>Autores em destaque</h4>
+                <p className='text-section-home'>Conheça os brilhantes autores em evidência</p>
+            </section>
+            <section className='container-thoughts-section-home'>
+                <h4 className='title-section-home'>Pensamentos brasileiros</h4>
+                <p className='text-section-home'>Frases nascidas em mentes nacionais</p>
+                <ContainerThoughtHome books={books} isTablet={isTablet} isDesktop={isDesktop}/>
+            </section>
+            <section className='container-top-rating-books-home'>
+                <h4 className='title-section-home'>Livros mais bem avaliados</h4>
+                <p className='text-section-home'>Livros em destaque para você</p>
+                <ContainerBookHome books={books} isTablet={isTablet} isDesktop={isDesktop} sort={true}/>
             </section>
         </main>
     )

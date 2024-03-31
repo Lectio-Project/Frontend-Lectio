@@ -1,18 +1,20 @@
 .swiper-slide.swiper-slide-active {
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    flex-direction: row;
+    justify-content: flex-start;
+}
 
-    height: fit-content;
+.home-container-books {
+    height: 38rem;
 }
 
 .default-book-list-home {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     gap: 0.8rem;
 
     width: 100%;
+    margin: 2rem 1.4rem 0.2rem 0.2rem;
     padding-right: 2rem;
 }
 
@@ -70,11 +72,6 @@
 .default-book-list-home:hover .book-rating-home,
 .default-book-list-home:hover .book-rating-star-home .MuiRating-iconFilled {
     color: var(--text-color-yellow);
-}
-
-.swiper-pagination {
-    position: relative;
-    margin-top: 1.2rem;
 }
 
 .swiper-pagination-bullet {

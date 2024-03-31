@@ -1,7 +1,64 @@
-.container-home {
+.introduction-section-home,
+.container-books-section-home,
+.container-top-rating-books-home {
     padding: 0 2.4rem;
+}
+
+.container-authors-section-home,
+.container-thoughts-section-home {
+    padding: 0 0 0 2.4rem;
+}
+
+.introduction-section-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.title-home {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.8rem;
+
+    color: var(--text-color-neutral-white);
+}
+
+.title-home > span {
+    color: var(--text-color-yellow);
+}
+
+.text-home {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 2.24rem;
+
+    color: var(--text-color-neutral-white);
 }
 
 .lover-books-home {
     width: 100%;
+    max-width: 35rem;
+    margin-top: 4rem;
+}
+
+.title-section-home {
+    margin-top: 4rem;
+
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 2.24rem;
+
+    color: var(--text-color-neutral-white);
+}
+
+.text-section-home {
+    margin: 0.4rem 0;
+
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.96rem;
+
+    color: var(--text-color-neutral-white);
 }

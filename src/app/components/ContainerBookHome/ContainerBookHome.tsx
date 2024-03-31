@@ -10,19 +10,25 @@ import 'swiper/css/pagination';
 
 import './ContainerBookHome.css';
 
-const ContainerBookHome = ({books, isTablet, isDesktop}: ContainerBookHome) => {
+const ContainerBookHome = ({books, isTablet, isDesktop, sort}: ContainerBookHome) => {
     const {setBookId} = useDataContext();
+
+    let displayedBooks = books;
+
+    if (sort) {
+        displayedBooks = [...books].sort((a, b) => b.avgGrade - a.avgGrade);
+    }
 
     return (
         <Swiper
             className='home-container-books'
             modules={[Navigation, Pagination]}
-            slidesPerView={isDesktop ? 6 : (isTablet ? 4 : 2)}
+            slidesPerView={isDesktop ? 6 : (isTablet ? 4 : 1.95)}
             slidesPerGroup={isDesktop ? 6 : (isTablet ? 4 : 2)}
             pagination={{ clickable: true }}
             navigation={isDesktop ? true : false}
         >
-            {books.slice(0,12).map((book) => (
+            {displayedBooks.slice(0,12).map((book) => (
                 <SwiperSlide key={book.id} onClick={() => setBookId(book.id)}>
                     <section className='default-book-list-home'>
                         <img src={book.imageUrl} className='book-image-home'/>
