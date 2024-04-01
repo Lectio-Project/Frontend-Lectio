@@ -34,7 +34,7 @@
     cursor: pointer;
 }
 
-.modal-title {
+#modal-title {
     margin-top: 1rem;
 
     font-size: 2.4rem;
@@ -53,7 +53,7 @@
     flex-direction: column;
 }
 
-.modal-comment-title {
+#modal-comment-title {
     font-size: 1.6rem;
     font-family: var(--primary-font);
     margin-bottom: 0.5rem;
@@ -91,16 +91,19 @@
 
     font-size: 1.6rem;
     font-weight: bold;
-    color: var(--neutral-dark-gray-2);
+    color: var(--text-neutral-black);
 
     border: none;
     border-radius: 8px;
 
-    background-color: var(--neutral-medium-gray);
+    background-color: var(--bg-button);
 }
 
 .modal-comment-button:disabled {
     cursor: default;
+
+    color: var(--neutral-dark-gray-2);
+    background-color: var(--neutral-medium-gray);
 }
 
 @media(min-width: 768px) {

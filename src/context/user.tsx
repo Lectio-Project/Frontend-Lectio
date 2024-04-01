@@ -31,10 +31,10 @@ type IUserContextData = {
     setOnboarding: React.Dispatch<React.SetStateAction<Onboarding>>;
     bookId: string;
     setBookId: React.Dispatch<React.SetStateAction<string>>;
-    idManage: string;
-    setIdManage: React.Dispatch<React.SetStateAction<string>>;
     authorId: string;
     setAuthorId: React.Dispatch<React.SetStateAction<string>>;
+    rateValue: number;
+    setRateValue: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface AppProviderProps {
@@ -67,9 +67,9 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         authorsId: [],
         booksId: []
     });
-    const [idManage, setIdManage]= useState('6051a5fe4a3d7e126c9d24b3')
     const [bookId, setBookId] = useState<string>('');
     const [authorId, setAuthorId] = useState<string>('');
+    const [rateValue, setRateValue] = useState<number>(0);
 
     const contextValue = {
         userData,
@@ -86,10 +86,10 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         setOnboarding,
         bookId,
         setBookId,
-        idManage,
-        setIdManage,
         authorId,
-        setAuthorId
+        setAuthorId,
+        rateValue,
+        setRateValue
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;
