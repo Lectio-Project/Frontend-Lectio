@@ -33,6 +33,8 @@ type IUserContextData = {
     setBookId: React.Dispatch<React.SetStateAction<string>>;
     idManage: string;
     setIdManage: React.Dispatch<React.SetStateAction<string>>;
+    authorId: string;
+    setAuthorId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface AppProviderProps {
@@ -67,6 +69,7 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
     });
     const [idManage, setIdManage]= useState('6051a5fe4a3d7e126c9d24b3')
     const [bookId, setBookId] = useState<string>('');
+    const [authorId, setAuthorId] = useState<string>('');
 
     const contextValue = {
         userData,
@@ -85,6 +88,8 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         setBookId,
         idManage,
         setIdManage
+        authorId,
+        setAuthorId
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;
