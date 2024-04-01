@@ -15,7 +15,7 @@ import api from "@/api/api";
 import './home.css';
 
 export default function Home() {
-    const {onboarding} = useDataContext();
+    const {onboarding, setOnboarding} = useDataContext();
     const [books, setBooks] = useState<Book[]>([]);
     const isTablet = useMediaQuery('(min-width:768px)');
     const isDesktop = useMediaQuery('(min-width:1280px)');
@@ -38,6 +38,8 @@ export default function Home() {
                 await api.patch('/users', onboarding, {
                     headers: { Authorization: `Bearer ${token}` }
                 });  
+                
+                setOnboarding({ genresId: [], authorsId: [], booksId: [] })
             }
         } catch (error) {
             return console.error(error);
