@@ -1,21 +1,21 @@
 'use client'
 import ButtonViewMore from '@/app/components/ButtonViewMore/ButtonViewMore';
-import Logo from '../../assets/logoWithName.svg';
-import MenuIcon from '../../assets/menuIcon.svg';
-
-import NavBar from "@/app/components/NavBar/navBar";
-
 import { useDataContext } from "@/context/user";
-import { useRouter } from "next/navigation";
-import HamburguerMenu from '@/app/components/hamburguerMenu/hamburguerMenu';
 
-import './autor.css'
+import './author-details.css'
 import { useEffect, useState } from 'react';
 import api from '@/api/api';
 import { getCookie } from '@/utils/cookies';
+import Header from '@/app/components/Header/Header';
+import RatingStars from '@/app/components/RatingStars/RatingStars';
+import ModalRate from '@/app/components/ModalRate/ModalRate';
 
+type AuthorDetailsProps = {
+    params: {id: string};
+};
 
-export default function AutorDetails(){
+export default function AutorDetails({params}: AuthorDetailsProps){
+    const routeId = params.id;
 
     // {
     //     "id": "6051a5fe4a3d7e126c9d24b3",
@@ -27,103 +27,74 @@ export default function AutorDetails(){
     //     "updatedAt": "2024-03-21T18:14:46.677Z"
     //   }
 
-        const { 
-            userData,
-            setUserData,
-            showModalEditPass, 
-            setShowModalEditPass, 
-            showModalImage, 
-            setShowModalImage,
-            selectedImageUrl,
-            openDrawer, 
-            setOpenDrawer,
-            idManage,
-            setIdManage
-        } = useDataContext();
+        const { setOpenDrawer, authorId, setAuthorId } = useDataContext();
 
-        const [autorData, setAutorData]= useState({
+        interface AuthorProps {
+            id: string;
+            name: string;
+            imageUrl: string
+            birthplace: string;
+            carrerDescription: string;
+            AuthorBook: { book: { id: string; name: string; imageUrl: string, avgGrade: number } }[];
+        }
+
+        const [authorData, setAuthorData]= useState<AuthorProps>({
             id:'',
             name:'',
             imageUrl:'',
             birthplace:'', 
-            carrerDescription:''
+            carrerDescription:'',
+            AuthorBook: [{ book: {id: '', name: '', imageUrl: '', avgGrade: 0}}]
         })
-        
-        const router= useRouter();
-        const token = getCookie('token');
-        
-        interface Data {
-            id: string;
-        }
 
         async function handleBookData(){
             
             try {
                 const token = await getCookie('token');
-                const response = await api.get(`/authors/${idManage}`,
-            {
-                headers: {
-                authorization: `Bearer ${token}` ,
+                const response = await api.get(`/authors/${routeId}?add=book`, {
+                    headers: {
+                    authorization: `Bearer ${token}`,
                 },
-            }
-            )
-            setAutorData(response.data);
+            })
+            setAuthorData(response.data);
 
             } catch (error) {
-
-                console.log(error)
+                console.error(error)
             }
         }
 
         useEffect(()=>{
             handleBookData();
         },[])
-
+        
+        console.log(authorData.AuthorBook[0].book.avgGrade);
     return(
         <main className='container-autor'>  
 
-        <header className='header-container'>
-
-            <div className='logo-section'>
-            <img src={Logo} alt='logo Icon'/>
-            </div>
-
-            <div className='sandwich-menu' onClick={()=> setOpenDrawer(true)}>
-                <img src={MenuIcon} alt='sandwich menu' />
-            </div>
-
-            <nav>
-                <NavBar select='feed'/>
-            </nav>
-
-            </header>
-
-            <HamburguerMenu select= 'feed'/>
+        <Header search='able' select='feed' />
 
             <section className='content-container'>
 
                 <section className='image-autor'>
-                    <img src={autorData.imageUrl} alt='foto do autor'/>
+                    <img src={authorData.imageUrl} alt='foto do autor'/>
                 </section>
 
                 <section className='infos'>
-
                     <div className='infos-autor'>
-                        <span>{autorData.name}</span>
-                        <p>rating</p>
+                        <span>{authorData.name}</span>
+                        <RatingStars size='medium' starsValues={authorData.AuthorBook[0].book.avgGrade}/>
                     </div>
 
-                    <p>{autorData.carrerDescription}</p>
+                    <p>{authorData.carrerDescription}</p>
                     
                     <section className='local-rate-area'>
 
                         <div className='local-text'>
-                            <span>Nasceu em:<p>{autorData.birthplace}</p></span>
+                            <span>Nasceu em:<p>{authorData.birthplace}</p></span>
                         </div>
 
                         <div className='rating-area'>
-                            rating
-                            <a>Avalie o autor(a)</a>
+                            <ModalRate title='Avalie o autor(a)'/>
                         </div>
 
                     </section>

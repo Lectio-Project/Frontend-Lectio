@@ -17,7 +17,7 @@ const ContainerThoughtHome = ({books, isTablet, isDesktop}: ContainerThoughtHome
 
     const handleBookDetails = (bookId: string) => {
         setBookId(bookId);
-        router.push(`/feed/details-book/${bookId}`);
+        router.push(`/feed/book-details/${bookId}`);
     }
 
     return (

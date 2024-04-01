@@ -17,7 +17,7 @@ const ContainerAuthorHome = ({authors, isTablet, isDesktop}: ContainerAuthorHome
 
     const handleAuthorDetails = (authorId: string) => {
         setAuthorId(authorId);
-        router.push(`/autor-details/${authorId}`);
+        router.push(`/feed/author-details/${authorId}`);
     }
 
     return (

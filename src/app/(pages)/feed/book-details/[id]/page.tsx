@@ -1,12 +1,12 @@
 'use client'
 
-import ArrowBlack from '../../../assets/arrowButton.svg';
-import ArrowYellow from '../../../assets/arrowGoYellow.svg';
-import ArrowGray from '../../../assets/arrowBottom.svg';
-import CommentUser from '../../../assets/commentUser.svg';
+import ArrowBlack from '../../../../assets/arrowButton.svg';
+import ArrowYellow from '../../../../assets/arrowGoYellow.svg';
+import ArrowGray from '../../../../assets/arrowBottom.svg';
+import CommentUser from '../../../../assets/commentUser.svg';
 
 import Header from '@/app/components/Header/Header';
-import RatingStars from '@/app/components/Rating/Rating';
+import RatingStars from '@/app/components/RatingStars/RatingStars';
 import ButtonViewMore from '@/app/components/ButtonViewMore/ButtonViewMore';
 import ModalRate from '@/app/components/ModalRate/ModalRate';
 import Loading from '@/app/components/Loading/loading';
@@ -17,43 +17,21 @@ import { useEffect, useState } from 'react';
 import api from '@/api/api';
 
 import './book-details.css';
+import { useDataContext } from '@/context/user';
 
-export default function BookDetails() {
+type BookDetailsProps = {
+    params: {id: string};
+};
+
+export default function BookDetails({params}: BookDetailsProps) {
     const [bookData, setBookData] = useState<BookProps>({name: '', publishYear: '', publishingCompany: '', synopsis: '', imageUrl: '', avgGrade: 0, gender: {id: '', gender: ''}, AuthorBook: [{ author: {id: "", name: "", imageUrl: ""}}], Comment: ['']});
     const [showDescription, setShowDescription] = useState(false);
     const [showInfoTechnical, setShowInfoTechnical] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const isTablet = useMediaQuery('(min-width: 768px) and (max-width: 1023px)');
-
-    const id = '6051a5fe4a3d7e126c9d24b2';
     
-    // {
-    //     "id": "6051a5fe4a3d7e126c9d24b2",
-    //     "name": "Olhos D'água",
-    //     "publishYear": "2014",
-    //     "publishingCompany": "Pallas",
-    //     "synopsis": "Em Olhos d’água, Conceição Evaristo ajusta o foco de seu interesse na população afro-brasileira abordando, sem meias palavras, a pobreza e a violência urbana que acometem.",
-    //     "imageUrl": "https://lectio.s3.us-east-005.backblazeb2.com/books/olhos-dagua.jpg",
-    //     "totalGrade": 0,
-    //     "counterGrade": 0,
-    //     "avgGrade": 0,
-    //     "createdAt": "2024-03-21T18:14:51.672Z",
-    //     "updatedAt": "2024-03-21T18:14:51.672Z",
-    //     "gender": {
-    //       "id": "65f31ea8c60b72e59511c8d3",
-    //       "gender": "Ficção Científica"
-    //     },
-    //     "AuthorBook": [
-    //       {
-    //         "author": {
-    //           "id": "6051a5fe4a3d7e126c9d24b8",
-    //           "name": "Conceição Evaristo",
-    //           "imageUrl": "https://lectio.s3.us-east-005.backblazeb2.com/authors/concei%C3%A7%C3%A3o-evaristo.jpg"
-    //         }
-    //       }
-    //     ],
-    //     "Comment": []
-    // }
+    const routeId = params.id;
+    const {bookId} = useDataContext();
 
     interface BookProps {
         name: string;
@@ -69,6 +47,7 @@ export default function BookDetails() {
 
     useEffect(() => {
         handleBookData();
+        
 
         // let handleFindGenders;
         
@@ -81,13 +60,12 @@ export default function BookDetails() {
         // console.log(handleFindGenders);
         // setGenderForBook(handleFindGenders);
         
-        
     }, [])
 
     async function handleBookData() {
         try {
             const token = await getCookie('token');
-            const response = await api.get(`/books/${id}?add=comment`, {
+            const response = await api.get(`/books/${routeId}?add=comment`, {
                 headers: {
                 authorization: `Bearer ${token}`
                 },
@@ -145,7 +123,7 @@ export default function BookDetails() {
                         </a>
 
                         <div className='rating-book'>
-                            <ModalRate title='Avalie a obra'/>
+                            <ModalRate title='Avalie a obra' />
                         </div>
                     </div> 
 

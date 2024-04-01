@@ -8,46 +8,17 @@
     background-color: var(--bg-color-primary);
 }
 
-.header-container{
-    display: flex;
-    width: 100%;
-    margin-top: 4rem;
-    margin-bottom: 4.8rem;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.header-container>nav{
-    display: none;
-}
-
-.logo-section{
-    display: flex;
-    align-items: center;
-    margin-left: 2.4rem;
-}
-
-.logo-section img{
-    width: 10.3rem;
-    height: 3.6rem;
-}
-
-.sandwich-menu{
-    width: 3.2rem;
-    height: 3.2rem;
-    margin-right: 2.4rem;
-}
-
 .image-autor{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 4rem;
+    margin: 4rem 0;
 }
 
 .image-autor img{
-    width: 34.2rem;
+    width: 90%;
     height: 22.6rem;
+    object-fit: cover;
 
     border-radius: 0.8rem;
 }
@@ -60,6 +31,9 @@
 }
 
 .infos-autor{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     margin-bottom: 1.3rem;
 }
 
