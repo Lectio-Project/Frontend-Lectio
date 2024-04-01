@@ -87,7 +87,7 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         bookId,
         setBookId,
         idManage,
-        setIdManage
+        setIdManage,
         authorId,
         setAuthorId
     };
