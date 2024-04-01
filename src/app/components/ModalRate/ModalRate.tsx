@@ -25,7 +25,7 @@ export default function ModalRate({title}: ModalRateProps) {
     <div className='container-modalRate'>
         <Button onClick={handleOpen} className='button-rate'>
             <RatingStars starsValues={0} size='medium' readOnly />
-            {title}
+            <span>{title}</span>
         </Button>
         <Modal
             open={showModal}
@@ -35,8 +35,8 @@ export default function ModalRate({title}: ModalRateProps) {
             <Box className='modal-rate'>
                 <img className='button-close' src={CloseIcon} alt='close icon' onClick={handleClose} /> 
 
-                <Typography className='modal-title' variant="h3">
-                    {title}
+                <Typography variant="h3">
+                    <h3 className='modal-title'>{title}</h3>
                 </Typography>
 
                 <div className='modal-rating'>
@@ -44,8 +44,8 @@ export default function ModalRate({title}: ModalRateProps) {
                 </div>
                 
                 <div className='modal-comment'>
-                    <Typography className="modal-comment-title" variant='caption'>
-                        Comentário
+                    <Typography variant='caption'>
+                        <span className="modal-comment-title">Comentário</span>
                     </Typography>
 
                     <textarea className='modal-comment-area' placeholder='Escreva aqui o que achou da obra' />
