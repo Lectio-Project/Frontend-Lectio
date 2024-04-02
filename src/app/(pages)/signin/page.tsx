@@ -36,11 +36,19 @@ export default function SignIn() {
             if (response.status === 201) {
                 await setCookie('token', response.data.token);
                 setResponseError({});
-                return router.replace('/onboarding/page1')
+                
+                console.log(response.data.checkOnBoarding);
+                
+                if (response.data.checkOnBoarding === false) {
+                    return router.replace('/onboarding/page1');
+                } else {
+                    return router.replace('/home');
+                }
+                
             }
         
         } catch (error: any) {
-            setResponseError(error.response.data.message)
+            setResponseError(error.response.data.message);
         }
     }    
 

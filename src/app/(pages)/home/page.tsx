@@ -30,21 +30,22 @@ export default function Home() {
 
     async function handleOnboardingSteps() {
         try {
-            if (onboarding.genresId.length > 0 || onboarding.authorsId.length > 0 || onboarding.booksId.length > 0) {
-                const token = await getCookie('token');      
-    
-                for (const item in onboarding) {
-                    if (onboarding.hasOwnProperty(item) && Array.isArray(onboarding[item]) && onboarding[item].length === 0) {
-                        delete onboarding[item];
-                    }
+            const token = await getCookie('token');      
+
+            for (const item in onboarding) {
+                if (onboarding.hasOwnProperty(item) && Array.isArray(onboarding[item]) && onboarding[item].length === 0) {
+                    delete onboarding[item];
                 }
-                  
-                await api.patch('/users', onboarding, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });  
-                
-                setOnboarding({ genresId: [], authorsId: [], booksId: [] })
             }
+
+            const request = {...onboarding, checkOnBoarding: true}
+            
+            await api.patch('/users', request, {
+                headers: { Authorization: `Bearer ${token}` }
+            });  
+            
+            setOnboarding({ genresId: [], authorsId: [], booksId: [] })
+            
         } catch (error) {
             return console.error(error);
         } 
