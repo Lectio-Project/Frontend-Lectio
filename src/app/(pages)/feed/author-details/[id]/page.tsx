@@ -71,13 +71,13 @@ export default function AutorDetails({params}: AuthorDetailsProps){
         handleAuthorData();
     },[])
 
-    // useEffect(()=>{
-    //     if (authorData.id !== "") {
-    //         for (const item of authorData.AuthorBook) {
-    //             setBooksAuthor([item.book]);
-    //         }
-    //     }
-    // }, [authorData])
+    useEffect(()=>{
+        if (authorData.id !== "") {
+            for (const item of authorData.AuthorBook) {
+                setBooksAuthor([item.book]);
+            }
+        }
+    }, [authorData])
     
     console.log(booksAuthor);
     
