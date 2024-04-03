@@ -18,7 +18,7 @@
     background-color: var(--bg-color-primary);
 }
 
-.content-container {
+.content-container-book {
     display: flex;
     flex-direction: column;
     padding: 0 2.4rem;
@@ -86,6 +86,7 @@
 .genre-book {
     padding: 0.8rem;
     font-size: 1.4rem;
+    text-transform: capitalize;
 
     border-radius: 50px;
 
@@ -300,6 +301,11 @@
     gap: 12px;
 }
 
+.comment-user-intern img {
+    width: 4.6rem;
+    height: 4.6rem;
+}
+
 .comment-user-info {
     display: flex;
     flex-direction: column;
@@ -314,6 +320,7 @@
 .comment-username {
     font-size: 1.4rem;
     font-weight: bold;
+    text-transform: capitalize;
 
     width: 12rem;
 
@@ -376,7 +383,7 @@
 }
 
 @media (min-width: 768px) {
-    .content-container {
+    .content-container-book {
         display: grid;
         grid-template-columns: repeat(1, 284px 1fr);
         gap: 3rem;
@@ -527,7 +534,7 @@
 }
 
 @media (min-width: 1024px) {
-    .content-container {
+    .content-container-book {
         display: grid;
         grid-template-columns: repeat(1, 348px 1fr);
         gap: 3rem;

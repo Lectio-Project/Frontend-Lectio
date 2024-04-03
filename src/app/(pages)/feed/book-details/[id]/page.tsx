@@ -3,7 +3,6 @@
 import ArrowBlack from '../../../../assets/arrowButton.svg';
 import ArrowYellow from '../../../../assets/arrowGoYellow.svg';
 import ArrowGray from '../../../../assets/arrowBottom.svg';
-import CommentUser from '../../../../assets/commentUser.svg';
 
 import Header from '@/app/components/Header/Header';
 import RatingStars from '@/app/components/RatingStars/RatingStars';
@@ -12,43 +11,52 @@ import ModalRate from '@/app/components/ModalRate/ModalRate';
 import Loading from '@/app/components/Loading/loading';
 
 import { getCookie } from '@/utils/cookies';
-import { useMediaQuery } from '@mui/material';
+import { Rating, useMediaQuery } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import api from '@/api/api';
 
 import './book-details.css';
 import { useDataContext } from '@/context/user';
+import ContainerBookHome from '@/app/components/ContainerBookHome/ContainerBookHome';
 
 type BookDetailsProps = {
     params: {id: string};
 };
 
 export default function BookDetails({params}: BookDetailsProps) {
-    const [bookData, setBookData] = useState<BookProps>({name: '', publishYear: '', publishingCompany: '', synopsis: '', imageUrl: '', avgGrade: 0, gender: {id: '', gender: ''}, AuthorBook: [{ author: {id: "", name: "", imageUrl: ""}}], Comment: ['']});
+    const [bookData, setBookData] = useState<BookProps>({name: '', publishYear: '', publishingCompany: '', synopsis: '', imageUrl: '', avgGrade: 0, totalPages: "", totalGrade: 0, gender: {id: '', gender: ''}, AuthorBook: [{ author: {id: "", name: "", imageUrl: ""}}], LiteraryAwards: [{id: "", name: "", year: ""}], Comment: ['']});
+
+    const [booksAuthorData, setBooksAuthorData] = useState([]);
     const [showDescription, setShowDescription] = useState(false);
     const [showInfoTechnical, setShowInfoTechnical] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const isTablet = useMediaQuery('(min-width: 768px) and (max-width: 1023px)');
+    const isDesktop = useMediaQuery('(min-width: 1024px)');
     
     const routeId = params.id;
     const {bookId} = useDataContext();
+    const initialImage = "https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg";
 
     interface BookProps {
         name: string;
         publishYear: string;
         publishingCompany: string
         synopsis: string;
-        avgGrade: number;
         imageUrl: string;
+        totalGrade: number;
+        avgGrade: number;
+        totalPages: string;
         gender: {id: string; gender: string};
         AuthorBook: { author: { id: string; name: string; imageUrl: string } }[];
+        LiteraryAwards?: {id: string; name: string; year: string}[];
         Comment: string[];
     }
 
     useEffect(() => {
         handleBookData();
         
-
         // let handleFindGenders;
         
         // if (book?.gender.length > 1) {
@@ -62,6 +70,13 @@ export default function BookDetails({params}: BookDetailsProps) {
         
     }, [])
 
+    useEffect(() => {
+        if (bookData.AuthorBook[0].author.id) {
+            handleBooksAuthor();
+        }
+        
+    }, [bookData.AuthorBook[0].author.id]);
+    
     async function handleBookData() {
         try {
             const token = await getCookie('token');
@@ -78,11 +93,30 @@ export default function BookDetails({params}: BookDetailsProps) {
             setIsLoading(false);
         }
     }
+    
+
+    async function handleBooksAuthor() {
+        try {
+            const token = await getCookie('token');
+            const response = await api.get(`/authors/${bookData.AuthorBook[0].author.id}?add=book`, {
+                headers: {
+                authorization: `Bearer ${token}`
+                },
+            });
+
+            setBooksAuthorData(response.data);
+        } catch (error: any) {
+            console.error(error)
+        } 
+    }
 
     function handleFindBook() {
         const bookName = bookData?.name;
         return bookName.replaceAll(' ', '+');
-    }
+    }        
+
+    console.log(booksAuthorData);
+    
 
     return isLoading ? (
             <div className='container-book-loading'>
@@ -91,7 +125,7 @@ export default function BookDetails({params}: BookDetailsProps) {
         ) : ( !isLoading && <section className='container-book'>
                 <Header search='able' select='feed' />
 
-                <main className='content-container'>
+                <main className='content-container-book'>
                     <div className='book-info-reduced'>
                         <div className='book-title-author-mobile'>
                             <h3 className='book-title'>{bookData.name}</h3>
@@ -111,9 +145,9 @@ export default function BookDetails({params}: BookDetailsProps) {
                             </div>
                             
                             <div className='assessments-and-reviews'>
-                                <span>16.648 avaliações</span>
+                                <span>{bookData.totalGrade} avaliações</span>
                                 <span>·</span>
-                                <span>3 comentários</span>
+                                <span>{bookData.Comment.length} comentários</span>
                             </div>
                         </div>
 
@@ -141,7 +175,7 @@ export default function BookDetails({params}: BookDetailsProps) {
                             <div className='assessments-and-reviews'>
                                 <span>16.648 avaliações</span>
                                 <span>·</span>
-                                <span>3 comentários</span>
+                                <span>{bookData.Comment.length} comentários</span>
                             </div>
                         </div>
 
@@ -189,8 +223,8 @@ export default function BookDetails({params}: BookDetailsProps) {
                                 <div className='button-informations-info'>
                                     <p>{bookData.publishYear}</p>
                                     <p>{bookData.publishingCompany}</p>
-                                    <p>Prêmio Jabuti (2015)</p>
-                                    <p>116</p>
+                                    <p>{bookData.LiteraryAwards?.length ? `Prêmio ${bookData.LiteraryAwards[0].name} (${bookData.LiteraryAwards[0].year})` : "Nenhum"}</p>
+                                    <p>{bookData.totalPages}</p>
                                     <p>9788533307391, 9788534705974, & 9788534705257.</p>
                                 </div>
                             </section>
@@ -199,59 +233,30 @@ export default function BookDetails({params}: BookDetailsProps) {
 
                     <section className='container-comments'>
                         <h3 className='comments-title'>Comentários</h3>
-                        <span className='comments-published'>3 comentários publicados</span>
+                        <span className='comments-published'>{bookData.Comment.length} comentários publicados</span>
 
                         <section className='comments'>
-                            <article className='comment-user'>
-                                <div className='comment-user-intern'>
-                                    <img src={CommentUser} alt="" />
-                                    
-                                    <div className='comment-user-info'>
-                                        <div>
-                                            <strong className='comment-username'>Marcelo Tavares</strong>
-                                            <RatingStars starsValues={5} size='small' readOnly />
+                            {bookData.Comment.map((userComment) => {                   
+                                const formatedDate = format(new Date(userComment.createdAt), "dd 'de' MMMM 'às' HH:mm", {locale: ptBR});
+                                return (
+                                    <article className='comment-user' key={userComment.id}>
+                                        <div className='comment-user-intern'>
+                                            <img src={userComment.user.imageUrl} alt="" onError={(e) => e.target.src = initialImage} />
+                                            
+                                            <div className='comment-user-info'>
+                                                <div>
+                                                    <strong className='comment-username'>{userComment.user.name}</strong>
+                                                    <RatingStars starsValues={userComment.bookGrade} size='small' readOnly />
+                                                </div>
+                                            
+                                                <span className='comment-date'>postado em {formatedDate}</span>
+                                            </div>
                                         </div>
-                                    
-                                        <span className='comment-date'>postado em 25 de junho às 14:30</span>
-                                    </div>
-                                </div>
 
-                                <p>Este livro é uma verdadeira jóia literária. Com uma trama envolvente, personagens cativantes e escrita habilidosa, Evaristo proporciona uma experiência de leitura memorável. Recomendo sem hesitação!</p>
-                            </article>
-
-                            <article className='comment-user'>
-                                <div className='comment-user-intern'>
-                                    <img src={CommentUser} alt="" />
-                                    
-                                    <div className='comment-user-info'>
-                                        <div>
-                                            <strong className='comment-username'>Marcelo Tavares</strong>
-                                            <RatingStars starsValues={5} size='small' readOnly />
-                                        </div>
-                                    
-                                        <span className='comment-date'>postado em 25 de junho às 14:30</span>
-                                    </div>
-                                </div>
-
-                                <p>Este livro é uma verdadeira jóia literária. Com uma trama envolvente, personagens cativantes e escrita habilidosa, Evaristo proporciona uma experiência de leitura memorável. Recomendo sem hesitação!</p>
-                            </article>
-
-                            <article className='comment-user'>
-                                <div className='comment-user-intern'>
-                                    <img src={CommentUser} alt="" />
-                                    
-                                    <div className='comment-user-info'>
-                                        <div>
-                                            <strong className='comment-username'>Marcelo Tavares</strong>
-                                            <RatingStars starsValues={5} size='small' readOnly />
-                                        </div>
-                                    
-                                        <span className='comment-date'>postado em 25 de junho às 14:30</span>
-                                    </div>
-                                </div>
-
-                                <p>Este livro é uma verdadeira jóia literária. Com uma trama envolvente, personagens cativantes e escrita habilidosa, Evaristo proporciona uma experiência de leitura memorável. Recomendo sem hesitação!</p>
-                            </article>
+                                        <p>{userComment.text.length ? userComment.text : "Nenhum comentário aqui"}</p>
+                                    </article>
+                                );
+                            })}
                         </section>
                 
                         <ButtonViewMore className='button-more-comments' title='Ver mais comentários' type='button' />
@@ -262,7 +267,7 @@ export default function BookDetails({params}: BookDetailsProps) {
                             <span>Livros também escritos por {bookData.AuthorBook[0].author.name}:</span>
                         </section>
 
-                        <p>Component</p>
+                        {/* <ContainerBookHome books={booksAuthorData} isTablet={isTablet} isDesktop={isDesktop} /> */}
                     </div>
 
                     </main>
