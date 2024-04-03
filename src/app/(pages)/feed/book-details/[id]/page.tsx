@@ -12,7 +12,7 @@ import Loading from '@/app/components/Loading/loading';
 
 import { getCookie } from '@/utils/cookies';
 import { Rating, useMediaQuery } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import api from '@/api/api';
@@ -26,9 +26,10 @@ type BookDetailsProps = {
 };
 
 export default function BookDetails({params}: BookDetailsProps) {
-    const [bookData, setBookData] = useState<BookProps>({name: '', publishYear: '', publishingCompany: '', synopsis: '', imageUrl: '', avgGrade: 0, totalPages: "", totalGrade: 0, gender: {id: '', gender: ''}, AuthorBook: [{ author: {id: "", name: "", imageUrl: ""}}], LiteraryAwards: [{id: "", name: "", year: ""}], Comment: ['']});
+    const [bookData, setBookData] = useState<BookProps>({name: '', publishYear: '', publishingCompany: '', synopsis: '', imageUrl: '', avgGrade: 0, totalPages: "", totalGrade: 0, gender: {id: '', gender: ''}, AuthorBook: [{ author: {id: "", name: "", imageUrl: ""}}], LiteraryAwards: [{id: "", name: "", year: ""}], Comment: [{id: '', bookGrade: 0, text: '', createdAt: '', updatedAt: '', user: {id: '', name: '', imageUrl: ''}}]});
 
     const [booksAuthorData, setBooksAuthorData] = useState([]);
+    const [addComment, setAddComment] = useState<number>(0);
     const [showDescription, setShowDescription] = useState(false);
     const [showInfoTechnical, setShowInfoTechnical] = useState(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -42,17 +43,25 @@ export default function BookDetails({params}: BookDetailsProps) {
     interface BookProps {
         name: string;
         publishYear: string;
-        publishingCompany: string
+        publishingCompany: string;
         synopsis: string;
         imageUrl: string;
         totalGrade: number;
         avgGrade: number;
         totalPages: string;
-        gender: {id: string; gender: string};
+        gender: { id: string; gender: string };
         AuthorBook: { author: { id: string; name: string; imageUrl: string } }[];
-        LiteraryAwards?: {id: string; name: string; year: string}[];
-        Comment: string[];
-    }
+        LiteraryAwards?: { id: string; name: string; year: string }[];
+        Comment: {
+          id: string;
+          bookGrade: number;
+          text: string;
+          createdAt: string;
+          updatedAt: string;
+          user: { id: string; name: string; imageUrl: string };
+        }[];
+      }
+      
 
     useEffect(() => {
         handleBookData();
@@ -68,7 +77,7 @@ export default function BookDetails({params}: BookDetailsProps) {
         // console.log(handleFindGenders);
         // setGenderForBook(handleFindGenders);
         
-    }, [])
+    }, [addComment])
 
     useEffect(() => {
         if (bookData.AuthorBook[0].author.id) {
@@ -115,9 +124,6 @@ export default function BookDetails({params}: BookDetailsProps) {
         return bookName.replaceAll(' ', '+');
     }        
 
-    console.log(booksAuthorData);
-    
-
     return isLoading ? (
             <div className='container-book-loading'>
                 <Loading />
@@ -157,7 +163,7 @@ export default function BookDetails({params}: BookDetailsProps) {
                         </a>
 
                         <div className='rating-book'>
-                            <ModalRate title='Avalie a obra' />
+                            <ModalRate title='Avalie a obra' bookId={routeId} addComment={addComment} setAddComment={setAddComment} />
                         </div>
                     </div> 
 
@@ -173,7 +179,7 @@ export default function BookDetails({params}: BookDetailsProps) {
                             </div>
                             
                             <div className='assessments-and-reviews'>
-                                <span>16.648 avaliações</span>
+                                <span>{bookData.totalGrade} avaliações</span>
                                 <span>·</span>
                                 <span>{bookData.Comment.length} comentários</span>
                             </div>
@@ -236,12 +242,18 @@ export default function BookDetails({params}: BookDetailsProps) {
                         <span className='comments-published'>{bookData.Comment.length} comentários publicados</span>
 
                         <section className='comments'>
-                            {bookData.Comment.map((userComment) => {                   
+                            {bookData.Comment.map((userComment) => {     
                                 const formatedDate = format(new Date(userComment.createdAt), "dd 'de' MMMM 'às' HH:mm", {locale: ptBR});
+
+                                const [imageSrc, setImageSrc] = useState<string>(initialImage);
+                                const handleImageError = (e: SyntheticEvent<HTMLImageElement, Event>) => {
+                                    setImageSrc(initialImage);
+                                  };
+                                  
                                 return (
                                     <article className='comment-user' key={userComment.id}>
                                         <div className='comment-user-intern'>
-                                            <img src={userComment.user.imageUrl} alt="" onError={(e) => e.target.src = initialImage} />
+                                            <img src={userComment.user.imageUrl || initialImage} alt="" onError={handleImageError} />
                                             
                                             <div className='comment-user-info'>
                                                 <div>

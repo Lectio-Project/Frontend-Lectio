@@ -22,6 +22,7 @@ export default function AutorDetails({params}: AuthorDetailsProps){
     const routeId = params.id;
     const { setOpenDrawer, authorId, setAuthorId } = useDataContext();
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [addComment, setAddComment] = useState<number>(0);
     const [booksAuthor, setBooksAuthor] = useState<Book[]>([]);
     const isTablet = useMediaQuery('(min-width:768px)');
     const isDesktop = useMediaQuery('(min-width:1280px)');
@@ -45,7 +46,6 @@ export default function AutorDetails({params}: AuthorDetailsProps){
         carrerDescription:'',
         totalGrade: 0,
         avgGrade: 0,
-        AuthorBook: [{ book: {id: '', name: '', imageUrl: '', avgGrade: 0}}]
     })
     
     async function handleAuthorData(){
@@ -71,15 +71,19 @@ export default function AutorDetails({params}: AuthorDetailsProps){
         handleAuthorData();
     },[])
 
-    useEffect(()=>{
-        if (authorData.id !== "") {
-            for (const item of authorData.AuthorBook) {
-                setBooksAuthor([item.book]);
-            }
-        }
-    }, [authorData])
+    // useEffect(()=>{
+    //     if (authorData.id !== "") {
+    //         if (!authorData.AuthorBook) {
+    //             return
+    //         }
+            
+    //         for (const item of authorData.AuthorBook) {
+    //             setBooksAuthor([item.book]);
+    //         }
+    //     }
+    // }, [authorData])
+
     
-    console.log(booksAuthor);
     
     return(
         <main className='container-author'>  
@@ -113,7 +117,7 @@ export default function AutorDetails({params}: AuthorDetailsProps){
                             </div>
 
                             <div className='rating-area'>
-                                <ModalRate title='Avalie o autor(a)'/>
+                                <ModalRate title='Avalie o autor(a)' bookId={routeId} addComment={addComment} setAddComment={setAddComment} />
                             </div>
 
                         </section>
