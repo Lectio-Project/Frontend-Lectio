@@ -34,7 +34,7 @@ export default function AutorDetails({params}: AuthorDetailsProps){
         carrerDescription: string;
         totalGrade: number;
         avgGrade: number;
-        AuthorBook: { book: { id: string; name: string; imageUrl: string, avgGrade: number } }[];
+        AuthorBook?: { book: { id: string; name: string; imageUrl: string, avgGrade: number } }[];
     }
 
     const [authorData, setAuthorData]= useState<AuthorProps>({
@@ -71,13 +71,13 @@ export default function AutorDetails({params}: AuthorDetailsProps){
         handleAuthorData();
     },[])
 
-    // useEffect(()=>{
-    //     if (authorData.id !== "") {
-    //         for (const item of authorData.AuthorBook) {
-    //             setBooksAuthor([item.book]);
-    //         }
-    //     }
-    // }, [authorData])
+    useEffect(()=>{
+        if (authorData.id !== "") {
+            for (const item of authorData.AuthorBook) {
+                setBooksAuthor([item.book]);
+            }
+        }
+    }, [authorData])
     
     console.log(booksAuthor);
     
