@@ -1,4 +1,4 @@
-.container-autor{
+.container-author{
     width: 100%;
     height: auto;
 
@@ -8,14 +8,33 @@
     background-color: var(--bg-color-primary);
 }
 
-.image-autor{
+.container-book-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: calc(100vh - 9rem);
+    padding-bottom: 3rem;
+}
+
+.loader-container .loader {
+    width: 20rem;
+    height: 20rem;
+}
+
+.teste {
+    height: 100%;
+}
+
+.image-author{
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 4rem 0;
 }
 
-.image-autor img{
+.image-author img {
     width: 90%;
     height: 22.6rem;
     object-fit: cover;
@@ -24,20 +43,20 @@
 }
 
 .infos{
-    margin: 0 2.6rem 4.3rem;
+    margin: 0 2.4rem 4.3rem;
     display: flex;
     flex-direction: column;
     gap: 1.1rem;
 }
 
-.infos-autor{
+.infos-author{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 1.3rem;
 }
 
-.infos-autor span{
+.infos-author-name {
     color: var(--text-color-white);
     font-family: var(--primary-font);
     font-size: 2.4rem;
@@ -67,7 +86,6 @@
 
 .local-text{
     width: 16.3rem;
-    height: 4rem;
 }
 
 .local-text span{
@@ -90,8 +108,6 @@
 }
 
 .rating-area{
-    height: 4rem;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -131,32 +147,19 @@
     line-height: 140%;
 }
 
-.btn-view-more{
+.btn-area {
+    display: flex;
+    justify-content: center;
     margin-bottom: 3.7rem;
+}
+
+.btn-view-more{
     cursor: pointer;
 }
 
 @media (min-width:1024px) {
 
-    .header-container>nav{
-        display: block;
-    }
-
-    .sandwich-menu{
-        display: none;
-    }
-
-    .header-container{
-        margin-top: 2.4rem;
-        margin-bottom: 6.4rem;
-    }
-
-    .logo-section img{
-        width: 12.7rem;
-        height: 4.8rem;
-    }
-
-    .content-container{
+    .content-container-author {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -174,11 +177,9 @@
     }
 
     .books-indication span{
-    font-size: 3.2rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 125%;
+        font-size: 3.2rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 125%;
     }
-
-
 }

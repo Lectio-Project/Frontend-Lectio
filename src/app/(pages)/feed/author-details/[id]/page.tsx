@@ -9,6 +9,10 @@ import { getCookie } from '@/utils/cookies';
 import Header from '@/app/components/Header/Header';
 import RatingStars from '@/app/components/RatingStars/RatingStars';
 import ModalRate from '@/app/components/ModalRate/ModalRate';
+import { Rating, useMediaQuery } from '@mui/material';
+import ContainerBookHome from '@/app/components/ContainerBookHome/ContainerBookHome';
+import { Book } from '@/types/home-types';
+import Loading from '@/app/components/Loading/loading';
 
 type AuthorDetailsProps = {
     params: {id: string};
@@ -16,103 +20,123 @@ type AuthorDetailsProps = {
 
 export default function AutorDetails({params}: AuthorDetailsProps){
     const routeId = params.id;
+    const { setOpenDrawer, authorId, setAuthorId } = useDataContext();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [booksAuthor, setBooksAuthor] = useState<Book[]>([]);
+    const isTablet = useMediaQuery('(min-width:768px)');
+    const isDesktop = useMediaQuery('(min-width:1280px)');
 
-    // {
-    //     "id": "6051a5fe4a3d7e126c9d24b3",
-    //     "name": "Ariano Suassuna",
-    //     "imageUrl": "https://lectio.s3.us-east-005.backblazeb2.com/authors/ariano-suassuna.jpg",
-    //     "birthplace": "Nossa Senhora das Neves (atualmente João Pessoa), Paraíba, Brasil",
-    //     "carrerDescription": "Ariano Suassuna foi um renomado escritor, dramaturgo e poeta brasileiro, considerado um dos maiores representantes da cultura nordestina. Sua obra é marcada por uma profunda ligação com as tradições populares e folclóricas do Nordeste, retratando com humor e sensibilidade a vida e os costumes da região. Além de sua contribuição para a literatura, Suassuna também teve papel fundamental no desenvolvimento do teatro brasileiro.",
-    //     "createdAt": "2024-03-21T18:14:46.677Z",
-    //     "updatedAt": "2024-03-21T18:14:46.677Z"
-    //   }
+    interface AuthorProps {
+        id: string;
+        name: string;
+        imageUrl: string
+        birthplace: string;
+        carrerDescription: string;
+        totalGrade: number;
+        avgGrade: number;
+        AuthorBook: { book: { id: string; name: string; imageUrl: string, avgGrade: number } }[];
+    }
 
-        const { setOpenDrawer, authorId, setAuthorId } = useDataContext();
-
-        interface AuthorProps {
-            id: string;
-            name: string;
-            imageUrl: string
-            birthplace: string;
-            carrerDescription: string;
-            AuthorBook: { book: { id: string; name: string; imageUrl: string, avgGrade: number } }[];
-        }
-
-        const [authorData, setAuthorData]= useState<AuthorProps>({
-            id:'',
-            name:'',
-            imageUrl:'',
-            birthplace:'', 
-            carrerDescription:'',
-            AuthorBook: [{ book: {id: '', name: '', imageUrl: '', avgGrade: 0}}]
+    const [authorData, setAuthorData]= useState<AuthorProps>({
+        id:'',
+        name:'',
+        imageUrl:'',
+        birthplace:'', 
+        carrerDescription:'',
+        totalGrade: 0,
+        avgGrade: 0,
+        AuthorBook: [{ book: {id: '', name: '', imageUrl: '', avgGrade: 0}}]
+    })
+    
+    async function handleAuthorData(){
+        
+        try {
+            const token = await getCookie('token');
+            const response = await api.get(`/authors/${routeId}?add=book`, {
+                headers: {
+                authorization: `Bearer ${token}`,
+            },
         })
 
-        async function handleBookData(){
-            
-            try {
-                const token = await getCookie('token');
-                const response = await api.get(`/authors/${routeId}?add=book`, {
-                    headers: {
-                    authorization: `Bearer ${token}`,
-                },
-            })
-            setAuthorData(response.data);
+        setAuthorData(response.data);
 
-            } catch (error) {
-                console.error(error)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    useEffect(()=>{
+        handleAuthorData();
+    },[])
+
+    useEffect(()=>{
+        if (authorData.id !== "") {
+            for (const item of authorData.AuthorBook) {
+                setBooksAuthor([item.book]);
             }
         }
-
-        useEffect(()=>{
-            handleBookData();
-        },[])
-        
-        console.log(authorData.AuthorBook[0].book.avgGrade);
+    }, [authorData])
+    
+    console.log(booksAuthor);
+    
     return(
-        <main className='container-autor'>  
+        <main className='container-author'>  
 
         <Header search='able' select='feed' />
 
-            <section className='content-container'>
+        {isLoading ? (
+            <div className='container-book-loading'>
+                <Loading />
+            </div>
+        ) : (
+            <div>
+                <section className='content-container-author'>
 
-                <section className='image-autor'>
-                    <img src={authorData.imageUrl} alt='foto do autor'/>
-                </section>
-
-                <section className='infos'>
-                    <div className='infos-autor'>
-                        <span>{authorData.name}</span>
-                        <RatingStars size='medium' starsValues={authorData.AuthorBook[0].book.avgGrade}/>
-                    </div>
-
-                    <p>{authorData.carrerDescription}</p>
-                    
-                    <section className='local-rate-area'>
-
-                        <div className='local-text'>
-                            <span>Nasceu em:<p>{authorData.birthplace}</p></span>
-                        </div>
-
-                        <div className='rating-area'>
-                            <ModalRate title='Avalie o autor(a)'/>
-                        </div>
-
+                    <section className='image-author'>
+                        <img src={authorData.imageUrl} alt='foto do autor'/>
                     </section>
 
+                    <section className='infos'>
+                        <div className='infos-author'>
+                            <h3 className='infos-author-name'>{authorData.name}</h3>
+                            <RatingStars size='medium' starsValues={authorData.avgGrade} authorValue={authorData.totalGrade} readOnly />
+                        </div>
+
+                        <p>{authorData.carrerDescription}</p>
+                        
+                        <section className='local-rate-area'>
+
+                            <div className='local-text'>
+                                <span>Nasceu em:<p>{authorData.birthplace}</p></span>
+                            </div>
+
+                            <div className='rating-area'>
+                                <ModalRate title='Avalie o autor(a)'/>
+                            </div>
+
+                        </section>
+
+                    </section>
+                </section> 
+
+                <section className='books-indication'>
+                    <span>Livros em Destaque</span>
+                    {/* {booksAuthor && <ContainerBookHome books={booksAuthor} isTablet={isTablet} isDesktop={isDesktop} />} */}
                 </section>
 
-            </section>
 
-            <section className='books-indication'>
-                <span>Livros em Destaque</span>
-                componente
-            </section>
+                <div className='btn-area'>
+                    <ButtonViewMore 
+                        className='btn-view-more'
+                        type='button'
+                        title='Ver mais livros do autor(a)'
+                    /> 
+                </div>
 
-            <ButtonViewMore 
-                className='btn-view-more'
-                type='button'
-                title='Ver mais livros do autor(a)'
-            />
+            </div>
+            )}
 
         </main>
     )

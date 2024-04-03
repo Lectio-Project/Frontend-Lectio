@@ -8,38 +8,55 @@ import Modal from '@mui/material/Modal';
 import RatingStars from '@/app/components/RatingStars/RatingStars';
 import ButtonLectio from '@/app/components/Button/Button';
 
-import './ModalRate.css';
 import { useState } from 'react';
 import { useDataContext } from '@/context/user';
+import { getCookie } from '@/utils/cookies';
+import api from '@/api/api';
+
+import './ModalRate.css';
 
 interface ModalRateProps {
     title: string;
+    bookId: string;
+    addComment: number;
+    setAddComment: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function ModalRate({title}: ModalRateProps) {
+export default function ModalRate({title, bookId, addComment, setAddComment}: ModalRateProps) {
     const [showModal, setShowModal] = useState<boolean>(false);
+    const [text, setText] = useState<string>("");
     const {rateValue, setRateValue} = useDataContext();
   
     function handleOpen() {
     setShowModal(true);
-  }
+    }
 
     function handleClose() {
     setShowModal(false);
-  }
-
-    function handleRate() {
-        try {
-            
-        } catch (error) {
-            
-        }
     }
 
+    async function handleRate() {
+        try {
+            const token = await getCookie('token');
+            const request = {text: text, bookGrade: rateValue, bookId: bookId}
+
+            await api.post(`/comments`, request, {
+                headers: {
+                authorization: `Bearer ${token}`
+                },
+            });
+
+            setAddComment(addComment + 1);
+            handleClose();
+        } catch (error: any) {
+            console.error(error)
+        } 
+    }
+    
     return (
         <div className='container-modalRate'>
             <Button onClick={handleOpen} className='button-rate'>
-                <RatingStars starsValues={rateValue} returnValue size='medium' readOnly />
+                <RatingStars starsValues={0} returnValue size='medium' readOnly />
                 <span>{title}</span>
             </Button>
             <Modal
@@ -63,7 +80,7 @@ export default function ModalRate({title}: ModalRateProps) {
                             Comentário
                         </Typography>
 
-                        <textarea className='modal-comment-area' placeholder='Escreva aqui o que achou da obra' />
+                        <textarea className='modal-comment-area' placeholder='Escreva aqui o que achou da obra' onChange={(e) => setText(e.target.value)} />
 
                         <ButtonLectio className='modal-comment-button' title='Avaliar' type='submit' disabled={rateValue === 0 ? true : false} onClick={handleRate}/>
                     </div>
