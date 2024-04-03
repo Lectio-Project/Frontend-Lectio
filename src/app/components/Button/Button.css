@@ -1,24 +1,77 @@
-.primary, .secondary  {
-    width: 10rem;
-    height: 3rem;
-    cursor: pointer;
-
-    border: none;
-    border-radius: 0.5rem;
-
-    font-family: var(--family-primary);
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 1rem;
+.primary:disabled {
+    cursor: default;
+    color: var(--text-color-disabled);
+    background-color: var(--bg-btn-disabled);
 }
 
-.primary {
+.primary, .secondary, .continue-btn, .error-btn {
+    width: 16.3rem;
+    height: 4.4rem;
+    
+    font-family: var(--family-primary);
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1.96rem;
+    
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.primary, .continue-btn {
     color: var(--bg-color-primary);
     background-color: var(--bg-button);
 }
 
+.error-btn {
+    color: var(--bg-color-primary);
+    background-color: var(--input-error);
+}
+
 .secondary {
-    border: 1px solid var(--bg-button);
+    border: 2px solid var(--bg-button);
     color: var(--bg-button);
     background-color: transparent;
+}
+
+.disabled, .active {
+    width: 100%;
+    padding: 16px 24px;
+    
+    font-family: var(--primary-font);
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 2.24rem;
+    
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.continue-btn {
+    width: 100%;
+}
+
+.disabled {
+    color: var(--neutral-dark-gray-2);
+    background-color: var(--neutral-medium-gray);
+}
+
+.primary, .active {
+    color: var(--text-neutral-black);
+    background-color: var(--text-color-btn-yellow);
+}
+
+.active:active {
+    background-color: #CA961B
+}
+
+@media (min-width: 768px) {
+    .primary, .secondary, .continue-btn, .error-btn  {
+        width: 17.3rem;
+        height: 6.5rem;
+
+        font-size: 1.8rem;
+        line-height: 2.52rem;
+    }
 }

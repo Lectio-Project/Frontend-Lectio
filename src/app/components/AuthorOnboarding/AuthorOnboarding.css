@@ -1,0 +1,122 @@
+.onboarding-container-author-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 2rem;
+
+    width: 100%;
+    height: 100%;
+    padding-bottom: 14rem;
+}
+
+.onboarding-container-authors {
+    max-width: 100%;
+    height: 480px;
+} 
+
+.onboarding-author-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 50rem;
+}
+
+.loader {
+    width: 20rem;
+    height: 20rem;
+}
+
+.default-author-list, .selected-author-list {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    cursor: pointer;
+
+    width: 100%;
+    height: 9.2rem;
+    padding: 1rem;
+    
+    border-radius: 8px;
+    background-color: var(--bg-btn-darker);
+    transition: all 0.2s;
+}
+
+.default-author-list:hover {
+    transform: scale(1.05);
+    outline: 2px solid var(--text-color-disabled);
+}
+
+.selected-author-list {
+    outline: 2px solid var(--text-color-yellow);
+}
+
+.author-image-onboarding {
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+
+    border-radius: 50%;
+    box-shadow: 7px 6px 43px 0px #000;
+}
+
+.author-division-onboarding {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.author-title-onboarding {
+    font-family: var(--primary-font);
+    text-transform: capitalize;
+    
+    font-size: 1.8rem;
+    font-weight: 500;
+
+    color: var(--text-color-neutral-white);
+}
+
+.author-genre-onboarding {
+    font-family: var(--primary-font);
+    text-transform: capitalize;
+
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--neutral-gray);
+}
+
+.swiper-pagination-bullet {
+    background: var(--neutral-dark-gray-2);
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--text-color-yellow);
+}
+
+.swiper-button-next, .swiper-button-prev {
+    height: 7rem;
+    width: 1rem;
+
+    color: var(--text-color-yellow);
+}
+
+.swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+    color: transparent;
+}
+
+.swiper {
+    padding: 2%;
+}
+
+@media(min-width: 1280px) {
+    .onboarding-container-authors {
+        max-width: 90%;
+        height: 320px;
+    } 
+
+    .swiper {
+        padding: 3%;
+    }
+}

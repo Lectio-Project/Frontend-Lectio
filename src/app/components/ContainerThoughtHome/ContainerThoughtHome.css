@@ -1,0 +1,65 @@
+.swiper.home-container-thoughts {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    height: 22.8rem;
+    margin-top: 2.4rem;
+}
+
+.default-thought-home {
+    display: flex;
+    gap: 0.8rem;
+
+    width: 25.3rem;
+    height: 22.4rem;
+    padding: 1.6rem;
+    margin: 0.2rem 1.4rem 0.2rem 0.2rem;
+
+    border-radius: 0.8rem;
+    border: 1px solid var(--border-input);
+    background: var(--bg-btn-darker);
+}
+
+.default-thought-home:hover {
+    outline: 1px solid var(--text-color-yellow);
+}
+
+.default-thought-home:hover .text-thought-home {
+    color: var(--text-color-yellow-light);
+}
+
+.quotation-mark-thoughts {
+    width: 3rem;
+    height: 3rem;
+}
+
+.content-thought-home {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    padding: 0.8rem;
+}
+
+.text-thought-home {
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.96rem;
+
+    color: var(--text-color-neutral-white);
+}
+
+.author-thought-home {
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 1.96rem;
+
+    color: var(--text-color-yellow);
+}

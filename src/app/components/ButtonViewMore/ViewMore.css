@@ -1,0 +1,15 @@
+.btn-view-more{
+    width: 25.9rem;
+    height: 5.4rem;
+
+    display: inline-flex;
+    padding: 1.6rem 2.4rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+
+    color: #FDBB22;
+    background-color: transparent;
+    border-radius: 0.8rem;
+    border: 0.2rem solid  #FDBB22;
+}

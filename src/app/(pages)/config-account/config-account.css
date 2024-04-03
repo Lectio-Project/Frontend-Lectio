@@ -1,0 +1,255 @@
+@import url('../../globals.css');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container-edit{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--bg-color-primary);
+}
+
+.header-container{
+    display: flex;
+    width: 100%;
+    margin-top: 4.4rem;
+    margin-bottom: 4.6rem;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-section{
+    display: flex;
+    align-items: center;
+    margin-left: 2.4rem;
+}
+
+.logo-section img{
+    width: 10.3rem;
+    height: 3.6rem;
+}
+
+.sandwich-menu{
+    width: 3.2rem;
+    height: 3.2rem;
+    margin-right: 2.4rem;
+}
+
+nav{
+    display: none;
+}
+
+.area-profile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3.4rem;
+}
+
+.area-profile img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.info-profile span {
+    color: var(--text-color-lightgray, #F5F5F5);
+    text-align: center;
+    
+    font-family: var(--family-primary);
+    font-size: 2.4rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 166%; 
+}
+
+.info-profile p{
+    color: var(--neutral-gray);
+    text-align: center;
+
+    font-family: var(--family-primary);
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+}
+
+.form-edit{
+    display: flex;
+    flex-direction: column;
+    width: 34.2rem;
+}
+
+.label-area {
+    display: flex;
+    width: 100%;
+    margin-bottom: 2.2rem;
+    justify-content: space-between;
+}
+
+.label-area span{
+    color: var(--text-color-lightgray);
+
+    font-family: var(--family-primary);
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+}
+
+.label-area img{
+    cursor: pointer;
+}
+
+.bio-area{
+    display: flex;
+    height: 6rem;
+    margin-bottom: 2.4rem;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    border: 1px solid var(--Azul-Input, #577B94);
+    background: #1F1F1F;
+}
+
+.bio-area textarea{
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+    width: 100%;
+    height: 3rem;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: var(--bg-input);
+    outline: none;
+    resize: none;
+}
+
+.secure-option{
+    display: flex;
+    width: 100%;
+    height: 4.2rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.2rem;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 1px solid var(--Azul-Input, #577B94);
+    background: #1F1F1F;
+}
+
+.secure-option p{
+font-family: var(--family-primary);
+font-size: 14px;
+font-weight: 400;
+line-height: 17px;
+letter-spacing: 0em;
+text-align: left;
+}
+
+@media (min-width: 834px) {
+    .container-edit{
+        height: 100%;
+    }
+
+    .logo-section img{
+        width: 12.7rem;
+        height: 4.8rem;
+    }
+
+    .area-profile{
+        gap: 2.4rem;
+    }
+
+    .area-profile img{
+        width: 14rem;
+        height: 14rem;
+    }
+
+    .info-profile span{
+        text-align: center;
+        font-size: 2.9rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 166.667%;
+    }
+
+    .info-profile p{
+        font-size: 1.9rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 140%;
+    }
+
+    .form-edit{
+        width: 57.7rem;
+    }
+    .label-area{
+        width: 57.7rem;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .label-area span{
+        font-size: 1.8rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 140%;
+        padding-left: 0.1rem;
+    }
+
+    .bio-area{
+        width: 57.7rem;
+        height: 9.4rem;
+    }
+
+    .secure-option{
+        height: 4.9rem;
+    }
+
+    .secure-option p{
+        font-size: 1.8rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%;
+    }
+}
+
+@media (min-width:1024px) {
+    .container-edit{
+        height: auto;
+    }
+
+    .sandwich-menu{
+        display: none;
+    }
+    
+    nav{
+        display: block;
+    }
+
+    .secure-option{
+        margin-bottom: 35.1rem;
+    }
+}
+
+@media (width:1024px) and (height:1366px){
+    .container-edit{
+        height: 100%;
+    }
+}
+
+@media (width:1920px) {
+    .container-edit{
+        height: 100%;
+    }
+}

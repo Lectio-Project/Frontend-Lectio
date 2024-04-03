@@ -1,5 +1,6 @@
 'use client'
 
+import { Onboarding } from '@/types/onboarding-types';
 import { ReactNode, createContext, useContext, useState } from 'react';
 
 
@@ -7,23 +8,33 @@ interface User {
     id: string;
     name: string;
     email: string;
-    userName?: string;
-    password?: string;
+    username?: string;
     bio?: string;
     imageUrl?: string;
     token?: string;
+    createdAt?: string,
+    updatedAt?: string
 }
-
 
 type IUserContextData = {
     userData: User;
     setUserData: React.Dispatch<React.SetStateAction<User>>;
-    showModalEdit: boolean;
-    setShowModalEdit: React.Dispatch<React.SetStateAction<boolean>>;
+    showModalEditPass: boolean;
+    setShowModalEditPass: React.Dispatch<React.SetStateAction<boolean>>;
     showModalImage: boolean;
     setShowModalImage: React.Dispatch<React.SetStateAction<boolean>>;
     selectedImageUrl: string;
     setSelectedImageUrl: React.Dispatch<React.SetStateAction<string>>;
+    openDrawer: boolean;
+    setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
+    onboarding: Onboarding,
+    setOnboarding: React.Dispatch<React.SetStateAction<Onboarding>>;
+    bookId: string;
+    setBookId: React.Dispatch<React.SetStateAction<string>>;
+    authorId: string;
+    setAuthorId: React.Dispatch<React.SetStateAction<string>>;
+    rateValue: number;
+    setRateValue: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface AppProviderProps {
@@ -36,28 +47,49 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
     
     const [userData, setUserData] = useState<User>({ 
         name: '', 
-        email: '', 
-        password: '', 
-        userName:'', 
+        email: '',
+        username:'', 
         bio:'' , 
         id: '', 
         token: '', 
-        imageUrl: ''
+        imageUrl: '',
+        createdAt: '',
+        updatedAt: ''
+
     });
 
-    const [showModalEdit, setShowModalEdit] = useState<boolean>(false);
+    const [showModalEditPass, setShowModalEditPass] = useState<boolean>(false);
     const [showModalImage, setShowModalImage] = useState<boolean>(false);
     const [selectedImageUrl, setSelectedImageUrl] = useState(userData.imageUrl || '');
+    const [openDrawer, setOpenDrawer]= useState(false);
+    const [onboarding, setOnboarding] = useState<Onboarding>({
+        genresId: [],
+        authorsId: [],
+        booksId: []
+    });
+    const [bookId, setBookId] = useState<string>('');
+    const [authorId, setAuthorId] = useState<string>('');
+    const [rateValue, setRateValue] = useState<number>(0);
 
     const contextValue = {
         userData,
         setUserData,
-        showModalEdit,
-        setShowModalEdit,
+        showModalEditPass,
+        setShowModalEditPass,
         showModalImage,
         setShowModalImage,
         selectedImageUrl,
-        setSelectedImageUrl
+        setSelectedImageUrl,
+        openDrawer,
+        setOpenDrawer,
+        onboarding,
+        setOnboarding,
+        bookId,
+        setBookId,
+        authorId,
+        setAuthorId,
+        rateValue,
+        setRateValue
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;

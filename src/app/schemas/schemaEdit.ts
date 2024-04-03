@@ -12,8 +12,8 @@ export const schemaNewPassword = z.object({
     password: z.string().min(8, 'A senha deve ter no mínimo 8 caracteres').refine(password => /[A-Z]/.test(password) && /[^A-Za-z0-9]/.test(password), {
         message: 'A senha precisa ter uma letra maiúscula e um caractere especial'
     }),
-    confirmPassword: z.string().min(8, 'A senha deve ter no mínimo 8 caracteres')
-}).refine(fields => fields.password === fields.confirmPassword, {
+    passwordConfirmation: z.string().min(8, 'A senha deve ter no mínimo 8 caracteres')
+}).refine(fields => fields.password === fields.passwordConfirmation, {
     message: 'As senhas precisam ser iguais',
     path: ['confirmPassword']
 });
