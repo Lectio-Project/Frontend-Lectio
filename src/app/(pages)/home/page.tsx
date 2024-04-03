@@ -30,13 +30,15 @@ export default function Home() {
 
     async function handleOnboardingSteps() {
         try {
-            const token = await getCookie('token');      
+            const token = await getCookie('token_teste');      
 
-            for (const item in onboarding) {
-                if (onboarding.hasOwnProperty(item) && Array.isArray(onboarding[item]) && onboarding[item].length === 0) {
-                    delete onboarding[item];
-                }
-            }
+            // for (const item in onboarding) {
+            //     console.log(onboarding[item]);
+                
+            //     if (onboarding.hasOwnProperty(item) && Array.isArray(onboarding[item]) && onboarding[item].length === 0) {
+            //         delete onboarding[item];
+            //     }
+            // }
 
             const request = {...onboarding, checkOnBoarding: true}
             
