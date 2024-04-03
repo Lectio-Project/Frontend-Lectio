@@ -30,7 +30,7 @@ export default function Home() {
 
     async function handleOnboardingSteps() {
         try {
-            const token = await getCookie('token_teste');      
+            const token = await getCookie('token');      
 
             // for (const item in onboarding) {
             //     console.log(onboarding[item]);

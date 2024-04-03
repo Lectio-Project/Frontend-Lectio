@@ -40,9 +40,9 @@ export interface BooksOnboarding {
 }
 
 export interface Onboarding {
-    genresId: string[],
-    authorsId: string[],
-    booksId: string[]
+    genresId?: string[],
+    authorsId?: string[],
+    booksId?: string[]
 }
 
 export interface FooterOnboarding {
