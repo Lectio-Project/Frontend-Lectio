@@ -1,0 +1,104 @@
+.onboarding-container-button-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1.6rem;
+
+    width: 100%;
+    height: 50rem;
+    transition: all;
+}
+
+.onboarding-button-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 50rem;
+}
+
+.loader {
+    width: 20rem;
+    height: 20rem;
+}
+
+.default-genre-list, .selected-genre-list {
+    width: 100%;
+    padding: 1.5rem;
+    cursor: pointer;
+    
+    border: none;
+    border-radius: 50px;
+    
+    font-family: var(--primary-font);
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 2.24rem;
+    text-transform: capitalize;
+    
+    color: var(--text-color-yellow);
+    background-color: var(--bg-btn-darker);
+    transition: all 0.2s;
+}
+
+.default-genre-list:hover {
+    transform: scale(1.05);
+    outline: 2px solid var(--text-color-disabled);
+}
+
+.selected-genre-list {
+    outline: 2px solid var(--text-color-yellow);
+}
+
+@media(min-width: 768px) {
+    .onboarding-container-button-list {
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 2.0rem;
+        height: 40rem;
+    }
+
+    .onboarding-button-loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        width: 100%;
+        height: 40rem;
+    }
+
+    .default-genre-list, .selected-genre-list {
+        width: 100%;
+        padding: 2rem;
+        cursor: pointer;
+        
+        border: none;
+        border-radius: 50px;
+        
+        font-family: var(--primary-font);
+        font-size: 1.8rem;
+        font-weight: 400;
+        line-height: 2.24rem;
+    
+        color: var(--text-color-yellow);
+        background-color: var(--bg-btn-darker);
+    }
+
+    .button-default-gender, .button-selected-gender {
+        width: 100%;
+        height: 6.5rem;
+        font-size: 1.8rem;
+    }
+}
+
+@media(min-width: 1280px) {
+    .onboarding-container-button-list {
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 2.4rem;
+        height: 40rem;
+    }
+
+    .onboarding-container-button-list {
+        width: 80%;
+        margin: 0 auto;
+    }
+}

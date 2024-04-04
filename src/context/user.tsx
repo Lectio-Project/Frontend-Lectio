@@ -1,5 +1,6 @@
 'use client'
 
+import { Onboarding } from '@/types/onboarding-types';
 import { ReactNode, createContext, useContext, useState } from 'react';
 
 
@@ -15,7 +16,6 @@ interface User {
     updatedAt?: string
 }
 
-
 type IUserContextData = {
     userData: User;
     setUserData: React.Dispatch<React.SetStateAction<User>>;
@@ -27,6 +27,14 @@ type IUserContextData = {
     setSelectedImageUrl: React.Dispatch<React.SetStateAction<string>>;
     openDrawer: boolean;
     setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
+    onboarding: Onboarding,
+    setOnboarding: React.Dispatch<React.SetStateAction<Onboarding>>;
+    bookId: string;
+    setBookId: React.Dispatch<React.SetStateAction<string>>;
+    authorId: string;
+    setAuthorId: React.Dispatch<React.SetStateAction<string>>;
+    rateValue: number;
+    setRateValue: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface AppProviderProps {
@@ -54,6 +62,14 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
     const [showModalImage, setShowModalImage] = useState<boolean>(false);
     const [selectedImageUrl, setSelectedImageUrl] = useState(userData.imageUrl || '');
     const [openDrawer, setOpenDrawer]= useState(false);
+    const [onboarding, setOnboarding] = useState<Onboarding>({
+        genresId: [],
+        authorsId: [],
+        booksId: []
+    });
+    const [bookId, setBookId] = useState<string>('');
+    const [authorId, setAuthorId] = useState<string>('');
+    const [rateValue, setRateValue] = useState<number>(0);
 
     const contextValue = {
         userData,
@@ -65,7 +81,15 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         selectedImageUrl,
         setSelectedImageUrl,
         openDrawer,
-        setOpenDrawer
+        setOpenDrawer,
+        onboarding,
+        setOnboarding,
+        bookId,
+        setBookId,
+        authorId,
+        setAuthorId,
+        rateValue,
+        setRateValue
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;

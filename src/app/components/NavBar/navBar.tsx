@@ -17,7 +17,7 @@ export default function NavBar({select}:NavProps){
                 <span className={`text-nav ${select=== 'feed' ? 'select-option' : ''} `}>Feed</span>
             </Link>
 
-            <Link className="link-nav" href="/dashboard/config-account">
+            <Link className="link-nav" href="/profile">
                 <span className={`text-nav ${select==='perfil' ? 'select-option' : ''} `}>Perfil</span>
             </Link>
         </nav>
