@@ -1,5 +1,5 @@
 import NextAuth, {NextAuthOptions} from "next-auth";
-import { nextAuthOptions } from "@/providers/NextAuthOptions";
+import { nextAuthOptions } from "@/providers/nextAuthOptionsRenomear";
 
 //NextAuth será reutilizado na proteçao de rotas
 
