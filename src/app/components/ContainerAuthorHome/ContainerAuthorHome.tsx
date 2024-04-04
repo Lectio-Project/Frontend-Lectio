@@ -24,8 +24,8 @@ const ContainerAuthorHome = ({authors, isTablet, isDesktop}: ContainerAuthorHome
         <Swiper
             className='home-container-authors'
             modules={[Navigation]}
-            slidesPerView={isDesktop ? 6 : (isTablet ? 4 : 1.4)}
-            slidesPerGroup={isDesktop ? 6 : (isTablet ? 4 : 1)}
+            slidesPerView={isDesktop ? 3 : (isTablet ? 2.7 : 1.4)}
+            slidesPerGroup={isDesktop ? 3 : (isTablet ? 2 : 1)}
             navigation={isDesktop ? true : false}
         >
             {authors

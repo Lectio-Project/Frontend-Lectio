@@ -24,32 +24,32 @@ export default function Home() {
     const isTablet = useMediaQuery('(min-width:768px)');
     const isDesktop = useMediaQuery('(min-width:1280px)');
     
-    useEffect(() => {
-        handleOnboardingSteps();
-    }, [])
+    // useEffect(() => {
+    //     handleOnboardingSteps();
+    // }, [])
 
-    async function handleOnboardingSteps() {
-        try {
-            const token = await getCookie('token');      
+    // async function handleOnboardingSteps() {
+    //     try {
+    //         const token = await getCookie('token');      
 
-            for (const item in onboarding) {
-                if (onboarding.hasOwnProperty(item) && Array.isArray(onboarding[item]) && onboarding[item].length === 0) {
-                    delete onboarding[item];
-                }
-            }
+    //         for (const item in onboarding) {
+    //             if (onboarding.hasOwnProperty(item) && Array.isArray(onboarding[item]) && onboarding[item].length === 0) {
+    //                 delete onboarding[item];
+    //             }
+    //         }
 
-            const request = {...onboarding, checkOnBoarding: true}
+    //         const request = {...onboarding, checkOnBoarding: true}
             
-            await api.patch('/users', request, {
-                headers: { Authorization: `Bearer ${token}` }
-            });  
+    //         await api.patch('/users', request, {
+    //             headers: { Authorization: `Bearer ${token}` }
+    //         });  
             
-            setOnboarding({ genresId: [], authorsId: [], booksId: [] })
+    //         setOnboarding({ genresId: [], authorsId: [], booksId: [] })
             
-        } catch (error) {
-            return console.error(error);
-        } 
-    }
+    //     } catch (error) {
+    //         return console.error(error);
+    //     } 
+    // }
 
     useEffect(() => {
         listBooks();
@@ -88,12 +88,14 @@ export default function Home() {
         <main className='container-home'>
             <Header search='able' select='home' />
             <section className='introduction-section-home'>
-                <h3 className='title-home'>Boas vindas <span>Nome</span>!</h3>
-                <h4 className='text-home'>Veja o que está rolando de melhor na literatura brasileira</h4>
+                <div className='introduction-texts-home'>
+                    <h3 className='title-home'>Boas vindas <span>Nome</span>!</h3>
+                    <h4 className='text-home'>Veja o que está rolando de melhor na literatura brasileira</h4>
+                </div>
                 <img src={HomeImage} alt='' className='lover-books-home'/>
             </section>
             <section className='container-books-section-home'>
-                <h4 className='title-section-home'>De olho na Flip</h4>
+                <h4 className='title-section-home first-title-section-home'>De olho na Flip</h4>
                 <p className='text-section-home'>O melhor da literatura nacional para você</p>
                 <ContainerBookHome books={books} isTablet={isTablet} isDesktop={isDesktop}/>
             </section>

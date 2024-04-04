@@ -1,6 +1,7 @@
 import { useDataContext } from '@/context/user';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
+import { useRouter } from 'next/navigation';
 import { ContainerThoughtHome } from "@/types/home-types";
 
 import QuotationMark from '@/app/assets/quotationMarkIcon.svg';
@@ -9,7 +10,6 @@ import 'swiper/swiper-bundle.css';
 import 'swiper/css/navigation';
 
 import './ContainerThoughtHome.css';
-import { useRouter } from 'next/navigation';
 
 const ContainerThoughtHome = ({books, isTablet, isDesktop}: ContainerThoughtHome) => {
     const {setBookId} = useDataContext();
@@ -24,8 +24,8 @@ const ContainerThoughtHome = ({books, isTablet, isDesktop}: ContainerThoughtHome
         <Swiper
             className='home-container-thoughts'
             modules={[Navigation]}
-            slidesPerView={isDesktop ? 6 : (isTablet ? 4 : 1.4)}
-            slidesPerGroup={isDesktop ? 6 : (isTablet ? 4 : 1)}
+            slidesPerView={isDesktop ? 3 : (isTablet ? 2.7 : 1.4)}
+            slidesPerGroup={isDesktop ? 3 : (isTablet ? 2 : 1)}
             navigation={isDesktop ? true : false}
         >
             {books

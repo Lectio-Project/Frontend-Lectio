@@ -32,8 +32,8 @@ const ContainerBookHome = ({books, isTablet, isDesktop, sort}: ContainerBookHome
         <Swiper
             className='home-container-books'
             modules={[Navigation, Pagination]}
-            slidesPerView={isDesktop ? 6 : (isTablet ? 4 : 1.95)}
-            slidesPerGroup={isDesktop ? 6 : (isTablet ? 4 : 2)}
+            slidesPerView={isDesktop ? 4 : (isTablet ? 4 : 1.95)}
+            slidesPerGroup={isDesktop ? 4 : (isTablet ? 4 : 2)}
             pagination={{ clickable: true }}
             navigation={isDesktop ? true : false}
         >

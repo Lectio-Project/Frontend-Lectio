@@ -23,6 +23,7 @@
 }
 
 .title-home {
+    text-align: center;
     font-size: 2rem;
     font-weight: 700;
     line-height: 2.8rem;
@@ -79,4 +80,134 @@
     line-height: 1.68rem;
     
     color: var(--text-color-lightgray);
+}
+
+@media (min-width: 768px) {
+    .container-home {
+        padding-bottom: 2.8rem;
+    }
+    
+    .introduction-section-home,
+    .container-books-section-home,
+    .container-top-rating-books-home {
+        padding: 0 2.8rem;
+    }
+    
+    .container-authors-section-home,
+    .container-thoughts-section-home {
+        padding: 0 0 0 2.8rem;
+    }
+
+    .introduction-section-home {
+        flex-direction: row;
+        position: relative;
+        height: 50rem;
+        width: 100%;
+    }
+
+    .introduction-texts-home {
+        width: 35rem;
+        position: absolute;
+        top: 50%;
+        left: 2.8rem;
+        transform: translateY(-50%);
+        z-index: 2;
+    }
+
+    .title-home {
+        width: 35rem;
+        text-align: left;
+        font-size: 3.2rem;
+        line-height: 4rem;
+    }
+
+    .text-home {
+        width: 35rem;
+        text-align: left;
+        font-size: 1.8rem;
+        line-height: 2.4rem;
+    }
+
+    .lover-books-home {
+        position: absolute;
+        top: 0;
+        right: -12rem;
+        z-index: 1;
+        width: 65rem;
+        max-width: 65rem;
+    }
+
+    .title-section-home {
+        margin-top: 8rem;
+    
+        font-size: 2.2rem;
+        line-height: 3.3rem;
+    }
+
+    .first-title-section-home {
+        margin-top: 0rem;
+    }
+    
+    .text-section-home {
+        font-size: 1.6rem;
+        line-height: 2.24rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .container-books-section-home,
+    .container-authors-section-home,
+    .container-thoughts-section-home,
+    .container-top-rating-books-home {
+        padding: 0 2.8rem 0 15rem;
+    }
+
+    .introduction-section-home {
+        padding: 0 0 0 15rem;
+        height: 53.6rem;
+    }
+
+    .introduction-texts-home {
+        width: 35rem;
+        position: absolute;
+        top: 50%;
+        left: 8.8rem;
+        transform: translateY(-50%);
+        z-index: 2;
+    }
+
+    .title-home {
+        width: 62.6rem;
+        font-size: 5.6rem;
+        line-height: 5.6rem;
+    }
+
+    .text-home {
+        width: 62.6rem;
+        font-size: 3.2rem;
+        font-weight: 300;
+        line-height: 4rem;
+    }
+
+    .lover-books-home {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 1;
+        width: 73.8rem;
+        max-width: 73.8rem;
+        margin-right: 6rem;
+    }
+    .title-section-home {
+        margin-top: 6rem;
+
+        font-size: 3.2rem;
+        font-weight: 600;
+        line-height: 4rem;
+    }
+
+    .text-section-home {
+        font-size: 2.2rem;
+        line-height: 3.3rem;
+    }
 }
