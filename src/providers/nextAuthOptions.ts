@@ -1,7 +1,5 @@
-import NextAuth, {NextAuthOptions} from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-
-//NextAuth será reutilizado na proteçao de rotas
+import { NextAuthOptions } from "next-auth"
+import CredentialsProvider from "next-auth/providers/credentials"
 
 export const nextAuthOptions: NextAuthOptions = {
 	providers: [
@@ -50,7 +48,3 @@ export const nextAuthOptions: NextAuthOptions = {
 		}
     }
 }
-
-const handler = NextAuth(nextAuthOptions);
-
-export { handler as GET, handler as POST }
