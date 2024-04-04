@@ -122,13 +122,17 @@
 }
 
 @media (min-width: 1280px) {
+    .home-container-books {
+        height: 42rem;
+}
+
     .book-image-home,
     .book-title-home,
     .book-author-home {
         width: 19.3rem;
     }
 
-    .book-author-home {
+    .book-image-home {
         height: 28.3rem;
     }
 }
