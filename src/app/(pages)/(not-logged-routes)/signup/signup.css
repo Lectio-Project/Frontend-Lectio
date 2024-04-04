@@ -103,7 +103,7 @@
     align-items: center;
     justify-content: center;
 
-    content: url(../../assets/checkedIcon.svg);
+    content: url(../../../assets/checkedIcon.svg);
 
     border: 1px solid var(--neutral-gray);
     border-radius: 4px;

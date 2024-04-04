@@ -24,34 +24,34 @@ export default function Home() {
     const isTablet = useMediaQuery('(min-width:768px)');
     const isDesktop = useMediaQuery('(min-width:1280px)');
     
-    useEffect(() => {
-        handleOnboardingSteps();
-    }, [])
+    // useEffect(() => {
+    //     handleOnboardingSteps();
+    // }, [])
 
-    async function handleOnboardingSteps() {
-        try {
-            const token = await getCookie('token');      
+    // async function handleOnboardingSteps() {
+    //     try {
+    //         const token = await getCookie('token');      
 
-            // for (const item in onboarding) {
-            //     console.log(onboarding[item]);
+    //         for (const item in onboarding) {
+    //             console.log(onboarding[item]);
                 
-            //     if (onboarding.hasOwnProperty(item) && Array.isArray(onboarding[item]) && onboarding[item].length === 0) {
-            //         delete onboarding[item];
-            //     }
-            // }
+    //             if (onboarding.hasOwnProperty(item) && Array.isArray(onboarding[item]) && onboarding[item].length === 0) {
+    //                 delete onboarding[item];
+    //             }
+    //         }
 
-            const request = {...onboarding, checkOnBoarding: true}
+    //         const request = {...onboarding, checkOnBoarding: true}
             
-            await api.patch('/users', request, {
-                headers: { Authorization: `Bearer ${token}` }
-            });  
+    //         await api.patch('/users', request, {
+    //             headers: { Authorization: `Bearer ${token}` }
+    //         });  
             
-            setOnboarding({ genresId: [], authorsId: [], booksId: [] })
+    //         setOnboarding({ genresId: [], authorsId: [], booksId: [] })
             
-        } catch (error) {
-            return console.error(error);
-        } 
-    }
+    //     } catch (error) {
+    //         return console.error(error);
+    //     } 
+    // }
 
     useEffect(() => {
         listBooks();
