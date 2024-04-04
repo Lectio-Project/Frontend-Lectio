@@ -17,9 +17,12 @@ import { useRouter } from 'next/navigation';
 import { setCookie } from '@/utils/cookies';
 
 import './signin.css';
+import { signIn } from 'next-auth/react';
+import { useDataContext } from '@/context/user';
 
 export default function SignIn() {
     const [responseError, setResponseError] = useState({});
+    const { setUserData } = useDataContext();
     const router = useRouter();
 
     const { handleSubmit, register, formState:{ errors }} = useForm<signinFormProps>({
@@ -30,14 +33,23 @@ export default function SignIn() {
     const handleData:SubmitHandler<signinFormProps> = async(data) => {
         const {email, password} = data
         
+        const result = await signIn('credentials', {
+            email,
+            password,
+            redirect: false
+          })
+      
+          if (result?.error) {
+            return
+          }
+          
         try {            
             const response = await api.post('/users/sign-in', {email, password});
             
             if (response.status === 201) {
                 await setCookie('token', response.data.token);
                 setResponseError({});
-                
-                console.log(response.data.checkOnBoarding);
+                setUserData(response.data)
                 
                 if (response.data.checkOnBoarding === false) {
                     return router.replace('/onboarding/page1');

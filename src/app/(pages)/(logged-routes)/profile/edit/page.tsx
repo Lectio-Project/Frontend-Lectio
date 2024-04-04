@@ -1,11 +1,10 @@
 'use client'
 import { useDataContext } from '@/context/user';
 
-
-import Logo from '../../../assets/logoWithName.svg';
-import GoIconY from '../../../assets/arrowGoYellow.svg';
-import MenuIcon from '../../../assets/menuIcon.svg';
-import EditIcon from '../../../assets/editIcon.svg';
+import Logo from '../../../../assets/logoWithName.svg';
+import GoIconY from '../../../../assets/arrowGoYellow.svg';
+import MenuIcon from '../../../../assets/menuIcon.svg';
+import EditIcon from '../../../../assets/editIcon.svg';
 
 import NavBar from '@/app/components/NavBar/navBar';
 import HamburguerMenu from '@/app/components/hamburguerMenu/hamburguerMenu';
@@ -47,9 +46,12 @@ export default function EditPage(){
 
     const route= useRouter();
     const[errorValidate, setErrorValidate] = useState<string | null>(null);
-
+    
     const handleData: SubmitHandler<editFormProps> = async (data) => {
         try {
+            const token = await getCookie('token');
+            console.log(token);
+            
             if(!data.name || !data.userName){
                 throw new Error('O nome ou username não pode ser vazio');
                 return
@@ -58,7 +60,6 @@ export default function EditPage(){
             if(errorValidate !== ''){
                 return setErrorValidate('');
             }
-
             
             const response = await api.patch(`/users/${userData.id}`,{
                 name: data.name,
@@ -67,14 +68,14 @@ export default function EditPage(){
             },
             {
                 headers: {
-                authorization: `Bearer ${getCookie('token')}` ,
+                authorization: `Bearer ${token}` ,
                 },
             }
             )
 
             if(response.data.status === '200'){
                 setErrorValidate('')
-                return route.push('/config-account');
+                return route.push('/profile');
             }
 
         } catch (error: any) {
@@ -91,7 +92,7 @@ export default function EditPage(){
             console.log(error.message)
         }
     }
-
+    
     useEffect(()=>{
         setUserData(userData=>({...userData, imageUrl: selectedImageUrl}));
     }, [showModalImage])
@@ -160,7 +161,7 @@ export default function EditPage(){
             title='Cancelar' 
             type='button' 
             className='secondary'
-            onClick={()=>route.push('/config-account')}
+            onClick={()=>route.push('/profile')}
             />
 
             <Button 

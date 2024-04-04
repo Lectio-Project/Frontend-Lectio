@@ -26,6 +26,7 @@ export default function Initial() {
                 </section>
                 <img src={ImageBookReader} alt="" className='initial-book-reader' />
             </section>
+
             <section className="footer">
                 <span>Copyright 2022. Todos os direitos reservados.</span>
             </section>
