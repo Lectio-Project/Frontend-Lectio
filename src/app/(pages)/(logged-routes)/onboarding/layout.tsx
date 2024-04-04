@@ -13,7 +13,7 @@ export default async function PrivateLayout({ children }: PrivateLayoutProps){
 	if (!session) {
 		redirect('/')
 	}
-    
+	
     if (session.checkOnBoarding) {
         redirect('/home')
     }

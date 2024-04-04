@@ -7,10 +7,8 @@ import Button from "@/app/components/Button/Button";
 import { useRouter } from 'next/navigation';
 
 import './initial.css';
-import { useSession } from 'next-auth/react';
 
 export default function Initial() {
-    const {data: session} = useSession()
     const router = useRouter()
 
     return (
@@ -29,7 +27,6 @@ export default function Initial() {
                 <img src={ImageBookReader} alt="" className='initial-book-reader' />
             </section>
 
-            {session && <pre>{JSON.stringify(session, null, 2)}</pre>}
             <section className="footer">
                 <span>Copyright 2022. Todos os direitos reservados.</span>
             </section>

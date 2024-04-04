@@ -1,11 +1,11 @@
 'use client'
-import './config-account.css';
+import './profile.css';
 import { useDataContext } from '@/context/user';
 
-import Logo from '../../assets/logoWithName.svg';
-import GoIconY from '../../assets/arrowGoYellow.svg';
-import MenuIcon from '../../assets/menuIcon.svg';
-import EditIcon from '../../assets/editIcon.svg';
+import Logo from '../../../assets/logoWithName.svg';
+import GoIconY from '../../../assets/arrowGoYellow.svg';
+import MenuIcon from '../../../assets/menuIcon.svg';
+import EditIcon from '../../../assets/editIcon.svg';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { editFormProps, schemaEdit } from '@/app/schemas/schemaEdit';
@@ -19,7 +19,7 @@ import HamburguerMenu from '@/app/components/hamburguerMenu/hamburguerMenu';
 import api from '@/api/api';
 import NavBar from '@/app/components/NavBar/navBar';
 
-export default function ConfigAccount(){
+export default function Profile(){
     const { 
         userData,
         setUserData,
@@ -139,7 +139,7 @@ export default function ConfigAccount(){
 
                     <div className='label-area'>
                         <span>Bio</span>
-                        <img src={EditIcon} alt= 'Edit Icon' onClick={() => router.push('/config-account/edit')}/>
+                        <img src={EditIcon} alt= 'Edit Icon' onClick={() => router.push('/profile/edit')}/>
                     </div>
 
                     <div className='bio-area'>

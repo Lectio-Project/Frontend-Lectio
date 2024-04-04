@@ -1,7 +1,7 @@
 'use client'
 import Button from '@/app/components/Button/Button';
-import Logo from '../../../assets/logoWithName.svg';
-import OnBoardingImg from '../../../assets/onBoardingImage.svg';
+import Logo from '../../../../assets/logoWithName.svg';
+import OnBoardingImg from '../../../../assets/onBoardingImage.svg';
 import './page1.css'
 import { useRouter } from 'next/navigation';
 
