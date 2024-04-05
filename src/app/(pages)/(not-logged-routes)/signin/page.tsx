@@ -46,7 +46,7 @@ export default function SignIn() {
         try {            
             const response = await api.post('/users/sign-in', {email, password});
             
-            if (response.status === 200) {
+            if (response.status === 201) {
                 await setCookie('token', response.data.token);
                 setUserData(response.data);
                 setResponseError({});
