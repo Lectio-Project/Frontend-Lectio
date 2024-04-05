@@ -343,10 +343,7 @@ export default function BookDetails({ params }: BookDetailsProps) {
                                                 : 'Nenhum'}
                                         </p>
                                         <p>{bookData.totalPages}</p>
-                                        <p>
-                                            9788533307391, 9788534705974, &
-                                            9788534705257.
-                                        </p>
+                                        <p>{bookData.isbn13}</p>
                                     </div>
                                 </section>
                             )}
