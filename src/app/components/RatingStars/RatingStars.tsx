@@ -1,4 +1,4 @@
-import { Rating } from '@mui/material';
+import { Rating, useMediaQuery } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 
 import './RatingStars.css'
@@ -16,8 +16,11 @@ interface PropRatingStars {
 
 export default function RatingStars({starsValues, size, readOnly, bookValue, authorValue, returnValue}: PropRatingStars) {
     const {setRateValue} = useDataContext();
+    const isDesktop = useMediaQuery('(min-width:1280px)');
 
     const handleRatingChange = (event: any, newValue: number) => {
+        console.log(newValue);
+        
         setRateValue(newValue);
     };
 
@@ -38,10 +41,10 @@ export default function RatingStars({starsValues, size, readOnly, bookValue, aut
                 readOnly={readOnly} 
                 emptyIcon={customIcons.empty.icon} 
                 icon={customIcons.star.icon} 
-                onChange={returnValue && handleRatingChange} 
+                onChange={() => returnValue && handleRatingChange} 
             />
             {bookValue && <strong className='rating-note-book'>{bookValue !== 0 ? bookValue.toFixed(1) : bookValue}</strong>}
-            {authorValue && <span className='rating-note-author'>({authorValue})</span>}
+            {authorValue && <span className='rating-note-author'>{isDesktop ? `${authorValue} avaliações` : `(${authorValue})`}</span>}
         </div>
     )
 }

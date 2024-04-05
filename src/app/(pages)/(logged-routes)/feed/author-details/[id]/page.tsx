@@ -24,6 +24,7 @@ export default function AutorDetails({params}: AuthorDetailsProps){
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [addComment, setAddComment] = useState<number>(0);
     const [booksAuthor, setBooksAuthor] = useState<Book[]>([]);
+    const [booksFilterAuthor, setBooksFilterAuthor] = useState<Book[]>([]);
     const isTablet = useMediaQuery('(min-width:768px)');
     const isDesktop = useMediaQuery('(min-width:1280px)');
 
@@ -33,6 +34,7 @@ export default function AutorDetails({params}: AuthorDetailsProps){
         imageUrl: string
         birthplace: string;
         carrerDescription: string;
+        counterGrade: number;
         totalGrade: number;
         avgGrade: number;
         AuthorBook?: { book: { id: string; name: string; imageUrl: string, avgGrade: number } }[];
@@ -44,12 +46,12 @@ export default function AutorDetails({params}: AuthorDetailsProps){
         imageUrl:'',
         birthplace:'', 
         carrerDescription:'',
+        counterGrade: 0,
         totalGrade: 0,
         avgGrade: 0,
     })
     
-    async function handleAuthorData(){
-        
+    async function handleAuthorData(){     
         try {
             const token = await getCookie('token');
             const response = await api.get(`/authors/${routeId}?add=book`, {
@@ -62,28 +64,45 @@ export default function AutorDetails({params}: AuthorDetailsProps){
 
         } catch (error) {
             console.error(error)
+        } 
+    }
+
+    async function handleBookAuthorData() {
+        try {
+            const token = await getCookie('token');
+            const response = await api.get(`/books`, {
+                headers: {
+                authorization: `Bearer ${token}`,
+            },
+        })
+
+        setBooksAuthor(response.data);
+
+        } catch (error) {
+            console.error(error)
         } finally {
             setIsLoading(false);
         }
     }
 
+    function handleUpdateBooks() {
+        if (booksAuthor.length) {
+            for (const item of booksAuthor) {
+                if (item.AuthorBook[0].author.name === authorData.name) {
+                    setBooksFilterAuthor([item])
+                }
+            }
+        }
+    }
     useEffect(()=>{
         handleAuthorData();
-    },[])
+        handleBookAuthorData();
+        handleUpdateBooks();
+        
+    }, [])
 
-    // useEffect(()=>{
-    //     if (authorData.id !== "") {
-    //         if (!authorData.AuthorBook) {
-    //             return
-    //         }
-            
-    //         for (const item of authorData.AuthorBook) {
-    //             setBooksAuthor([item.book]);
-    //         }
-    //     }
-    // }, [authorData])
-
-    
+    console.log(booksAuthor);
+    console.log(booksFilterAuthor);
     
     return(
         <main className='container-author'>  
@@ -105,7 +124,7 @@ export default function AutorDetails({params}: AuthorDetailsProps){
                     <section className='infos'>
                         <div className='infos-author'>
                             <h3 className='infos-author-name'>{authorData.name}</h3>
-                            <RatingStars size='medium' starsValues={authorData.avgGrade} authorValue={authorData.totalGrade} readOnly />
+                            <RatingStars size={isDesktop ? 'large' : 'medium'} starsValues={authorData.avgGrade} authorValue={authorData.totalGrade} bookValue={isDesktop ? authorData.avgGrade : undefined} readOnly />
                         </div>
 
                         <p>{authorData.carrerDescription}</p>
@@ -127,7 +146,10 @@ export default function AutorDetails({params}: AuthorDetailsProps){
 
                 <section className='books-indication'>
                     <span>Livros em Destaque</span>
-                    {/* {booksAuthor && <ContainerBookHome books={booksAuthor} isTablet={isTablet} isDesktop={isDesktop} />} */}
+
+                    <section className='container-books-section-home'>
+                        {/* {booksFilterAuthor && <ContainerBookHome books={booksAuthor} isTablet={isTablet} isDesktop={isDesktop} />} */}
+                    </section>
                 </section>
 
 
