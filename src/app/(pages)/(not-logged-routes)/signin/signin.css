@@ -144,22 +144,23 @@
     .signin-container {
         display: flex;
         flex-direction: column;
+        height: auto;
     }
 
     .signin-content {
         display: flex;
         flex-direction: column-reverse;
-        gap: 2.5rem;
+        gap: 6.4rem;
         padding: 5rem;
     }
 
     .signin-book-lover {
         display: block;
-        min-width: 50rem;
+        min-width: 53.2rem;
     }
 
     .signin-page {
-        min-width: 50rem;
+        min-width: 56rem;
         padding: 4rem;
         margin: 0;
 
@@ -172,16 +173,16 @@
 
     .signin-logo-with-name {
         display: block;
-        padding: 2.4rem 3.2rem;
+        padding: 3.2rem;
     }
 
     .signin-body-desktop {
         display: block;
 
         max-width: 35.3rem;
-        margin-top: 1rem;
+        margin-top: 3.2rem;
 
-        font-size: 1.6rem;
+        font-size: 1.8rem;
         font-weight: 500;
         line-height: 2.4rem;
         text-align: center;
@@ -195,16 +196,14 @@
         display: none;
     }
 
-    .signin-footer {
-        display: flex;
-        justify-content: center;
-        padding: 0;
-    }
-
     .signin-response-error {
         font-size: 1.5rem;
         width: 42rem;
         color: var(--input-error);
+    }
+
+    .signin-footer {
+        padding: 5.6rem 0;
     }
 }
 
@@ -221,13 +220,8 @@
         flex-direction: row;
     }
 
-    .signin-book-lover {
-        display: block;
-        min-width: 44.2rem;
-    }
-
     .signin-page {
-        min-width: 54.1rem;
+        max-width: 54.1rem;
         padding: 4rem;
         margin: 0;
 
@@ -236,11 +230,6 @@
 
     .signin-logo {
         display: none;
-    }
-
-    .signin-logo-with-name {
-        display: block;
-        padding: 2.4rem 3.2rem;
     }
 
     .signin-body-desktop {
@@ -264,9 +253,7 @@
     }
 
     .signin-footer {
-        display: flex;
-        justify-content: center;
-        padding: 5.6rem;
+        padding: 3rem 0;
     }
 
     .signin-response-error {

@@ -12,7 +12,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaSignIn, signinFormProps } from "@/app/schemas/schemaSignIn";
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { setCookie } from '@/utils/cookies';
 
@@ -40,27 +40,22 @@ export default function SignIn() {
           })
       
           if (result?.error) {
-            return
+            setResponseError('As credenciais do usuário são inválidas');
           }
           
         try {            
             const response = await api.post('/users/sign-in', {email, password});
             
-            if (response.status === 201) {
+            if (response.status === 200) {
                 await setCookie('token', response.data.token);
+                setUserData(response.data);
                 setResponseError({});
-                setUserData(response.data)
                 
-                if (response.data.checkOnBoarding === false) {
-                    return router.replace('/onboarding/page1');
-                } else {
-                    return router.replace('/home');
-                }
-                
+                return router.replace('/home')
             }
         
         } catch (error: any) {
-            setResponseError(error.response.data.message);
+            return setResponseError(error.response.data.message);
         }
     }    
 
