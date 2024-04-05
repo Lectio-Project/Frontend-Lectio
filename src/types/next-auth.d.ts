@@ -6,7 +6,7 @@ declare module 'next-auth' {
 		name: string
 		email: string
 		username: string
-		bio: string | null
+		bio: string | undefined
 		imageUrl: string | null
 		checkOnBoarding: boolean
 		token: string

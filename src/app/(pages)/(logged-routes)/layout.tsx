@@ -9,14 +9,10 @@ interface PrivateLayoutProps {
 
 export default async function PrivateLayout({ children }: PrivateLayoutProps){
 	const session = await getServerSession(nextAuthOptions)
-
+	
 	if (!session) {
 		redirect('/')
 	}
 	
-	if (!session.checkOnBoarding) {
-        redirect('/onboarding/page1')
-    }
-
 	return <>{children}</>
 }
