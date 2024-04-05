@@ -5,7 +5,7 @@
 }
 
 .initial-logo-with-name {
-    padding: 2.4rem 3.2rem;
+    padding: 3.2rem;
 }
 
 .initial-content {
@@ -84,10 +84,6 @@
 }
 
 @media (min-width: 768px) {
-    .initial-container {
-        height: auto;
-    }
-    
     .initial-content {
         margin: 0 6.9rem;
     }
@@ -130,10 +126,6 @@
 }
 
 @media (min-width: 1280px) {
-    .initial-container {
-        height: 100vh;
-    }
-
     .initial-content {
         justify-content: space-between;
         align-items: center;
