@@ -11,6 +11,7 @@ export interface Genre {
 export interface GenresOnboarding {
     selectedGenres: Genre[];
     setSelectedGenres: React.Dispatch<React.SetStateAction<Genre[]>>;
+    page: string;
 }
 
 export interface Author {

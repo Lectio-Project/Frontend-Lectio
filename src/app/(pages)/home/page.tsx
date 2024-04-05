@@ -18,7 +18,7 @@ import api from "@/api/api";
 import './home.css';
 
 export default function Home() {
-    const {onboarding, setOnboarding} = useDataContext();
+    const {userData, onboarding, setOnboarding} = useDataContext();
     const [books, setBooks] = useState<Book[]>([]);
     const [authors, setAuthors] = useState<Author[]>([]);
     const isTablet = useMediaQuery('(min-width:768px)');
@@ -89,7 +89,7 @@ export default function Home() {
             <Header search='able' select='home' />
             <section className='introduction-section-home'>
                 <div className='introduction-texts-home'>
-                    <h3 className='title-home'>Boas vindas <span>Nome</span>!</h3>
+                    <h3 className='title-home'>Boas vindas <span>{userData.name}</span>!</h3>
                     <h4 className='text-home'>Veja o que está rolando de melhor na literatura brasileira</h4>
                 </div>
                 <img src={HomeImage} alt='' className='lover-books-home'/>

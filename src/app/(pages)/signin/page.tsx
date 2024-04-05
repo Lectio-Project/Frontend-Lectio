@@ -30,10 +30,10 @@ export default function SignIn() {
     const handleData:SubmitHandler<signinFormProps> = async(data) => {
         const {email, password} = data
         
-        try {            
+        try {
             const response = await api.post('/users/sign-in', {email, password});
             
-            if (response.status === 201) {
+            if (response.status === 200) {
                 await setCookie('token', response.data.token);
                 setResponseError({});
                 

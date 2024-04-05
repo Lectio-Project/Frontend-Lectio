@@ -17,7 +17,7 @@ export default function Page2() {
             <HeaderOnboarding title='gêneros' step={1}/>    
 
             <section className='onboarding-steps-options'>
-                <GenresOnboarding selectedGenres={selectedGenres} setSelectedGenres={setSelectedGenres} />
+                <GenresOnboarding selectedGenres={selectedGenres} setSelectedGenres={setSelectedGenres} page='onboarding'/>
             </section>
 
             <FooterOnboarding selectedItems={selectedGenres} page='./page3' title='gêneros'/>
