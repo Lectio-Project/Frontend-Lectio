@@ -1,6 +1,5 @@
 import { Rating, useMediaQuery } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
-import { Rating } from '@mui/material';
 
 import { useDataContext } from '@/context/user';
 import { Star } from '@mui/icons-material';
