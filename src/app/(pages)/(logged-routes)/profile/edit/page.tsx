@@ -14,16 +14,19 @@ import './edit.css';
 
 import api from '@/api/api';
 
-import { useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { editFormProps, schemaEdit } from '@/app/schemas/schemaEdit';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { getCookie } from '@/utils/cookies';
 import { useRouter } from 'next/navigation';
 import UploadImage from '@/app/components/modalUpload/modalUpload';
+import Header from '@/app/components/Header/Header';
+import { useSession } from 'next-auth/react';
 
 
 export default function EditPage(){
+    const {data: session, update} = useSession();
+
     const { 
         userData,
         setUserData,
@@ -38,20 +41,18 @@ export default function EditPage(){
         mode: 'onSubmit',
         resolver: zodResolver(schemaEdit),
         defaultValues: {
-            name: userData.name,
-            userName: userData.username,
-            bio: userData.bio
+            name: session?.name,
+            userName: session?.username,
+            bio: session?.bio
         }
     });
 
     const route= useRouter();
+    
     const[errorValidate, setErrorValidate] = useState<string | null>(null);
     
     const handleData: SubmitHandler<editFormProps> = async (data) => {
         try {
-            const token = await getCookie('token');
-            console.log(token);
-            
             if(!data.name || !data.userName){
                 throw new Error('O nome ou username não pode ser vazio');
                 return
@@ -61,19 +62,19 @@ export default function EditPage(){
                 return setErrorValidate('');
             }
             
-            const response = await api.patch(`/users/${userData.id}`,{
+            const response = await api.patch(`/users`,{
                 name: data.name,
                 username: '@' + data.userName,
                 bio: data.bio,
             },
             {
                 headers: {
-                authorization: `Bearer ${token}` ,
+                authorization: `Bearer ${session?.token}` ,
                 },
             }
             )
-
-            if(response.data.status === '200'){
+            
+            if(response.status === 204 || response.status === 200){
                 setErrorValidate('')
                 return route.push('/profile');
             }
@@ -93,41 +94,57 @@ export default function EditPage(){
         }
     }
     
+    const updateUserSession = async () => {
+        try {
+            const response = await api.get('/users/profile', { 
+                    headers: {
+                    authorization: `Bearer ${session?.token}`,
+                },
+            })
+
+            console.log(response);
+
+            if (response.status === 200) {
+                const userData = response.data
+                console.log(userData);
+                
+                update({ ...userData })
+                console.log(session);
+            } else {
+                console.error('Erro ao obter os dados do perfil do usuário:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Erro ao atualizar a sessão:', error);
+        }
+      };
+
     useEffect(()=>{
+        // updateUserSession();
         setUserData(userData=>({...userData, imageUrl: selectedImageUrl}));
     }, [showModalImage])
 
+
     const initialImage = 'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg'
 
+    interface ImageErrorEvent extends SyntheticEvent<HTMLImageElement, Event> {
+        target: EventTarget & {
+            src: string;
+        };
+    }
+
+    function handleImageError(event: ImageErrorEvent) {
+        event.target.src = initialImage;
+    }
 
     return(
     <main className='container-edit'>
-        <header className='header-container'>
-
-            <div className='logo-section'>
-                <img src={Logo} alt='logo Icon'/>
-            </div>
-
-            <div className='sandwich-menu' onClick={()=> setOpenDrawer(true)}>
-                <img src={MenuIcon} alt='sandwich menu' />
-            </div>
-
-            <nav>
-                <NavBar select='perfil'/>
-            </nav>
-
-        </header>
-
-
-        <HamburguerMenu select= 'perfil'/>
+        <Header search='disabled' select='perfil'/>
 
         <section className='image-area'>
             <h3>Editar perfil</h3>
-            <img src= {userData.imageUrl || initialImage} alt='Profile image'/>
+            <img src= {session?.imageUrl || initialImage} alt='Profile image' onError={handleImageError}/>
             <span onClick={()=>setShowModalImage(true)}>Alterar foto</span>
         </section>
-
-        
 
         <form className='edit-form' onSubmit={handleSubmit(handleData)}>
             <Input 

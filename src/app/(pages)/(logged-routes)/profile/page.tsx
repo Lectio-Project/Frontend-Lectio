@@ -10,7 +10,7 @@ import EditIcon from '../../../assets/editIcon.svg';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { editFormProps, schemaEdit } from '@/app/schemas/schemaEdit';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { KeyboardEvent, useEffect, useState } from 'react';
+import { KeyboardEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import EditSenha from '@/app/components/editSenha/editSenha';
@@ -18,6 +18,8 @@ import UploadImage from '@/app/components/modalUpload/modalUpload';
 import HamburguerMenu from '@/app/components/hamburguerMenu/hamburguerMenu';
 import api from '@/api/api';
 import NavBar from '@/app/components/NavBar/navBar';
+import Header from '@/app/components/Header/Header';
+import { useSession } from 'next-auth/react';
 
 export default function Profile(){
     const { 
@@ -33,16 +35,17 @@ export default function Profile(){
     } = useDataContext();
     
     const router= useRouter();
-
+    const session = useSession();
+    
     const[errorValidate, setErrorValidate] = useState<string | null>(null);
     
     const { handleSubmit,register, formState:{ errors } } = useForm<editFormProps>({
         mode: 'onSubmit',
         resolver: zodResolver(schemaEdit),
         defaultValues: {
-            name: userData.name,
-            userName: userData.username,
-            bio: userData.bio
+            name: session.data?.name,
+            userName: session.data?.username,
+            bio: session.data?.bio
         }
     });
 
@@ -58,14 +61,14 @@ export default function Profile(){
                 return setErrorValidate('');
             }
 
-            const response = await api.patch(`/users/${userData.id}`,{
+            const response = await api.patch(`/users/${session.data!.id}`,{
                 name: data.name,
                 username: '@' + data.userName,
                 bio: data.bio,
             },
             {
                 headers: {
-                authorization: `Bearer ${userData.token}` ,
+                authorization: `Bearer ${session.data!.token}` ,
                 },
             }
             )
@@ -83,12 +86,12 @@ export default function Profile(){
             console.log(error.message)
         }
     }
-
+    
     const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
         
         if (event.key === "Enter") {
             event.preventDefault();
-            handleSubmit(handleData)();
+            handleSubmit(handleData);
         }
     };
 
@@ -99,36 +102,28 @@ export default function Profile(){
 
     const initialImage = 'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg'
 
+    interface ImageErrorEvent extends SyntheticEvent<HTMLImageElement, Event> {
+        target: EventTarget & {
+            src: string;
+        };
+    }
+
+    function handleImageError(event: ImageErrorEvent) {
+        event.target.src = initialImage;
+    }
+
     return(
         <main className='container-edit'>
 
-            <header className='header-container'>
-
-            <div className='logo-section'>
-            <img src={Logo} alt='logo Icon'/>
-            </div>
-
-            <div className='sandwich-menu' onClick={()=> setOpenDrawer(true)}>
-                <img src={MenuIcon} alt='sandwich menu' />
-            </div>
-
-            <nav>
-                <NavBar select='perfil'/>
-            </nav>
-
-            </header>
-
+            <Header search='disabled' select='perfil' />
             
-            <HamburguerMenu select= 'perfil'/>
-            
-
             <section className='area-profile'>
 
-                <img src= {userData.imageUrl || initialImage} alt='Profile image'/>
+                <img src= {session.data?.imageUrl || initialImage} alt='Profile image' onError={handleImageError}/>
 
                 <div className='info-profile'>
-                <span>{userData.name ? userData.name : 'Nome do usuário' }</span>
-                <p>{userData.username ? userData.username : 'UserName'}</p>
+                <span>{session.data?.name ? session.data?.name : 'Nome do usuário' }</span>
+                <p>{session.data?.username ? session.data?.username : 'UserName'}</p>
                 </div>
                 
             </section>

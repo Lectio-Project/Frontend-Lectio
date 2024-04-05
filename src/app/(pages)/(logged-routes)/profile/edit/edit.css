@@ -14,36 +14,6 @@
     background-color: var(--bg-color-primary);
 }
 
-.header-container{
-    display: flex;
-    width: 100%;
-    margin-top: 4.4rem;
-    margin-bottom: 2.6rem;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.header-container>nav{
-    display: none;
-}
-
-.logo-section{
-    display: flex;
-    align-items: center;
-    margin-left: 2.4rem;
-}
-
-.logo-section img{
-    width: 10.3rem;
-    height: 3.6rem;
-}
-
-.sandwich-menu{
-    width: 3.2rem;
-    height: 3.2rem;
-    margin-right: 2.4rem;
-}
-
 .image-area{
     display: flex;
     flex-direction: column;
@@ -112,6 +82,8 @@
     margin: 0;
     border-radius: 0.6rem;
     border: 2px solid #939393;
+    font-family: var(--family-primary);
+    font-size: 1.6rem;
     background-color: var(--bg-color-primary);
     outline: none;
     resize: none;
@@ -131,8 +103,8 @@
 }
 
 .primary, .secondary, .active, .disabled {
-    width: 16.3rem;
-    height: 5.4rem;
+    width: 16.3rem !important;
+    height: 5.4rem !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -142,16 +114,6 @@
 @media (min-width: 768px) {
     .container-edit{
         height: 100%;
-    }
-
-    .header-container{
-        margin-top: 2.4rem;
-        margin-bottom: 8rem;
-    }
-
-    .logo-section img{
-        width: 12.7rem;
-        height: 4.8rem;
     }
 
     .image-area{
@@ -168,7 +130,7 @@
     }
 
     .primary, .secondary, .active, .disabled{
-        width: 27.9rem;
+        width: 27.9rem !important;
     }
 }
 
@@ -176,28 +138,6 @@
 @media  (min-width:1024px) {
     .container-edit{
         height: 100%;
-    }
-
-    .header-container{
-        margin-top: 2.4rem;
-        margin-bottom: 5rem;
-    }
-
-    .logo-section{
-        margin-left: 3.2rem;
-    }
-
-    .logo-section img{
-        width: 12.7rem;
-        height: 4.8rem;
-    }
-
-    .sandwich-menu{
-        display: none;
-    }
-
-    .header-container>nav{
-        display: block;
     }
 
     .edit-form{
@@ -211,7 +151,7 @@
     }
 
     .primary, .secondary, .active, .disabled{
-        width: 32.5rem;
+        width: 32.5rem !important;
     }
 }
 
