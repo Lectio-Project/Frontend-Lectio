@@ -13,10 +13,9 @@ import RatingStars from '@/app/components/RatingStars/RatingStars';
 import api from '@/api/api';
 import { getCookie } from '@/utils/cookies';
 import { useMediaQuery } from '@mui/material';
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
 import { SyntheticEvent, useEffect, useState } from 'react';
 
+import Comment from '@/app/components/Comment/Comment';
 import { useDataContext } from '@/context/user';
 import './book-details.css';
 
@@ -354,8 +353,13 @@ export default function BookDetails({ params }: BookDetailsProps) {
                             <span className="comments-published">
                                 {commentWithText.length} comentários publicados
                             </span>
-
                             <section className="comments">
+                                {commentWithText.slice(0, 3).map((comment) => (
+                                    <Comment key={comment.id} {...comment} />
+                                ))}
+                            </section>
+
+                            {/* <section className="comments">
                                 {commentWithText
                                     .slice(0, 3)
                                     .map((userComment) => {
@@ -413,7 +417,7 @@ export default function BookDetails({ params }: BookDetailsProps) {
                                             );
                                         }
                                     })}
-                            </section>
+                            </section> */}
 
                             <ButtonViewMore
                                 className="button-more-comments"
