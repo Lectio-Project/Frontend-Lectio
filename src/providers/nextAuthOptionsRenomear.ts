@@ -24,6 +24,8 @@ export const nextAuthOptions: NextAuthOptions = {
 
 				
 				const user = await response.json()
+				
+				
                 
 				if (user && response.ok) {
 					return user
@@ -37,13 +39,14 @@ export const nextAuthOptions: NextAuthOptions = {
 		signIn: '/signin'
 	},
     callbacks: {
-        async jwt({ token, user }) {
+      async jwt({ token, user }) {
 			user && (token.user = user)
 			
 			return token
 		},
 		async session({ session, token }){
 			session = token.user as any
+			
 			return session
 		}
     }
