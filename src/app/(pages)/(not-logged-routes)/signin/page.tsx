@@ -13,15 +13,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { setCookie } from '@/utils/cookies';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+import { AxiosError } from 'axios';
 import { signIn } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 import './signin.css';
 
 export default function SignIn() {
     const [responseError, setResponseError] = useState({});
-    const router = useRouter();
 
     const {
         handleSubmit,
@@ -51,15 +51,16 @@ export default function SignIn() {
                 password
             });
 
-            if (response.status === 201) {
+            if (response.status === 200) {
                 await setCookie('token', response.data.token);
                 setResponseError({});
-                console.log(response.data);
 
-                return router.replace('/home');
+                return redirect('/home');
             }
         } catch (error: any) {
-            return setResponseError(error.response.data.message);
+            if (error instanceof AxiosError) {
+                return setResponseError(error.response?.data.message);
+            }
         }
     };
 
