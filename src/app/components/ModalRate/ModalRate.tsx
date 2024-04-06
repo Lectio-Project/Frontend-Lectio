@@ -20,13 +20,15 @@ interface ModalRateProps {
     bookId: string;
     addComment: number;
     setAddComment: React.Dispatch<React.SetStateAction<number>>;
+    lastGrade?: number;
 }
 
 export default function ModalRate({
     title,
     bookId,
     addComment,
-    setAddComment
+    setAddComment,
+    lastGrade
 }: ModalRateProps) {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [text, setText] = useState<string>('');
@@ -66,7 +68,7 @@ export default function ModalRate({
         <div className="container-modalRate">
             <Button onClick={handleOpen} className="button-rate">
                 <RatingStars
-                    starsValues={0}
+                    starsValues={lastGrade || 0}
                     returnValue
                     size="medium"
                     readOnly

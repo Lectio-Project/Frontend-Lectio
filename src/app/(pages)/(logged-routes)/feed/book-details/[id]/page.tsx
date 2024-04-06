@@ -53,6 +53,7 @@ export default function BookDetails({ params }: BookDetailsProps) {
 
     const [booksAuthorData, setBooksAuthorData] = useState([]);
     const [commentWithText, setCommentWithText] = useState<CommentProps[]>([]);
+    const [lastGradeUser, setLastGradeUser] = useState(0);
     const [addComment, setAddComment] = useState<number>(0);
     const [showDescription, setShowDescription] = useState(false);
     const [showInfoTechnical, setShowInfoTechnical] = useState(false);
@@ -64,7 +65,7 @@ export default function BookDetails({ params }: BookDetailsProps) {
 
     const routeId = params.id;
     const router = useRouter();
-    const { bookId } = useDataContext();
+    const { bookId, userData } = useDataContext();
     const initialImage =
         'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg';
 
@@ -98,6 +99,10 @@ export default function BookDetails({ params }: BookDetailsProps) {
 
     useEffect(() => {
         handleBookData();
+        const commentUser = bookData.Comment.filter(
+            (comment: CommentProps) => comment.user.id === userData.id
+        );
+        console.log(userData);
     }, [addComment]);
 
     useEffect(() => {

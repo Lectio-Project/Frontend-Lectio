@@ -1,10 +1,9 @@
-'use client'
+'use client';
 
 import { Onboarding } from '@/types/onboarding-types';
 import { ReactNode, createContext, useContext, useState } from 'react';
 
-
-interface User {
+export interface User {
     id: string;
     name: string;
     email: string;
@@ -12,8 +11,8 @@ interface User {
     bio?: string;
     imageUrl?: string;
     token?: string;
-    createdAt?: string,
-    updatedAt?: string
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 type IUserContextData = {
@@ -27,7 +26,7 @@ type IUserContextData = {
     setSelectedImageUrl: React.Dispatch<React.SetStateAction<string>>;
     openDrawer: boolean;
     setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
-    onboarding: Onboarding,
+    onboarding: Onboarding;
     setOnboarding: React.Dispatch<React.SetStateAction<Onboarding>>;
     bookId: string;
     setBookId: React.Dispatch<React.SetStateAction<string>>;
@@ -35,33 +34,27 @@ type IUserContextData = {
     setAuthorId: React.Dispatch<React.SetStateAction<string>>;
     rateValue: number;
     setRateValue: React.Dispatch<React.SetStateAction<number>>;
-}
+};
 
 interface AppProviderProps {
     children: ReactNode;
+    sessionUser: User;
 }
 
 const DataContext = createContext<IUserContextData | undefined>(undefined);
 
-const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps) => {
-    
-    const [userData, setUserData] = useState<User>({ 
-        name: '', 
-        email: '',
-        username:'', 
-        bio:'' , 
-        id: '', 
-        token: '', 
-        imageUrl: '',
-        createdAt: '',
-        updatedAt: ''
-
-    });
+const DataProvider: React.FC<AppProviderProps> = ({
+    children,
+    sessionUser
+}: AppProviderProps) => {
+    const [userData, setUserData] = useState<User>(sessionUser);
 
     const [showModalEditPass, setShowModalEditPass] = useState<boolean>(false);
     const [showModalImage, setShowModalImage] = useState<boolean>(false);
-    const [selectedImageUrl, setSelectedImageUrl] = useState(userData.imageUrl || '');
-    const [openDrawer, setOpenDrawer]= useState(false);
+    const [selectedImageUrl, setSelectedImageUrl] = useState(
+        userData?.imageUrl || ''
+    );
+    const [openDrawer, setOpenDrawer] = useState(false);
     const [onboarding, setOnboarding] = useState<Onboarding>({
         genresId: [],
         authorsId: [],
@@ -92,13 +85,19 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         setRateValue
     };
 
-    return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;
+    return (
+        <DataContext.Provider value={contextValue}>
+            {children}
+        </DataContext.Provider>
+    );
 };
 
 const useDataContext = () => {
     const context = useContext(DataContext);
     if (!context) {
-        throw new Error('useDataContext deve ser usado dentro de um ClientesProvider');
+        throw new Error(
+            'useDataContext deve ser usado dentro de um ClientesProvider'
+        );
     }
     return context;
 };

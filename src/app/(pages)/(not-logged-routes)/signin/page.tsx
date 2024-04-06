@@ -16,13 +16,11 @@ import { setCookie } from '@/utils/cookies';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { useDataContext } from '@/context/user';
 import { signIn } from 'next-auth/react';
 import './signin.css';
 
 export default function SignIn() {
     const [responseError, setResponseError] = useState({});
-    const { setUserData } = useDataContext();
     const router = useRouter();
 
     const {
@@ -55,7 +53,6 @@ export default function SignIn() {
 
             if (response.status === 201) {
                 await setCookie('token', response.data.token);
-                setUserData(response.data);
                 setResponseError({});
                 console.log(response.data);
 
