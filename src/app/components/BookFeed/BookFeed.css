@@ -1,0 +1,39 @@
+.container-books {
+  max-width: 1142px;
+  width: 100%;
+  margin: 2rem auto 0 auto;
+}
+
+.container-books header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container-books header h3 {
+  font-size: 3.2rem;
+}
+
+.see-all-per-category {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+}
+
+.see-all-per-category p {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--bg-button);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.see-all-per-category p:hover {
+  filter: brightness(0.8);
+}
+
+.see-all-per-category img {
+  width: 1.4rem;
+  height: 1.4rem;
+}

@@ -12,7 +12,7 @@ import ConceicaoImg from '../../../assets/conceicaoevaristo.svg';
 import DanielaImg from '../../../assets/danielaarbex.svg';
 import MachadoImg from '../../../assets/machadodeassis.svg';
 import ruthImg from '../../../assets/ruthrocha.svg';
-
+import BookFeed from "@/app/components/BookFeed/BookFeed";
 
 export default function Feed() {
   const authorsHighlight = [
@@ -30,7 +30,6 @@ export default function Feed() {
         slidesPerView={1}
         pagination={{ clickable: true }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
-        // className="swiper-pagination-bullet-active"
       >
         {authorsHighlight.map((author) => (
           <SwiperSlide>
@@ -43,6 +42,7 @@ export default function Feed() {
           </SwiperSlide>
         ))}
       </Swiper>
+      <BookFeed title="Popular da Semana" />
     </>
   )
 }
