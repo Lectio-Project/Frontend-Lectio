@@ -16,7 +16,10 @@ export default function BookFeed({ title }: BookFeedProps) {
             <img src={arrowRight} alt="Seta para direita" />
           </div>
         </header>
-        <BookHighlight />
+        <div className="books">
+          <BookHighlight />
+          <BookHighlight />
+        </div>
     </div>
   )
 }
