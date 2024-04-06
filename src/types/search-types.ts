@@ -16,4 +16,6 @@ export interface Book {
 
 export interface SearchBooks {
     results: Book[];
+    firstResult: number;
+    lastResult: number;
 }

@@ -1,9 +1,10 @@
 .header-container{
     display: flex;
+    position: relative;
 
     width: 100%;
     height: 9rem;
-    padding: 2rem 2.4rem 0;
+    padding: 2rem 2.4rem 0 2.4rem;
 
     align-items: center;
     justify-content: space-between;
@@ -11,6 +12,52 @@
 
 .header-search, .header-search-disabled {
     display: none;
+}
+
+.header-search-page {
+    display: flex;
+    position: absolute;
+
+    width: calc(100vw - 4.8rem);
+    height: 5.6rem;
+    top: 12rem;
+}
+
+.header-search-page img {
+    position: absolute;
+    right: 1.6rem;
+    top: 1.5rem;
+}
+
+.header-search-page input {
+    width: 100%;
+    padding: 0 2rem;
+
+    font-size: 1.6rem;
+
+    border: 2px solid var(--neutral-gray);
+    border-radius: 8px;
+    color: var(--neutral-gray);
+    background-color: transparent;
+}
+
+.header-search-page input::-webkit-search-decoration,
+.header-search-page input::-webkit-search-cancel-button,
+.header-search-page input::-webkit-search-results-button,
+.header-search-page input::-webkit-search-results-decoration {
+    display: none;
+}
+
+.header-search-page input[type='search']::-moz-search-clear {
+    display: none;
+}
+.header-search-page input::placeholder {
+    color: var(--text-color-neutral-white);
+}
+
+.header-search-page input:focus, .header-search-page input:not(:placeholder-shown) {
+    outline: 2px solid var(--border-btn-yellow);
+    border-color: transparent;
 }
 
 .logo-section{
@@ -45,9 +92,8 @@ nav{
     }
 
     .header-search {
-        position: relative;
-
         display: flex;
+        position: relative;
 
         width: 60%;
         height: 5.6rem;

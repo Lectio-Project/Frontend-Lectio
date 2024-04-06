@@ -13,7 +13,7 @@ export default function Seacrh() {
 
     return (
         <main className='container-search'>
-            <Header search='able' select='none'/>
+            <Header search='able' select='none' page='search'/>
 
             <h3 className='title-search'>Filtre por gênero</h3>
             <section className='container-genres-options'>

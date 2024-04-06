@@ -7,9 +7,9 @@ import StarIcon from '@mui/icons-material/Star';
 
 import './SearchResultsBooks.css';
 
-export default function SearchResultsBooks({ results }: SearchBooks){
+export default function SearchResultsBooks({ results, firstResult, lastResult }: SearchBooks){
     return(
-        results.slice(0,12).map((result) => (
+        results.slice(firstResult - 1, lastResult).map((result) => (
             <section key={result.id} className='default-book-list-search'>
                 <section className='info-book-search'>
                     <h3 className='book-title-search'>{result.name}</h3>

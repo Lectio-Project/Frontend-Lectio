@@ -25,11 +25,12 @@ type SearchGenre = {
 type SortOrder = 'default' | 'max-rate' | 'min-rate' | 'year' | 'title-asc' | 'title-desc';
 
 export default function SearchResult({params}: SearchGenre){
-    const genreId = params.id;
+    const search = params.id;
     const [results, setResults] = useState<Book[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [showModalSort, setShowModalSort] = useState<boolean>(false);
     const [sortOrder, setSortOrder] = useState<SortOrder>('default');
+    const [isGender, setIsGender] = useState<boolean>(false);
     const [page, setPage] = useState(1);
     const resultsPerPage = 10;
     const numPages = Math.ceil(results.length / resultsPerPage);
@@ -40,10 +41,20 @@ export default function SearchResult({params}: SearchGenre){
         try {
             const token = await getCookie('token');
             
-            const response = await api.get(`/search/genres?genresId=${genreId}`,
-                { headers: {
-                    Authorization: `Bearer ${token}`
-                }});
+            let response;
+            if (/^[0-9a-fA-F]{24}$/.test(search)) {
+                setIsGender(true);
+                response = await api.get(`/search/genres?genresId=${search}`,
+                    { headers: {
+                        Authorization: `Bearer ${token}`
+                    }});
+            } else {
+                setIsGender(false);
+                response = await api.get(`/search?find=${search}`,
+                    { headers: {
+                        Authorization: `Bearer ${token}`
+                    }});
+            }
             setResults(response.data);
         } catch (error: any) {
             console.error(error);
@@ -78,12 +89,20 @@ export default function SearchResult({params}: SearchGenre){
         'title-desc': 'Z-A',
     };
 
+    const hasResults = results.length > 0;
+    const resultRange = hasResults ? `${firstResult}-${lastResult}` : '0';
+    const resultCount = `${results.length} ${results.length > 1 ? 'resultados' : 'resultado'}`;
+    const searchType = isGender && isGender ? 'do gênero' : 'da pesquisa';
+    const searchValue = isGender && results[0]?.gender ? results[0].gender.gender : search;
+
     useEffect(() => {
         listResults();
-    }, []);
+
+        document.getElementById('top')?.scrollIntoView();
+    }, [page]);
 
     return (
-            <main className='container-search'>
+            <main className='container-search' id='top'>
                 <Header search='able' select='none'/>
                 {isLoading ? (
                     <div className='results-loading'>
@@ -99,13 +118,18 @@ export default function SearchResult({params}: SearchGenre){
                             <h3 className='pagination-results-search'>{page}/{numPages}</h3>
                             {showModalSort && <ModalSortResults onSortOrderChange={setSortOrder} setShowModalSort={setShowModalSort}/>}
                         </section>
-                        <h4 className='quantity-results-search'>{`${firstResult}-${lastResult} de `}<span className='total-results-search'>{results.length} resultados</span> do gênero <span className='genre-search'>"{results[0].gender.gender}"</span></h4>
+                        <h4 className='quantity-results-search'>
+                            {`${resultRange} de `}
+                            <span className='total-results-search'>{resultCount}</span>
+                            {` ${searchType} `}
+                            <span className='genre-search'>{`"${searchValue}"`}</span>
+                        </h4>
                         <section className='container-books-results'>
-                            <SearchResultsBooks results={sortedResults} />
+                            <SearchResultsBooks results={sortedResults} firstResult={firstResult} lastResult={lastResult}/>
                         </section>
                         <section className='btns-prev-next-page'>
-                            <Button title='Anterior' type='button' className='secondary btn-prev-page' onClick={() => setPage(page > 1 ? page - 1 : page)} disabled={page === 1}/>
-                            <Button title='Próximo' type='button' className='secondary btn-prev-page' onClick={() => setPage(page < numPages ? page + 1 : page)} disabled={page === numPages}/>
+                            <Button title='Anterior' type='button' className='secondary btn-prev-page' onClick={() => setPage(page > 1 ? page - 1 : page)} disabled={page === 1 || results.length < 1}/>
+                            <Button title='Próximo' type='button' className='secondary btn-prev-page' onClick={() => setPage(page < numPages ? page + 1 : page)} disabled={page === numPages || results.length < 1}/>
                         </section>
                     </>
                 )}
