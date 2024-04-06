@@ -4,7 +4,7 @@ import { SyntheticEvent } from 'react';
 import RatingStars from '../RatingStars/RatingStars';
 import './Comment.css';
 
-interface CommentProps {
+export interface CommentProps {
     id: string;
     bookGrade: number;
     text: string;

@@ -314,6 +314,7 @@
 
     color: var(--text-color-yellow);
     background-color: transparent;
+    cursor: pointer;
 }
 
 .button-more-comments:active {

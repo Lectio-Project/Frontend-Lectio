@@ -1,0 +1,29 @@
+
+.comments {
+  margin: 32px auto 0;
+  max-width: 1140px;
+  padding-bottom: 3.4rem;
+  
+}
+.comments-div-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 2.4rem;
+}
+
+.comments-title {
+  font-size: 2.4rem;
+}
+
+.comments-article {
+  padding: 1.4rem;
+  border: 1px solid var(--tertiary-dark);
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3.6rem;
+}

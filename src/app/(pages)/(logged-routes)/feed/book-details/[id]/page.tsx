@@ -17,6 +17,7 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 
 import Comment from '@/app/components/Comment/Comment';
 import { useDataContext } from '@/context/user';
+import { useRouter } from 'next/navigation';
 import './book-details.css';
 
 type BookDetailsProps = {
@@ -62,6 +63,7 @@ export default function BookDetails({ params }: BookDetailsProps) {
     const isDesktop = useMediaQuery('(min-width: 1024px)');
 
     const routeId = params.id;
+    const router = useRouter();
     const { bookId } = useDataContext();
     const initialImage =
         'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg';
@@ -358,71 +360,15 @@ export default function BookDetails({ params }: BookDetailsProps) {
                                     <Comment key={comment.id} {...comment} />
                                 ))}
                             </section>
-
-                            {/* <section className="comments">
-                                {commentWithText
-                                    .slice(0, 3)
-                                    .map((userComment) => {
-                                        const formatedDate = format(
-                                            new Date(userComment.createdAt),
-                                            "dd 'de' MMMM 'às' HH:mm",
-                                            { locale: ptBR }
-                                        );
-                                        if (userComment.text) {
-                                            return (
-                                                <article
-                                                    className="comment-user"
-                                                    key={userComment.id}
-                                                >
-                                                    <div className="comment-user-intern">
-                                                        <img
-                                                            src={
-                                                                userComment.user
-                                                                    .imageUrl ||
-                                                                initialImage
-                                                            }
-                                                            alt=""
-                                                            onError={
-                                                                handleImageError
-                                                            }
-                                                        />
-
-                                                        <div className="comment-user-info">
-                                                            <div>
-                                                                <strong className="comment-username">
-                                                                    {
-                                                                        userComment
-                                                                            .user
-                                                                            .name
-                                                                    }
-                                                                </strong>
-                                                                <RatingStars
-                                                                    starsValues={
-                                                                        userComment.bookGrade
-                                                                    }
-                                                                    size="small"
-                                                                    readOnly
-                                                                />
-                                                            </div>
-
-                                                            <span className="comment-date">
-                                                                postado em{' '}
-                                                                {formatedDate}
-                                                            </span>
-                                                        </div>
-                                                    </div>
-
-                                                    <p>{userComment.text}</p>
-                                                </article>
-                                            );
-                                        }
-                                    })}
-                            </section> */}
-
                             <ButtonViewMore
                                 className="button-more-comments"
                                 title="Ver mais comentários"
                                 type="button"
+                                onClick={() =>
+                                    router.push(
+                                        `/feed/book-comments/${routeId}`
+                                    )
+                                }
                             />
                         </section>
 
