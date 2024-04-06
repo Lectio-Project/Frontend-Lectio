@@ -13,7 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { setCookie } from '@/utils/cookies';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { useDataContext } from '@/context/user';
@@ -23,7 +23,6 @@ import './signin.css';
 export default function SignIn() {
     const [responseError, setResponseError] = useState({});
     const { setUserData } = useDataContext();
-    const router = useRouter();
 
     const {
         handleSubmit,
@@ -50,16 +49,14 @@ export default function SignIn() {
         try {            
             const response = await api.post('/users/sign-in', {email, password});
             
-            if (response.status === 201) {
+            if (response.status === 200) {
                 await setCookie('token', response.data.token);
                 setUserData(response.data);
                 setResponseError({});
-                console.log(response.data);
 
-                return router.replace('/home');
+                return redirect('/home');
             }
         } catch (error: any) {
-            return setResponseError(error.response.data.message);
         }
     };
 
