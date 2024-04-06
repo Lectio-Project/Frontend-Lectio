@@ -14,6 +14,7 @@ import ActiveSort from '@/app/assets/activeSort.svg';
 import './result.css';
 import Button from '@/app/components/Button/Button';
 import ModalSortResults from '@/app/components/ModalSortResults/ModalSortResults';
+import { useMediaQuery } from '@mui/material';
 
 type SearchGenre = {
     params: {
@@ -32,7 +33,9 @@ export default function SearchResult({params}: SearchGenre){
     const [sortOrder, setSortOrder] = useState<SortOrder>('default');
     const [isGender, setIsGender] = useState<boolean>(false);
     const [page, setPage] = useState(1);
-    const resultsPerPage = 10;
+    const isTablet = useMediaQuery('(min-width:768px)');
+    const isDesktop = useMediaQuery('(min-width:1280px)');
+    const resultsPerPage = isTablet ? (isDesktop ? 9 : 8) : 10;
     const numPages = Math.ceil(results.length / resultsPerPage);
     const firstResult = (page - 1) * resultsPerPage + 1;
     const lastResult = Math.min(page * resultsPerPage, results.length);
@@ -110,20 +113,22 @@ export default function SearchResult({params}: SearchGenre){
                     </div>
                 ) : (
                     <>
-                        <section className='sort-pagination-section-search'>
-                            <button className={`default-sort-results ${sortOrder !== 'default' ? 'btn-sorted-results' : ''}`} onClick={() => setShowModalSort(!showModalSort)}>
-                                <img src={sortOrder === 'default' ? DefaultSort : ActiveSort} alt=''/>
-                                {sortOrderTexts[sortOrder]}
-                            </button>
-                            <h3 className='pagination-results-search'>{page}/{numPages}</h3>
-                            {showModalSort && <ModalSortResults onSortOrderChange={setSortOrder} setShowModalSort={setShowModalSort}/>}
+                        <section className='top-results-page'>
+                            <section className='sort-pagination-section-search'>
+                                <button className={`default-sort-results ${sortOrder !== 'default' ? 'btn-sorted-results' : ''}`} onClick={() => setShowModalSort(!showModalSort)}>
+                                    <img src={sortOrder === 'default' ? DefaultSort : ActiveSort} alt=''/>
+                                    {sortOrderTexts[sortOrder]}
+                                </button>
+                                <h3 className='pagination-results-search'>{page}/{numPages}</h3>
+                                {showModalSort && <ModalSortResults onSortOrderChange={setSortOrder} setShowModalSort={setShowModalSort}/>}
+                            </section>
+                            <h4 className='quantity-results-search'>
+                                {`${resultRange} de `}
+                                <span className='total-results-search'>{resultCount}</span>
+                                {` ${searchType} `}
+                                <span className='genre-search'>{`"${searchValue}"`}</span>
+                            </h4>
                         </section>
-                        <h4 className='quantity-results-search'>
-                            {`${resultRange} de `}
-                            <span className='total-results-search'>{resultCount}</span>
-                            {` ${searchType} `}
-                            <span className='genre-search'>{`"${searchValue}"`}</span>
-                        </h4>
                         <section className='container-books-results'>
                             <SearchResultsBooks results={sortedResults} firstResult={firstResult} lastResult={lastResult}/>
                         </section>

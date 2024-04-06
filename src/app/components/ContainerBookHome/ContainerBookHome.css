@@ -101,7 +101,7 @@
     color: transparent;
 }
 
-@media (min-width: 780px) {
+@media (min-width: 768px) {
     .home-container-books {
         height: 40rem;
     }

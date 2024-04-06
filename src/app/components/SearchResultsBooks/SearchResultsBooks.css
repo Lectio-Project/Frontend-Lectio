@@ -1,8 +1,13 @@
 .default-book-list-search {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     gap: 1.6rem;
+
+    width: fit-content;
+
+    cursor: pointer;
 }
 
 .book-title-search {
@@ -29,6 +34,21 @@
     line-height: 1.96rem
 }
 
+.default-book-list-search:hover .book-title-search,
+.default-book-list-search:hover .book-author-search {
+    color: var(--text-color-yellow-light);
+}
+
+.default-book-list-search:active .book-title-search,
+.default-book-list-search:active .book-author-search {
+    color: var(--text-color-yellow);
+}
+
+.default-book-list-search:hover .book-title-search,
+.default-book-list-search:active .book-title-search {
+    font-weight: 700;
+}
+
 .book-author-search > span {
     text-decoration: underline;
     font-style: italic;
@@ -37,6 +57,16 @@
 .book-image-search {
     width: 19.2rem;
     height: 29rem;
+    border-radius: 0.8rem;
+}
+
+.default-book-list-search:hover .book-image-search {
+    border: 2px solid var(--text-color-yellow-light);
+}
+
+.default-book-list-search:active .book-image-search,
+.default-book-list-search:focus .book-image-search {
+    border: 2px solid var(--text-color-yellow);
 }
 
 .book-genre-search {

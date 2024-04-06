@@ -16,3 +16,15 @@
     height: auto;
     padding: 0 2.4rem;
 }
+
+@media (min-width: 1280px) {
+    .container-search {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .title-search {
+        margin: 6rem 0 2.4rem;
+    }
+}

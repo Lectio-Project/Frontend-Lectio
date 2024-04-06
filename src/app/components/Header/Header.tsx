@@ -8,9 +8,10 @@ import Search from '../../assets/search.svg'
 
 import { useDataContext } from '@/context/user';
 import { useRouter } from "next/navigation";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import './Header.css';
+import ModalGenresSelection from '../ModalGenresSelection/ModalGenresSelection';
 
 interface HeaderProps {
     search: 'able' | 'disabled';
@@ -22,6 +23,11 @@ export default function Header({ search, select, page }: HeaderProps) {
     const { setOpenDrawer } = useDataContext();
     const router = useRouter();
     const [searchText, setSearchText] = useState('');
+    const [showModalGenres, setShowModalGenres] = useState(false);
+
+    useEffect(() => {
+        setShowModalGenres(false);
+    },[])
 
     return (
         <header className='header-container'>
@@ -29,8 +35,7 @@ export default function Header({ search, select, page }: HeaderProps) {
                 <img src={Logo} alt='logo Icon' onClick={() => router.push('/home')}/>
             </div>
 
-            <div className={`${search === 'able' ? 'header-search' : 'header-search-disabled'} ${page === 'search' ? 'header-search-page' : ''}`}>
-                <img src={Search} alt="search image" onClick={() => searchText && router.push(`/search/result/${searchText}`)}/>
+            <div className={`${search === 'able' && page !== 'search' ? 'header-search' : page !== 'search' ? 'header-search-disabled' : ''} ${page === 'search' ? 'header-search-page' : ''}`}>
                 <input 
                     type='search' 
                     placeholder='Pesquisar' 
@@ -40,12 +45,15 @@ export default function Header({ search, select, page }: HeaderProps) {
                             router.push(`/search/result/${searchText}`);
                         }
                     }}
+                    onClick={() => page !== 'search' && setShowModalGenres(!showModalGenres)}
                 />
+                <img src={Search} alt="search image" onClick={() => searchText && router.push(`/search/result/${searchText}`)}/>
+                {showModalGenres && <ModalGenresSelection />}
             </div>
 
             <div className='sandwich-menu'>
                 <img src={Search} alt="search image" className='search-button-header' onClick={() => router.push('/search')}/>
-                <img src={MenuIcon} alt='sandwich menu' onClick={()=> setOpenDrawer(true)}/>
+                <img src={MenuIcon} alt='sandwich menu' className='sandwich-button-header' onClick={()=> setOpenDrawer(true)}/>
             </div>
 
             <nav>
