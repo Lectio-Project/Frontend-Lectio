@@ -1,0 +1,44 @@
+.comment-user p {
+  font-size: 1.4rem;
+  color: #FFFFFF;
+
+  margin-top: 8px;
+}
+
+.comment-user-intern {
+  display: flex;
+  gap: 12px;
+}
+
+.comment-user-intern img {
+  width: 4.6rem;
+  height: 4.6rem;
+  border-radius: 50%;
+}
+
+.comment-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.comment-user-info div {
+  display: flex;
+  gap: 2px;
+}
+
+.comment-username {
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-transform: capitalize;
+
+  width: 12rem;
+
+  color: var(--neutral-medium-gray);
+}
+
+.comment-date {
+  font-size: 1.2rem;
+  color: var(--neutral-medium-gray);
+}
+
