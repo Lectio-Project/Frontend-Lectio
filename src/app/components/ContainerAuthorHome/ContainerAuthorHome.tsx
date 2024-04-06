@@ -1,9 +1,7 @@
 import { useDataContext } from '@/context/user';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
-import { ContainerAuthorHome } from "@/types/home-types";
-
-import QuotationMark from '@/app/assets/quotationMarkIcon.svg';
+import { ContainerAuthorHomeProps } from "@/types/home-types";
 
 import 'swiper/swiper-bundle.css';
 import 'swiper/css/navigation';
@@ -11,7 +9,7 @@ import 'swiper/css/navigation';
 import './ContainerAuthorHome.css';
 import { useRouter } from 'next/navigation';
 
-const ContainerAuthorHome = ({authors, isTablet, isDesktop}: ContainerAuthorHome) => {
+const ContainerAuthorHome = ({authors, isTablet, isDesktop}: ContainerAuthorHomeProps) => {
     const {setAuthorId} = useDataContext();
     const router = useRouter();
 

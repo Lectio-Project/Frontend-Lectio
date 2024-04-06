@@ -2,15 +2,25 @@
 
 import { Rating } from '@mui/material';
 import { SearchBooks } from '@/types/search-types';
+import { useRouter } from 'next/navigation';
+import { useDataContext } from '@/context/user';
 
 import StarIcon from '@mui/icons-material/Star';
 
 import './SearchResultsBooks.css';
 
 export default function SearchResultsBooks({ results, firstResult, lastResult }: SearchBooks){
+    const {setBookId} = useDataContext();
+    const router = useRouter();
+
+    const handleBookDetails = (bookId: string) => {
+        setBookId(bookId);
+        router.push(`/feed/book-details/${bookId}`);
+    }
+
     return(
         results.slice(firstResult - 1, lastResult).map((result) => (
-            <section key={result.id} className='default-book-list-search'>
+            <section key={result.id} className='default-book-list-search' onClick={() => handleBookDetails(result.id)}>
                 <section className='info-book-search'>
                     <h3 className='book-title-search'>{result.name}</h3>
                     <h4 className='book-author-search'>por <span>{result.AuthorBook[0].author.name}</span></h4>
