@@ -42,12 +42,12 @@ export default function BookComments({ params }: BookDetailsProps) {
         <>
             <Header search="able" select="feed" />
 
-            <section className="comments">
-                <div className="comments-div-title">
-                    <h1 className="comments-title">Comentários</h1>
+            <section className="comments-more">
+                <div className="comments-more-div-title">
+                    <h1 className="comments-more-title">Comentários</h1>
                     <span>{commentWithText.length} comentários publicados</span>
                 </div>
-                <article className="comments-article">
+                <article className="comments-more-article">
                     {commentWithText.map((comment: CommentProps) => (
                         <Comment {...comment} key={comment.id} />
                     ))}

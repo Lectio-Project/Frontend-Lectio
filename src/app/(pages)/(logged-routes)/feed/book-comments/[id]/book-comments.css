@@ -1,22 +1,22 @@
 
-.comments {
+.comments-more {
   margin: 32px auto 0;
   max-width: 100%;
   padding: 2.4rem 12.8rem 3.4rem;
   
 }
-.comments-div-title {
+.comments-more-div-title {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
   margin-bottom: 2.4rem;
 }
 
-.comments-title {
+.comments-more-title {
   font-size: 2.4rem;
 }
 
-.comments-article {
+.comments-more-article {
   padding: 1.4rem;
   border: 1px solid var(--tertiary-dark);
   border-radius: 8px;
@@ -29,17 +29,17 @@
 }
 
 @media (max-width: 768px) {
-  .comments {
+  .comments-more {
     padding: 2.4rem 2.4rem 2.4rem;
   }
- .comments-article {
+ .comments-more-article {
   border: none;
   padding: 1.4rem 0;
  }
 }
 
 @media (max-width: 1140px) {
-  .comments {
+  .comments-more {
     padding: 2.4rem 8.8rem 3.4rem;
   }
 }
