@@ -1,20 +1,14 @@
 'use client'
+
 import { useDataContext } from '@/context/user';
 
-import Logo from '../../../../assets/logoWithName.svg';
-import GoIconY from '../../../../assets/arrowGoYellow.svg';
-import MenuIcon from '../../../../assets/menuIcon.svg';
-import EditIcon from '../../../../assets/editIcon.svg';
-
-import NavBar from '@/app/components/NavBar/navBar';
-import HamburguerMenu from '@/app/components/hamburguerMenu/hamburguerMenu';
 import Input from "@/app/components/input/input";
 import Button from '@/app/components/Button/Button';
 import './edit.css';
 
 import api from '@/api/api';
 
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { ChangeEventHandler, SyntheticEvent, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { editFormProps, schemaEdit } from '@/app/schemas/schemaEdit';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -26,6 +20,7 @@ import { useSession } from 'next-auth/react';
 
 export default function EditPage(){
     const {data: session, update} = useSession();
+    console.log(session);
 
     const { 
         userData,
@@ -33,8 +28,6 @@ export default function EditPage(){
         showModalImage, 
         setShowModalImage,
         selectedImageUrl,
-        openDrawer, 
-        setOpenDrawer
     } = useDataContext();
 
     const { handleSubmit,register, formState:{ errors } } = useForm<editFormProps>({
@@ -62,64 +55,46 @@ export default function EditPage(){
                 return setErrorValidate('');
             }
             
-            const response = await api.patch(`/users`,{
-                name: data.name,
-                username: '@' + data.userName,
-                bio: data.bio,
-            },
-            {
-                headers: {
-                authorization: `Bearer ${session?.token}` ,
-                },
-            }
-            )
-            
-            if(response.status === 204 || response.status === 200){
-                setErrorValidate('')
-                return route.push('/profile');
-            }
+            // const response = await api.patch(`/users`,{
+            //     name: data.name,
+            //     username: data.userName,
+            //     bio: data.bio,
+            // },
+            // {
+            //     headers: {
+            //     authorization: `Bearer ${session?.token}` ,
+            //     },
+            // }
+            // )
+
+            // if(response.status === 204 || response.status === 200){
+            //     const validateUsername = data.userName.indexOf('@das');
+
+            //     if ()
+            //     setErrorValidate('')
+            //     setUserData({...userData, name: data.name, username: '@' + data.userName, bio: data.bio});
+            //     update({name: data.name, username: data.userName, bio: data.bio})
+                
+            //     // return route.push('/profile');
+            // }
+
+            update({name: data.name, username: data.userName, bio: data.bio})
+            return route.push('/profile')
 
         } catch (error: any) {
             
 
-            if (error.response && error.response.status === 400) {
+            if (error.response && error.response.status >= 400) {
                 const errorMessage = error.response.data.message;
-                
-                
 
                 return setErrorValidate(errorMessage);
             }
 
-            console.log(error.message)
+            console.log(error)
         }
     }
     
-    const updateUserSession = async () => {
-        try {
-            const response = await api.get('/users/profile', { 
-                    headers: {
-                    authorization: `Bearer ${session?.token}`,
-                },
-            })
-
-            console.log(response);
-
-            if (response.status === 200) {
-                const userData = response.data
-                console.log(userData);
-                
-                update({ ...userData })
-                console.log(session);
-            } else {
-                console.error('Erro ao obter os dados do perfil do usuário:', response.statusText);
-            }
-        } catch (error) {
-            console.error('Erro ao atualizar a sessão:', error);
-        }
-      };
-
     useEffect(()=>{
-        // updateUserSession();
         setUserData(userData=>({...userData, imageUrl: selectedImageUrl}));
     }, [showModalImage])
 
@@ -136,13 +111,23 @@ export default function EditPage(){
         event.target.src = initialImage;
     }
 
+    const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+        let value = event.target.value;
+        
+        if (value.indexOf('@') === 0) {
+          event.target.value = value;
+        } else {
+          event.target.value = `@${value}`;
+        }
+      };
+
     return(
     <main className='container-edit'>
         <Header search='disabled' select='perfil'/>
 
         <section className='image-area'>
             <h3>Editar perfil</h3>
-            <img src= {session?.imageUrl || initialImage} alt='Profile image' onError={handleImageError}/>
+            <img src= {userData?.imageUrl || initialImage} alt='Profile image' onError={handleImageError}/>
             <span onClick={()=>setShowModalImage(true)}>Alterar foto</span>
         </section>
 
@@ -155,6 +140,7 @@ export default function EditPage(){
             errorMessage={errors.name && errors.name.message }
             />
             <label htmlFor='bio'>Bio</label>
+
             <textarea
             
             {...register('bio')} 
@@ -171,6 +157,7 @@ export default function EditPage(){
             placeholder='Digite seu username'
             type='text'
             errorMessage={errors.userName && errors.userName.message }
+            onChange={handleInputChange}
             />
 
             <div className='buttons-area'>
