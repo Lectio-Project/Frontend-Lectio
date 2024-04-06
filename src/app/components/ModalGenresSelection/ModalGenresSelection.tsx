@@ -21,7 +21,7 @@ export default function ModalGenresSelection() {
         try {
             const token = await getCookie('token');
             
-            const response = await api.get('/genres', 
+            const response = await api.get('/genres',
                 { headers: {
                     Authorization: `Bearer ${token}`
                 }});
@@ -29,7 +29,8 @@ export default function ModalGenresSelection() {
         } catch (error: any) {
             console.error(error)
         }
-    }
+    };
+
     return (
         <main className='container-genre-search-input'>
             <h3 className='title-modal-genre-selection'>Busque por gênero</h3>

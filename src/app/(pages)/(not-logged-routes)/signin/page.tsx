@@ -22,6 +22,7 @@ import './signin.css';
 
 export default function SignIn() {
     const [responseError, setResponseError] = useState({});
+    const [showPassword, setShowPassword] = useState(false);
 
     const {
         handleSubmit,
@@ -34,7 +35,7 @@ export default function SignIn() {
 
     const handleData: SubmitHandler<signinFormProps> = async (data) => {
         const { email, password } = data;
-
+        
         const result = await signIn('credentials', {
             email,
             password,
@@ -63,8 +64,6 @@ export default function SignIn() {
             }
         }
     };
-
-    const [showPassword, setShowPassword] = useState(false);
 
     return (
         <main className="signin-container">

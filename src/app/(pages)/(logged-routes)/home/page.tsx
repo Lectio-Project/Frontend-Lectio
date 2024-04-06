@@ -23,6 +23,8 @@ export default function Home() {
     const [authors, setAuthors] = useState<Author[]>([]);
     const isTablet = useMediaQuery('(min-width:768px)');
     const isDesktop = useMediaQuery('(min-width:1280px)');
+    const {userData} = useDataContext();
+    const firstNameUser = userData.name ? userData.name.split(' ')[0] : '';
     
     // useEffect(() => {
     //     handleOnboardingSteps();
@@ -88,7 +90,7 @@ export default function Home() {
         <main className='container-home'>
             <Header search='able' select='home' />
             <section className='introduction-section-home'>
-                <h3 className='title-home'>Boas vindas <span>Nome</span>!</h3>
+                <h3 className='title-home'>Boas vindas <span>{firstNameUser}</span>!</h3>
                 <h4 className='text-home'>Veja o que está rolando de melhor na literatura brasileira</h4>
                 <img src={HomeImage} alt='' className='lover-books-home'/>
             </section>

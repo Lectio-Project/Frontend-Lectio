@@ -1,6 +1,6 @@
 'use client'
 
-import { Genre, GenresOnboarding } from '@/types/onboarding-types';
+import { Genre, GenresOnboardingProps } from '@/types/onboarding-types';
 import { useEffect, useState } from 'react';
 import { getCookie } from '@/utils/cookies';
 import { useRouter } from 'next/navigation';
@@ -10,7 +10,7 @@ import api from '@/api/api';
 
 import './GenresOnboarding.css';
 
-export default function GenresOnboarding({ selectedGenres, setSelectedGenres, page }: GenresOnboarding) {
+export default function GenresOnboarding({ selectedGenres, setSelectedGenres, page }: GenresOnboardingProps) {
     const [genres, setGenres] = useState<Genre[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const router = useRouter();
