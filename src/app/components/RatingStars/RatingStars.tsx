@@ -3,6 +3,7 @@ import { Rating } from '@mui/material';
 
 import { useDataContext } from '@/context/user';
 import { Star } from '@mui/icons-material';
+import { useEffect } from 'react';
 import './RatingStars.css';
 
 interface PropRatingStars {
@@ -22,7 +23,11 @@ export default function RatingStars({
     authorValue,
     returnValue
 }: PropRatingStars) {
-    const { setRateValue } = useDataContext();
+    const { rateValue, setRateValue } = useDataContext();
+
+    useEffect(() => {
+        setRateValue(starsValues || 0);
+    }, []);
 
     const customIcons = {
         star: {
@@ -55,18 +60,26 @@ export default function RatingStars({
             )
         }
     };
+
+    const handleValue = (changeValue: number) => {
+        if (returnValue) {
+            setRateValue(changeValue);
+        }
+    };
+
+    console.log(starsValues);
+
     return (
         <div className="ratingStars">
             <Rating
-                defaultValue={starsValues || 0}
+                defaultValue={starsValues}
                 precision={bookValue || authorValue ? 0.1 : 0.5}
                 size={size}
                 readOnly={readOnly}
                 emptyIcon={customIcons.empty.icon}
                 icon={customIcons.star.icon}
-                onChange={(e, value) => {
-                    returnValue && setRateValue(value!);
-                }}
+                onChange={(e, value) => handleValue(value!)}
+                value={returnValue ? rateValue : starsValues}
             />
             {bookValue && (
                 <strong className="rating-note-book">
