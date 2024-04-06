@@ -3,6 +3,7 @@
 import api from '@/api/api';
 import Comment, { CommentProps } from '@/app/components/Comment/Comment';
 import Header from '@/app/components/Header/Header';
+import Loading from '@/app/components/Loading/loading';
 import { getCookie } from '@/utils/cookies';
 import { useEffect, useState } from 'react';
 import './book-comments.css';
@@ -38,7 +39,11 @@ export default function BookComments({ params }: BookDetailsProps) {
     useEffect(() => {
         handleBookData();
     }, []);
-    return (
+    return isLoading ? (
+        <div className="container-book-loading">
+            <Loading />
+        </div>
+    ) : (
         <>
             <Header search="able" select="feed" />
 
