@@ -1,0 +1,45 @@
+
+.comments-more {
+  margin: 32px auto 0;
+  max-width: 100%;
+  padding: 2.4rem 12.8rem 3.4rem;
+  
+}
+.comments-more-div-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 2.4rem;
+}
+
+.comments-more-title {
+  font-size: 2.4rem;
+}
+
+.comments-more-article {
+  padding: 1.4rem;
+  border: 1px solid var(--tertiary-dark);
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3.6rem;
+}
+
+@media (max-width: 768px) {
+  .comments-more {
+    padding: 2.4rem 2.4rem 2.4rem;
+  }
+ .comments-more-article {
+  border: none;
+  padding: 1.4rem 0;
+ }
+}
+
+@media (max-width: 1140px) {
+  .comments-more {
+    padding: 2.4rem 8.8rem 3.4rem;
+  }
+}

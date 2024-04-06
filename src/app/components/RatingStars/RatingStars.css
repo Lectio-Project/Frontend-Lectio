@@ -9,8 +9,14 @@
     color: var(--neutral-gray);
 }
 
-.rating-note {
+.rating-note-book {
     font-size: 2rem;
     
     color: var(--text-color-yellow);
+}
+
+.rating-note-author {
+    font-size: 1.5rem;
+
+    color: var(--text-color-neutral-white);
 }
