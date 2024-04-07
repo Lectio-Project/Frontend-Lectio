@@ -10,12 +10,11 @@ import { useEffect, useState } from 'react';
 export default function Validate() {
     const {data: session, update} = useSession();
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [check, setCheck] = useState(false);
     const {onboarding, setOnboarding} = useDataContext();
-
+    
     useEffect(() => {
         handleOnboardingSteps();
-    }, [check])
+    }, [])
 
     async function handleOnboardingSteps() {
         try {
@@ -36,12 +35,6 @@ export default function Validate() {
             
             setOnboarding({ genresId: [], authorsId: [], booksId: [] })
             update({checkOnBoarding: true});
-
-            setCheck(true);
-
-            if (session?.checkOnBoarding) {
-                redirect('/home');
-            }
             
         } catch (error) {
             return console.error(error);
@@ -52,5 +45,5 @@ export default function Validate() {
 
     return isLoading ? (
         <Loading />
-    ) : <h1>Aguarde..</h1>
+    ) : redirect('/home')
 }

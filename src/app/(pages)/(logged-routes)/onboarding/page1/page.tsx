@@ -4,10 +4,18 @@ import Logo from '../../../../assets/logoWithName.svg';
 import OnBoardingImg from '../../../../assets/onBoardingImage.svg';
 import './page1.css'
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 
 export default function Page1(){
-
+    const {data: session, update} = useSession();
     const router = useRouter();
+    
+    useEffect(() => {
+        if (session?.checkOnBoarding) {
+            window.location.reload();
+        }
+    }, [session?.checkOnBoarding])
 
     return (
         <main className='container-main'>
