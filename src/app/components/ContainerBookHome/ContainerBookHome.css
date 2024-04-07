@@ -1,3 +1,7 @@
+.external-home-container-books {
+    position: relative;
+}
+
 .swiper-slide.swiper-slide-active {
     display: flex;
     flex-direction: row;
@@ -92,8 +96,24 @@
 .swiper-button-next, .swiper-button-prev {
     height: 1rem;
     width: 1rem;
+    z-index: 10;
+    cursor: pointer;
 
     color: var(--text-color-yellow);
+}
+
+.swiper-button-next {
+    right: 20px;
+}
+
+.swiper-button-prev {
+    left: -70px;
+}
+
+.swiper-button-prev.swiper-button-prev-books,
+.swiper-button-next.swiper-button-next-books {
+    position: absolute;
+    top: 45%;
 }
 
 .swiper-button-next.swiper-button-disabled,
