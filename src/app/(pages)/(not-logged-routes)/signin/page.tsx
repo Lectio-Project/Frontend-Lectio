@@ -13,17 +13,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { setCookie } from '@/utils/cookies';
-import { redirect, useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { useState } from 'react';
 
-import { useDataContext } from '@/context/user';
+import { AxiosError } from 'axios';
 import { signIn } from 'next-auth/react';
 import './signin.css';
 
 export default function SignIn() {
     const [responseError, setResponseError] = useState({});
-    const { setUserData } = useDataContext();
-    const router = useRouter();
 
     const {
         handleSubmit,
@@ -45,21 +43,26 @@ export default function SignIn() {
 
         if (result?.error) {
             setResponseError('As credenciais do usuário são inválidas');
-          }
-          
-        try {            
-            const response = await api.post('/users/sign-in', {email, password});
-            
+        }
+
+        try {
+            const response = await api.post('/users/sign-in', {
+                email,
+                password
+            });
+
             if (response.status === 200) {
                 await setCookie('token', response.data.token);
-                setUserData(response.data);
                 setResponseError({});
                 console.log(response.data);
 
                 redirect('/home');
             }
         } catch (error: any) {
-            return setResponseError(error.response.data.message);
+            console.log(error);
+            if (error instanceof AxiosError) {
+                return setResponseError(error.response?.data.message);
+            }
         }
     };
 

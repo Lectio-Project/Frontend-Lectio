@@ -1,8 +1,8 @@
 'use client';
 
-import ArrowGray from '../../../../../assets/arrowBottom.svg';
-import ArrowBlack from '../../../../../assets/arrowButton.svg';
-import ArrowYellow from '../../../../../assets/arrowGoYellow.svg';
+import ArrowGray from '../../../../assets/arrowBottom.svg';
+import ArrowBlack from '../../../../assets/arrowButton.svg';
+import ArrowYellow from '../../../../assets/arrowGoYellow.svg';
 
 import ButtonViewMore from '@/app/components/ButtonViewMore/ButtonViewMore';
 import Header from '@/app/components/Header/Header';
