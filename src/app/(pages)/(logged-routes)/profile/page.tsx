@@ -30,7 +30,6 @@ export default function Profile() {
         update({imageUrl: selectedImageUrl})
     }, [showModalImage])
 
-
     const initialImage = 'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg'
 
     interface ImageErrorEvent extends SyntheticEvent<HTMLImageElement, Event> {
@@ -45,53 +44,50 @@ export default function Profile() {
 
     return(
         <main className='container-edit'>
-
             <Header search='disabled' select='perfil' />
             
-            <section className='area-profile'>
+            <div className='container-profile'>
+                <section className='area-profile'>
 
-                <img src= {session?.imageUrl || initialImage} alt='Profile image' onError={handleImageError}/>
+                    <img src= {session?.imageUrl || initialImage} alt='Profile image' onError={handleImageError}/>
 
-                <div className='info-profile'>
-                <span>{session?.name ? session?.name : 'Nome do usuário' }</span>
-                <p>{session?.username ? session?.username : 'UserName'}</p>
-                </div>
+                    <div className='info-profile'>
+                    <span>{session?.name ? session?.name : 'Nome do usuário' }</span>
+                    <p>{session?.username ? session?.username : 'UserName'}</p>
+                    </div>
                 
-            </section>
+                </section>
 
-            <section className='form-edit'>
-                <div className='label-area'>
-                    <span>Bio</span>
-                    <img src={EditIcon} alt= 'Edit Icon' onClick={() => router.push('/profile/edit')}/>
-                </div>
+                <section className='form-edit'>
+                    <div className='label-area'>
+                        <span>Bio</span>
+                        <img src={EditIcon} alt= 'Edit Icon' onClick={() => router.push('/profile/edit')}/>
+                    </div>
 
-                <div className='bio-area'>
-                    <textarea
-                        placeholder="Sem biografia"
-                        maxLength={180}
-                        value={session?.bio}
-                        rows={4}
-                        disabled
-                    />
-                </div>
+                    <div className='bio-area'>
+                        <textarea
+                            placeholder="Sem biografia"
+                            maxLength={180}
+                            value={session?.bio}
+                            rows={4}
+                            disabled
+                        />
+                    </div>
 
 
-                <div className='secure-option' onClick={()=>setShowModalEditPass(true)}>
-                    <p>Alterar senha</p>
-                    <img src={GoIconY} alt='Intro Icon'/>
-                </div>
-            
+                    <div className='secure-option' onClick={()=>setShowModalEditPass(true)}>
+                        <p>Alterar senha</p>
+                        <img src={GoIconY} alt='Intro Icon'/>
+                    </div>
+                
 
-            </section>
+                </section>
 
-            
-
-            <EditSenha/>
+                <EditSenha/>
+            </div>
 
             {showModalImage && <UploadImage/>}
             
-            
-
         </main>
     )
 }

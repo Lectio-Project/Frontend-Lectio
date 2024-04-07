@@ -16,11 +16,12 @@ import { useRouter } from 'next/navigation';
 import UploadImage from '@/app/components/modalUpload/modalUpload';
 import Header from '@/app/components/Header/Header';
 import { useSession } from 'next-auth/react';
+import Loading from '@/app/components/Loading/loading';
 
 
 export default function EditPage(){
     const {data: session, update} = useSession();
-    console.log(session);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const { 
         userData,
@@ -34,9 +35,9 @@ export default function EditPage(){
         mode: 'onSubmit',
         resolver: zodResolver(schemaEdit),
         defaultValues: {
-            name: session?.name,
-            userName: session?.username,
-            bio: session?.bio
+            name: session?.name || userData.name,
+            userName: session?.username || userData.username,
+            bio: session?.bio || userData.bio,
         }
     });
 
@@ -46,51 +47,44 @@ export default function EditPage(){
     
     const handleData: SubmitHandler<editFormProps> = async (data) => {
         try {
+            setIsLoading(true);
             if(!data.name || !data.userName){
                 throw new Error('O nome ou username não pode ser vazio');
                 return
             }
 
             if(errorValidate !== ''){
-                return setErrorValidate('');
+                setErrorValidate('');
             }
             
-            // const response = await api.patch(`/users`,{
-            //     name: data.name,
-            //     username: data.userName,
-            //     bio: data.bio,
-            // },
-            // {
-            //     headers: {
-            //     authorization: `Bearer ${session?.token}` ,
-            //     },
-            // }
-            // )
+            const response = await api.patch(`/users`,{
+                name: data.name,
+                username: data.userName,
+                bio: data.bio,
+            },
+            {
+                headers: {
+                authorization: `Bearer ${session?.token}` ,
+                },
+            }
+            )
 
-            // if(response.status === 204 || response.status === 200){
-            //     const validateUsername = data.userName.indexOf('@das');
-
-            //     if ()
-            //     setErrorValidate('')
-            //     setUserData({...userData, name: data.name, username: '@' + data.userName, bio: data.bio});
-            //     update({name: data.name, username: data.userName, bio: data.bio})
+            if(response.status === 204 || response.status === 200){
+                update({name: data.name, username: data.userName, bio: data.bio})
                 
-            //     // return route.push('/profile');
-            // }
-
-            update({name: data.name, username: data.userName, bio: data.bio})
-            return route.push('/profile')
+                return route.push('/profile');
+            }
 
         } catch (error: any) {
-            
-
             if (error.response && error.response.status >= 400) {
                 const errorMessage = error.response.data.message;
 
                 return setErrorValidate(errorMessage);
             }
-
-            console.log(error)
+        } finally {
+            setInterval(() => {
+                setIsLoading(false);
+            }, 1000)
         }
     }
     
@@ -123,61 +117,70 @@ export default function EditPage(){
 
     return(
     <main className='container-edit'>
-        <Header search='disabled' select='perfil'/>
+        <Header search='disabled' select='perfil' />
 
-        <section className='image-area'>
-            <h3>Editar perfil</h3>
-            <img src= {userData?.imageUrl || initialImage} alt='Profile image' onError={handleImageError}/>
-            <span onClick={()=>setShowModalImage(true)}>Alterar foto</span>
-        </section>
+        {!isLoading ? (
+            <div className='container-edit-profile'>
+                <section className='image-area'>
+                    <h3>Editar perfil</h3>
+                    <img src= {userData?.imageUrl || initialImage} alt='Profile image' onError={handleImageError}/>
+                    <span onClick={()=>setShowModalImage(true)}>Alterar foto</span>
+                </section>
 
-        <form className='edit-form' onSubmit={handleSubmit(handleData)}>
-            <Input 
-            register={register('name',{required: 'campo obrigatório'})}
-            label='Nome'
-            placeholder='Digite seu nome'
-            type='text'
-            errorMessage={errors.name && errors.name.message }
-            />
-            <label htmlFor='bio'>Bio</label>
+                <form className='edit-form' onSubmit={handleSubmit(handleData)}>
+                    <Input 
+                    register={register('name',{required: 'campo obrigatório'})}
+                    label='Nome'
+                    placeholder='Digite seu nome'
+                    type='text'
+                    errorMessage={errors.name && errors.name.message }
+                    />
+                    <label htmlFor='bio'>Bio</label>
 
-            <textarea
-            
-            {...register('bio')} 
-            id='bio'
-            placeholder="Digite sua bio"
-            maxLength={180}
-            rows={4}
-            autoComplete="off"
-            />
+                    <textarea
+                    
+                    {...register('bio')} 
+                    id='bio'
+                    placeholder="Digite sua bio"
+                    maxLength={180}
+                    rows={4}
+                    autoComplete="off"
+                    />
 
-            <Input 
-            register={register('userName',{required: 'campo obrigatório'})}
-            label='Nome de usuário'
-            placeholder='Digite seu username'
-            type='text'
-            errorMessage={errors.userName && errors.userName.message }
-            onChange={handleInputChange}
-            />
+                    <Input 
+                    register={register('userName',{required: 'campo obrigatório'})}
+                    label='Nome de usuário'
+                    placeholder='Digite seu username'
+                    type='text'
+                    errorMessage={errors.userName && errors.userName.message }
+                    onChange={handleInputChange}
+                    />
 
-            <div className='buttons-area'>
-            <Button 
-            title='Cancelar' 
-            type='button' 
-            className='secondary'
-            onClick={()=>route.push('/profile')}
-            />
+                    <div className='buttons-area'>
+                    <Button 
+                    title='Cancelar' 
+                    type='button' 
+                    className='secondary'
+                    onClick={()=>route.push('/profile')}
+                    />
 
-            <Button 
-            title='Salvar alterações' 
-            type='submit' 
-            className= {Object.keys(errors).length > 0 ? 'disabled' : 'active'} 
-            disabled={Object.keys(errors).length > 0 ? 'disabled' : ''}
-            />
+                    <Button 
+                    title='Salvar alterações' 
+                    type='submit' 
+                    className= {Object.keys(errors).length > 0 ? 'disabled' : 'active'} 
+                    disabled={Object.keys(errors).length > 0 ? 'disabled' : ''}
+                    />
 
+                    </div>
+
+                </form>
+                
             </div>
-
-        </form>
+        ) : (
+            <div className='edit-loading'>
+                <Loading /> 
+            </div>
+        )}
 
         { showModalImage && <UploadImage/>}
 
