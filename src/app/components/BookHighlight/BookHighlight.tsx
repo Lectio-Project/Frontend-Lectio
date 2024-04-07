@@ -14,7 +14,6 @@ export default function BookHighlight({ book }: BookHighlightProps) {
     const { Comment } = book;
     const comment = Comment.find((comment) => comment.text);
     const { user, bookGrade, createdAt, text } = comment || {};
-    console.log(createdAt);
 
     function formatedDate(date: string) {
         return date && format(date, 'dd/MM/yyyy');

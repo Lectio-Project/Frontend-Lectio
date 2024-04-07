@@ -22,10 +22,18 @@ interface ObjectProps {
     [key: string]: string | BookProps[] | undefined;
 }
 
+interface SexGenderAuthors {
+    AuthorBook: { book: BookProps[] }[];
+}
+
+interface literaryAwardsResponse {
+    Book: BookProps;
+}
+
 interface ResponseBooks extends ObjectProps {
     isMove?: [];
     bestRated?: [];
-    sexGenderAuthors?: [];
+    sexGenderAuthor?: [];
     literaryAwards?: [];
     weekPopulater?: [];
 }
@@ -67,7 +75,7 @@ export default function Feed() {
         bestRated: 'Mais bem avaliados',
         isMovie: 'Livros que foram para as telonas',
         literaryAwards: 'Vencedores do Prêmio Jabuti',
-        sexGenderAuthors: 'Autoras mulheres'
+        sexGenderAuthor: 'Autoras mulheres'
     };
 
     const [books, setBooks] = useState<ResponseBooks>({});
@@ -77,14 +85,39 @@ export default function Feed() {
         async function getBooks() {
             try {
                 const response = await api.get(
-                    '/search/categories?isMovie=true&bestRated=true&weekPopulater=true',
+                    '/search/categories?isMovie=true&bestRated=true&weekPopulater=true&literaryAwards=true&sexGenderAuthor=woman',
                     {
                         headers: {
                             Authorization: `Bearer ${session.data!.token}`
                         }
                     }
                 );
-                const booksFound = response.data;
+                const { sexGenderAuthor, literaryAwards } = response.data;
+
+                const sexGenderAuthorsFormated: BookProps[] = (
+                    sexGenderAuthor as SexGenderAuthors[]
+                ).flatMap((element) => {
+                    return element.AuthorBook.flatMap((author) => author.book);
+                });
+
+                const literaryAwardJabuti: BookProps[] = (
+                    literaryAwards as literaryAwardsResponse[]
+                )
+                    .filter((element: literaryAwardsResponse) =>
+                        element.Book.LiteraryAwards?.some(
+                            (award) =>
+                                award.name.includes('jabuti') ||
+                                award.name.includes('Jabuti')
+                        )
+                    )
+                    .map((element: literaryAwardsResponse) => element.Book);
+
+                const booksFound = {
+                    ...response.data,
+                    sexGenderAuthor: sexGenderAuthorsFormated,
+                    literaryAwards: literaryAwardJabuti
+                };
+
                 setBooks(booksFound);
             } catch (error) {}
         }

@@ -10,7 +10,7 @@ interface BookFeedProps {
 
 export default function BookFeed({ title, books }: BookFeedProps) {
     const booksWithCommentsText = books.filter(
-        (book) => book.Comment.filter((comment) => comment.text).length > 0
+        (book) => book.Comment?.filter((comment) => comment.text).length > 0
     );
 
     return (
