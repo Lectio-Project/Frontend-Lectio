@@ -3,7 +3,7 @@ import { Rating } from "@mui/material";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import { useDataContext } from "@/context/user";
-import { ContainerBookHome } from "@/types/home-types";
+import { ContainerBookHomeProps } from "@/types/home-types";
 
 import 'swiper/swiper-bundle.css';
 import 'swiper/css/navigation';
@@ -11,7 +11,7 @@ import 'swiper/css/pagination';
 
 import './ContainerBookHome.css';
 
-const ContainerBookHome = ({books, isTablet, isDesktop, sort}: ContainerBookHome) => {
+const ContainerBookHome = ({books, isTablet, isDesktop, sort}: ContainerBookHomeProps) => {
     const {setBookId} = useDataContext();
     const router = useRouter();
 
@@ -32,8 +32,8 @@ const ContainerBookHome = ({books, isTablet, isDesktop, sort}: ContainerBookHome
         <Swiper
             className='home-container-books'
             modules={[Navigation, Pagination]}
-            slidesPerView={isDesktop ? 6 : (isTablet ? 4 : 1.95)}
-            slidesPerGroup={isDesktop ? 6 : (isTablet ? 4 : 2)}
+            slidesPerView={isDesktop ? 4 : (isTablet ? 4 : 1.95)}
+            slidesPerGroup={isDesktop ? 4 : (isTablet ? 4 : 2)}
             pagination={{ clickable: true }}
             navigation={isDesktop ? true : false}
         >

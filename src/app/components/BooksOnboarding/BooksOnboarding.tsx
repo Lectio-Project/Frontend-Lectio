@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { getCookie } from '@/utils/cookies';
-import { Book, BooksOnboarding } from '@/types/onboarding-types';
+import { Book, BooksOnboardingProps } from '@/types/onboarding-types';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -15,7 +15,7 @@ import api from '@/api/api';
 
 import './BooksOnboarding.css';
 
-export default function BooksOnboarding({ selectedBooks, setSelectedBooks }: BooksOnboarding) {
+export default function BooksOnboarding({ selectedBooks, setSelectedBooks }: BooksOnboardingProps) {
     const [books, setBooks] = useState<Book[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const isTablet = useMediaQuery('(min-width:768px)');

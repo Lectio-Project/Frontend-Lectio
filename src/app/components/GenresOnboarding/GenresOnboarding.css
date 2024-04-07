@@ -39,6 +39,7 @@
     color: var(--text-color-yellow);
     background-color: var(--bg-btn-darker);
     transition: all 0.2s;
+    text-transform: capitalize;
 }
 
 .default-genre-list:hover {
@@ -46,7 +47,7 @@
     outline: 2px solid var(--text-color-disabled);
 }
 
-.selected-genre-list {
+.selected-genre-list, .selected-genre-search:hover {
     outline: 2px solid var(--text-color-yellow);
 }
 

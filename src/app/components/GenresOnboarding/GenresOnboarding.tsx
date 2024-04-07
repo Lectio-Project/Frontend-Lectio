@@ -1,17 +1,19 @@
 'use client'
 
-import { Genre, GenresOnboarding } from '@/types/onboarding-types';
+import { Genre, GenresOnboardingProps } from '@/types/onboarding-types';
 import { useEffect, useState } from 'react';
 import { getCookie } from '@/utils/cookies';
+import { useRouter } from 'next/navigation';
 import Loading from '../Loading/loading';
 
 import api from '@/api/api';
 
 import './GenresOnboarding.css';
 
-export default function GenresOnboarding({ selectedGenres, setSelectedGenres }: GenresOnboarding) {
+export default function GenresOnboarding({ selectedGenres, setSelectedGenres, page }: GenresOnboardingProps) {
     const [genres, setGenres] = useState<Genre[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const router = useRouter();
 
     useEffect(() => {
         listGenres();
@@ -34,15 +36,20 @@ export default function GenresOnboarding({ selectedGenres, setSelectedGenres }: 
     }
 
     const handleGenreSelection = (e: React.MouseEvent<HTMLElement>, genre: Genre) => {
-        const isGenreSelected = selectedGenres.includes(genre);
-        
-        if (isGenreSelected) {
-            setSelectedGenres(selectedGenres.filter((selectedGenres: Genre) => selectedGenres !== genre));
-            e.currentTarget.classList.replace('selected-genre-list', 'default-genre-list');
-        } else if (selectedGenres.length < 3) {
-            setSelectedGenres([...selectedGenres, genre]);
-            e.currentTarget.classList.replace('default-genre-list', 'selected-genre-list');
-        } 
+        if (page === 'search') {
+            router.push(`/search/result/${genre.id}`);
+
+        } else if (page === 'onboarding'){
+            const isGenreSelected = selectedGenres.includes(genre);
+            
+            if (isGenreSelected) {
+                setSelectedGenres(selectedGenres.filter((selectedGenres: Genre) => selectedGenres !== genre));
+                e.currentTarget.classList.replace('selected-genre-list', 'default-genre-list');
+            } else if (selectedGenres.length < 3) {
+                setSelectedGenres([...selectedGenres, genre]);
+                e.currentTarget.classList.replace('default-genre-list', 'selected-genre-list');
+            }
+        }
     }
 
     return isLoading ? ( 
@@ -55,7 +62,7 @@ export default function GenresOnboarding({ selectedGenres, setSelectedGenres }: 
                     <section className='onboarding-button-list' key={genre.id}>
                         <button
                             type='button'
-                            className='default-genre-list'
+                            className={`default-genre-list ${page === 'search' && 'selected-genre-search'}`}
                             onClick={(e) => handleGenreSelection(e, genre)}
                             >
                             {genre.gender}

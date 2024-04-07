@@ -5,7 +5,7 @@
 }
 
 .home-container-books {
-    height: 38rem;
+    height: 37rem;
 }
 
 .default-book-list-home {
@@ -13,7 +13,7 @@
     flex-direction: column;
     gap: 0.8rem;
 
-    width: 100%;
+    width: fit-content;
     margin: 2rem 1.4rem 0.2rem 0.2rem;
     padding-right: 2rem;
 }
@@ -36,17 +36,23 @@
 }
 
 .book-title-home {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
     font-size: 1.6rem;
     font-weight: 700;
     line-height: 2.24rem;
     
     color: var(--text-color-green-2);
+}
+
+.book-title-home, .book-author-home {
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+
+    width: 16rem;
 }
 
 .book-author-home, .book-rating-home {
@@ -93,4 +99,40 @@
 .swiper-button-next.swiper-button-disabled,
 .swiper-button-prev.swiper-button-disabled {
     color: transparent;
+}
+
+@media (min-width: 768px) {
+    .home-container-books {
+        height: 40rem;
+    }
+
+    .book-image-home,
+    .book-title-home,
+    .book-author-home {
+        width: 18rem;
+    }
+
+    .book-image-home {
+        height: 26.6rem;
+    }
+
+    .book-title-home {
+        font-size: 1.8rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .home-container-books {
+        height: 42rem;
+}
+
+    .book-image-home,
+    .book-title-home,
+    .book-author-home {
+        width: 19.3rem;
+    }
+
+    .book-image-home {
+        height: 28.3rem;
+    }
 }

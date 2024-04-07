@@ -16,13 +16,13 @@ import { setCookie } from '@/utils/cookies';
 import { redirect, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { useDataContext } from '@/context/user';
+import { AxiosError } from 'axios';
 import { signIn } from 'next-auth/react';
 import './signin.css';
 
 export default function SignIn() {
     const [responseError, setResponseError] = useState({});
-    const { setUserData } = useDataContext();
+    const [showPassword, setShowPassword] = useState(false);
 
     const {
         handleSubmit,
@@ -35,7 +35,7 @@ export default function SignIn() {
 
     const handleData: SubmitHandler<signinFormProps> = async (data) => {
         const { email, password } = data;
-
+        
         const result = await signIn('credentials', {
             email,
             password,
@@ -44,23 +44,26 @@ export default function SignIn() {
 
         if (result?.error) {
             setResponseError('As credenciais do usuário são inválidas');
-          }
-          
-        try {            
-            const response = await api.post('/users/sign-in', {email, password});
-            
+        }
+
+        try {
+            const response = await api.post('/users/sign-in', {
+                email,
+                password
+            });
+
             if (response.status === 200) {
                 await setCookie('token', response.data.token);
-                setUserData(response.data);
                 setResponseError({});
 
                 return redirect('/home');
             }
         } catch (error: any) {
+            if (error instanceof AxiosError) {
+                return setResponseError(error.response?.data.message);
+            }
         }
     };
-
-    const [showPassword, setShowPassword] = useState(false);
 
     return (
         <main className="signin-container">

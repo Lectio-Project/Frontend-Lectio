@@ -8,9 +8,10 @@ export interface Genre {
     gender: string;
 }
 
-export interface GenresOnboarding {
+export interface GenresOnboardingProps {
     selectedGenres: Genre[];
     setSelectedGenres: React.Dispatch<React.SetStateAction<Genre[]>>;
+    page: string;
 }
 
 export interface Author {
@@ -34,7 +35,7 @@ export interface Book {
     }[];
 }
 
-export interface BooksOnboarding {
+export interface BooksOnboardingProps {
     selectedBooks: Book[];
     setSelectedBooks: React.Dispatch<React.SetStateAction<Book[]>>;
 }
@@ -43,7 +44,7 @@ export interface Onboarding {
     [key: string]: string[];
 }
 
-export interface FooterOnboarding {
+export interface FooterOnboardingProps {
     selectedItems: Book[] | Author[] | Genre[];
     page: string;
     title: string;

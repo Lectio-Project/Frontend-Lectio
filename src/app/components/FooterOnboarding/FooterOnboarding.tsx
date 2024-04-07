@@ -1,14 +1,13 @@
 import { useRouter } from 'next/navigation';
-import { FooterOnboarding, Onboarding } from '@/types/onboarding-types';
+import { FooterOnboardingProps, Onboarding } from '@/types/onboarding-types';
 import AlertIcon from '@/app/assets/alertIcon.svg'
 
 import Button from '@/app/components/Button/Button';
 
-import './FooterOnboarding.css';
 import { useEffect, useState } from 'react';
 import { useDataContext } from '@/context/user';
 
-export default function FooterOnboarding({ selectedItems = [], page, title }: FooterOnboarding) {
+export default function FooterOnboarding({ selectedItems = [], page, title }: FooterOnboardingProps) {
     const [error, setError] = useState<boolean>(false);
     const {onboarding, setOnboarding} = useDataContext();
     const router = useRouter();

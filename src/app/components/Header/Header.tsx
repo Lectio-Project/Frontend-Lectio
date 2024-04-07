@@ -1,36 +1,59 @@
 'use client'
 
+import HamburguerMenu from '../hamburguerMenu/hamburguerMenu';
 import Logo from '../../assets/logoWithName.svg';
-import Search from '../../assets/search.svg'
 import MenuIcon from '../../assets/menuIcon.svg';
-
 import NavBar from '@/app/components/NavBar/navBar';
+import Search from '../../assets/search.svg'
+
 import { useDataContext } from '@/context/user';
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from 'react';
 
 import './Header.css';
-import HamburguerMenu from '../hamburguerMenu/hamburguerMenu';
+import ModalGenresSelection from '../ModalGenresSelection/ModalGenresSelection';
 
 interface HeaderProps {
     search: 'able' | 'disabled';
-    select: 'home' | 'feed' | 'perfil';
+    select: 'home' | 'feed' | 'perfil' | 'none';
+    page?: string;
 }
 
-export default function Header({ search, select }: HeaderProps) {
+export default function Header({ search, select, page }: HeaderProps) {
     const { setOpenDrawer } = useDataContext();
+    const router = useRouter();
+    const [searchText, setSearchText] = useState('');
+    const [showModalGenres, setShowModalGenres] = useState(false);
+
+    useEffect(() => {
+        setShowModalGenres(false);
+    },[])
 
     return (
         <header className='header-container'>
             <div className='logo-section'>
-            <img src={Logo} alt='logo Icon'/>
+                <img src={Logo} alt='logo Icon' onClick={() => router.push('/home')}/>
             </div>
 
-            <div className={search === 'able' ? 'header-search' : 'header-search-disabled'}>
-                <img src={Search} alt="search image" />
-                <input type='search' placeholder='Pesquisar'></input>
+            <div className={`${search === 'able' && page !== 'search' ? 'header-search' : page !== 'search' ? 'header-search-disabled' : ''} ${page === 'search' ? 'header-search-page' : ''}`}>
+                <input 
+                    type='search' 
+                    placeholder='Pesquisar' 
+                    onChange={(e) => setSearchText(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' && searchText) {
+                            router.push(`/search/result/${searchText}`);
+                        }
+                    }}
+                    onClick={() => page !== 'search' && setShowModalGenres(!showModalGenres)}
+                />
+                <img src={Search} alt="search image" onClick={() => searchText && router.push(`/search/result/${searchText}`)}/>
+                {showModalGenres && <ModalGenresSelection />}
             </div>
 
-            <div className='sandwich-menu' onClick={()=> setOpenDrawer(true)}>
-                <img src={MenuIcon} alt='sandwich menu' />
+            <div className='sandwich-menu'>
+                <img src={Search} alt="search image" className='search-button-header' onClick={() => router.push('/search')}/>
+                <img src={MenuIcon} alt='sandwich menu' className='sandwich-button-header' onClick={()=> setOpenDrawer(true)}/>
             </div>
 
             <nav>

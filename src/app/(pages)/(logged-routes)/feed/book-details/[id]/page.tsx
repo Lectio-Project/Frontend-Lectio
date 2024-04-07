@@ -53,6 +53,8 @@ export default function BookDetails({ params }: BookDetailsProps) {
 
     const [booksAuthorData, setBooksAuthorData] = useState([]);
     const [commentWithText, setCommentWithText] = useState<CommentProps[]>([]);
+    const [lastAvalitionUser, setLastAvaliationUser] =
+        useState<CommentProps | null>(null);
     const [addComment, setAddComment] = useState<number>(0);
     const [showDescription, setShowDescription] = useState(false);
     const [showInfoTechnical, setShowInfoTechnical] = useState(false);
@@ -64,7 +66,7 @@ export default function BookDetails({ params }: BookDetailsProps) {
 
     const routeId = params.id;
     const router = useRouter();
-    const { bookId } = useDataContext();
+    const { userData } = useDataContext();
     const initialImage =
         'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg';
 
@@ -121,6 +123,11 @@ export default function BookDetails({ params }: BookDetailsProps) {
                 (comment: CommentProps) => comment.text
             );
 
+            const lastAvaliationOfUser = response.data.Comment.find(
+                (comment: CommentProps) => comment.user.id === userData.id
+            );
+
+            setLastAvaliationUser(lastAvaliationOfUser);
             setCommentWithText(commentText);
         } catch (error: any) {
             console.error(error);
@@ -221,10 +228,15 @@ export default function BookDetails({ params }: BookDetailsProps) {
 
                         <div className="rating-book">
                             <ModalRate
-                                title="Avalie a obra"
+                                title={
+                                    lastAvalitionUser
+                                        ? 'Reavalie a obra'
+                                        : 'Avalie a obra'
+                                }
                                 bookId={routeId}
                                 addComment={addComment}
                                 setAddComment={setAddComment}
+                                lastAvalitionUser={lastAvalitionUser!}
                             />
                         </div>
                     </div>
@@ -251,7 +263,7 @@ export default function BookDetails({ params }: BookDetailsProps) {
                             </div>
 
                             <div className="assessments-and-reviews">
-                                <span>{bookData.totalGrade} avaliações</span>
+                                <span>{bookData.counterGrade} avaliações</span>
                                 <span>·</span>
                                 <span>
                                     {bookData.Comment.length} comentários

@@ -13,7 +13,7 @@
     gap: 1.5rem;
     cursor: pointer;
 
-    width: 25.3rem;
+    width: 90%;
     height: 9rem;
     padding: 1.6rem;
     margin: 0.2rem 1.4rem 0.2rem 0.2rem;
@@ -73,4 +73,11 @@
 
 .default-author-list:hover .author-genre-home {
     color: var(--text-color-yellow-dark);
+}
+
+@media (min-width: 1280px) {
+    .default-author-list, .selected-author-list {
+        width: 85%;
+        max-width: 42rem;
+    }
 }
