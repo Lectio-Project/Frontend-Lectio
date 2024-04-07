@@ -10,6 +10,7 @@ import './feed.css';
 
 import api from '@/api/api';
 import BookFeed from '@/app/components/BookFeed/BookFeed';
+import Loading from '@/app/components/Loading/loading';
 import { BookProps } from '@/types/book';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
@@ -20,14 +21,6 @@ import ruthImg from '../../../assets/ruthrocha.svg';
 
 interface ObjectProps {
     [key: string]: string | BookProps[] | undefined;
-}
-
-interface SexGenderAuthors {
-    AuthorBook: { book: BookProps[] }[];
-}
-
-interface literaryAwardsResponse {
-    Book: BookProps;
 }
 
 interface ResponseBooks extends ObjectProps {
@@ -81,9 +74,12 @@ export default function Feed() {
     const [books, setBooks] = useState<ResponseBooks>({});
     const session = useSession();
 
+    const [isLoading, setIsLoading] = useState(false)
+
     useEffect(() => {
         async function getBooks() {
             try {
+              setIsLoading(true)
                 const response = await api.get(
                     '/search/categories?isMovie=true&bestRated=true&weekPopulater=true&literaryAwards=true&sexGenderAuthor=woman',
                     {
@@ -92,34 +88,27 @@ export default function Feed() {
                         }
                     }
                 );
-                const { sexGenderAuthor, literaryAwards } = response.data;
 
-                const sexGenderAuthorsFormated: BookProps[] = (
-                    sexGenderAuthor as SexGenderAuthors[]
-                ).flatMap((element) => {
-                    return element.AuthorBook.flatMap((author) => author.book);
-                });
+                const { literaryAwards } = response.data;
 
-                const literaryAwardJabuti: BookProps[] = (
-                    literaryAwards as literaryAwardsResponse[]
-                )
-                    .filter((element: literaryAwardsResponse) =>
-                        element.Book.LiteraryAwards?.some(
-                            (award) =>
-                                award.name.includes('jabuti') ||
-                                award.name.includes('Jabuti')
-                        )
-                    )
-                    .map((element: literaryAwardsResponse) => element.Book);
+                const literaryAwardJabuti: BookProps[] = literaryAwards.filter((bookAward: BookProps) => {
+                  const jabutiAward = bookAward.LiteraryAwards?.some((book) => {  
+                    return book.name.includes('Jabuti') || book.name.includes('jabuti')
+                  })
+
+                  return jabutiAward && bookAward
+                })
 
                 const booksFound = {
                     ...response.data,
-                    sexGenderAuthor: sexGenderAuthorsFormated,
                     literaryAwards: literaryAwardJabuti
                 };
 
                 setBooks(booksFound);
-            } catch (error) {}
+                setIsLoading(false)
+            } catch (error) {
+              console.log(error)
+            }
         }
 
         getBooks();
@@ -150,12 +139,19 @@ export default function Feed() {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            {Object.keys(feedTopicsTitles).map((key) => {
+            {isLoading 
+              ? 
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+                <Loading /> 
+              </div>
+              : 
+                Object.keys(feedTopicsTitles).map((key) => {
                 if (books[key])
                     return (
                         <BookFeed
                             title={feedTopicsTitles[key] as string}
                             books={books[key] as BookProps[]}
+                            link={key}
                         />
                     );
             })}

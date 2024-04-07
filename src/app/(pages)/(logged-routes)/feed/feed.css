@@ -38,3 +38,42 @@
   font-weight: 700;
   text-align: right;
 }
+
+@media (max-width: 767px) {
+  .container-slider {
+    height: 28.2rem;
+  }
+
+  .slider {
+    height: 25.3rem;
+  }
+
+  .slider h1 {
+    font-size: 2rem;
+  }
+
+  .slider p {
+    max-width: 32rem;
+    width: 100%;
+    font-size: 1.4rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container-slider {
+    height: 40.8rem;
+  }
+
+  .slider {
+    height: 34.2rem;
+  }
+
+  .slider h1 {
+    font-size: 2.7rem;
+  }
+
+  .slider p {
+    width: 66.4rem;
+    font-size: 2rem;
+  }
+}

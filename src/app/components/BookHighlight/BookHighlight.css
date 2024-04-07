@@ -1,15 +1,14 @@
 .full-book {
-  width: 50%;
+  max-width: 50%;
   margin: 3rem 0;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
 }
 
 .full-book header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .full-book .user {
@@ -23,6 +22,7 @@
   height: 4.6rem;
   border-radius: 50%;
   background-color: gray;
+  object-fit: cover;
 }
 
 .full-book .user-details {
@@ -51,6 +51,8 @@
 .book-comment {
   display: flex;
   gap: 1.6rem;
+  margin-top: 2rem;
+  margin-bottom: .8rem;
 }
 
 .book-comment .book {
@@ -62,8 +64,9 @@
 }
 
 .comment {
-  width: 29.4rem;
-  height: 19.4rem;
+  max-width: 29.4rem;
+  max-height: 19.4rem;
+  overflow: auto;
   font-size: 1.6rem;
 }
 
@@ -75,6 +78,8 @@
 
 .book-info {
   display: flex;
+  max-width: 60%;
+  align-items: start;
 }
 
 .book-name {
@@ -116,4 +121,30 @@
 .see-book img {
   width: 1.4rem;
   height: 1.4rem;
+}
+
+@media (max-width: 767px) {
+  .comment {
+    height: 17.5rem;
+    overflow: auto;
+  }
+
+  .full-book {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .full-book {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .container-books {
+    padding: 0 2.4rem;
+  }
+
+  .comment {
+    font-size: 1.4rem;
+  }
 }

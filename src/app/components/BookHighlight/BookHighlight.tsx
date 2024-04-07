@@ -1,5 +1,5 @@
 import { BookProps } from '@/types/book';
-import { Rating } from '@mui/material';
+import { Rating, useMediaQuery } from '@mui/material';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import arrowRight from '../../assets/arrowGoGreen.svg';
@@ -15,6 +15,10 @@ export default function BookHighlight({ book }: BookHighlightProps) {
     const comment = Comment.find((comment) => comment.text);
     const { user, bookGrade, createdAt, text } = comment || {};
 
+    const isMobile = useMediaQuery('(max-width: 767px)')
+    const isTablet = useMediaQuery('(min-width: 768px) and (max-width: 1024px)')
+    const isDesktop = useMediaQuery('(min-width: 1025px)')
+    
     function formatedDate(date: string) {
         return date && format(date, 'dd/MM/yyyy');
     }
@@ -53,11 +57,11 @@ export default function BookHighlight({ book }: BookHighlightProps) {
                         alt={`imagem do livro ${book?.name}`}
                     />
                 </div>
-                <p className="comment">{text}</p>
+                <p className="comment">{(isDesktop && text?.substring(0, 290) + '...') || (isTablet && text?.substring(0, 200) + '...') || (isMobile && text?.substring(0, 170) + '...')}</p>
             </div>
             <div className="book-details">
                 <div className="book-info">
-                    <p className="book-name">Torto Arado</p>
+                    <p className="book-name">{book.name}</p>
                     <div className="rating-info">
                         <Rating max={1} value={1} size="medium" readOnly />
                         <span>{`(${book?.avgGrade.toFixed(1)})`}</span>

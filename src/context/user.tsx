@@ -1,5 +1,6 @@
 'use client'
 
+import { BookProps } from '@/types/book';
 import { Onboarding } from '@/types/onboarding-types';
 import { ReactNode, createContext, useContext, useState } from 'react';
 
@@ -35,6 +36,10 @@ type IUserContextData = {
     setAuthorId: React.Dispatch<React.SetStateAction<string>>;
     rateValue: number;
     setRateValue: React.Dispatch<React.SetStateAction<number>>;
+    booksSelected: BookProps[];
+    setBooksSelected: React.Dispatch<React.SetStateAction<BookProps[]>>;
+    titleSelected: string;
+    setTitleSelected: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface AppProviderProps {
@@ -71,6 +76,10 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
     const [authorId, setAuthorId] = useState<string>('');
     const [rateValue, setRateValue] = useState<number>(0);
 
+    const [booksSelected, setBooksSelected] = useState<BookProps[]>([])
+
+    const [titleSelected, setTitleSelected] = useState('')
+
     const contextValue = {
         userData,
         setUserData,
@@ -89,7 +98,11 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         authorId,
         setAuthorId,
         rateValue,
-        setRateValue
+        setRateValue,
+        booksSelected,
+        setBooksSelected,
+        titleSelected,
+        setTitleSelected
     };
 
     return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;
