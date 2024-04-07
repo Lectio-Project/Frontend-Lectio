@@ -28,6 +28,7 @@
     font-size: 2rem;
     font-weight: 700;
     line-height: 2.8rem;
+    text-transform: capitalize;
 
     color: var(--text-color-neutral-white);
 }
@@ -107,7 +108,7 @@
     }
 
     .introduction-texts-home {
-        width: 35rem;
+        width: 50%;
         position: absolute;
         top: 50%;
         left: 2.8rem;
@@ -116,14 +117,14 @@
     }
 
     .title-home {
-        width: 35rem;
+        width: 100%;
         text-align: left;
         font-size: 3.2rem;
         line-height: 4rem;
     }
 
     .text-home {
-        width: 35rem;
+        width: 100%;
         text-align: left;
         font-size: 1.8rem;
         line-height: 2.4rem;
