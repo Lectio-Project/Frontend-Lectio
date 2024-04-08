@@ -11,7 +11,7 @@ import { useState } from 'react';
 
 export default function EditSenha(){
 
-    const { userData,showModalEditPass, setShowModalEditPass } = useDataContext();
+    const { userData, showModalEditPass, setShowModalEditPass } = useDataContext();
 
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);

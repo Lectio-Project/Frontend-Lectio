@@ -1,0 +1,150 @@
+.full-book {
+  max-width: 50%;
+  margin: 3rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.full-book header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.full-book .user {
+  display: flex;
+  gap: 1rem;
+}
+
+.full-book .avatar {
+  display: block;
+  width: 4.6rem;
+  height: 4.6rem;
+  border-radius: 50%;
+  background-color: gray;
+  object-fit: cover;
+}
+
+.full-book .user-details {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.full-book .user-details p {
+  font-size: 1.4rem;
+  color: var(--text-color-white);
+}
+
+.user-details .rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+}
+
+.grade, .full-book header p {
+  font-size: 1.2rem;
+  color: #c0c0c0;
+}
+
+.book-comment {
+  display: flex;
+  gap: 1.6rem;
+  margin-top: 2rem;
+  margin-bottom: .8rem;
+}
+
+.book-comment .book {
+  display: block;
+  width: 13.2rem;
+  height: 19.4rem;
+  border-radius: 8px;
+  background-color: gray;
+}
+
+.comment {
+  max-width: 29.4rem;
+  max-height: 19.4rem;
+  overflow: auto;
+  font-size: 1.6rem;
+}
+
+.book-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.book-info {
+  display: flex;
+  max-width: 60%;
+  align-items: start;
+}
+
+.book-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.rating-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: .5rem;
+}
+
+.rating-info span {
+  font-size: 1.2rem;
+  color: var(--bg-button);
+}
+
+.see-book {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+}
+
+.see-book p {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #B6FF58;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.see-book p:hover {
+  filter: brightness(0.8);
+}
+
+.see-book img {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+@media (max-width: 767px) {
+  .comment {
+    height: 17.5rem;
+    overflow: auto;
+  }
+
+  .full-book {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .full-book {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .container-books {
+    padding: 0 2.4rem;
+  }
+
+  .comment {
+    font-size: 1.4rem;
+  }
+}

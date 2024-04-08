@@ -1,0 +1,241 @@
+.container-author{
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--bg-color-primary);
+}
+
+.container-book-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: calc(100vh - 9rem);
+    padding-bottom: 3rem;
+}
+
+s
+.loader-container .loader {
+    width: 20rem;
+    height: 20rem;
+}
+
+.image-author{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4rem 0;
+}
+
+.image-author img {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+
+    border-radius: 0.8rem;
+}
+
+.infos{
+    margin: 0 2.4rem 4.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.infos-author{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 1.3rem;
+}
+
+.infos-author-name {
+    color: var(--text-color-white);
+    font-family: var(--primary-font);
+    font-size: 2.4rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 166.667%;
+}
+
+.infos p{
+    color: var(--text-color-white, #FCFCFC);
+
+    font-family: var(--primary-font);
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+
+    margin-bottom: 0.8rem;
+}
+
+.local-rate-area{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.local-text{
+    width: 16.3rem;
+}
+
+.local-text p{
+    color: var(--text-color-white);
+    font-family: var(--primary-font);
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+}
+
+.local-text span{
+    color: var(--text-color-white, #FFF);
+
+    font-family: Inter;
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+}
+
+.rating-area{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.rating-area a{
+    color: var(--text-color-yellow, #FDBB22);
+    text-align: center;
+    font-family: var(--primary-font);
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
+
+.books-indication{
+    width: 100%;
+    padding: 0 2.4rem 0;
+    margin-top: 4rem;
+    margin-bottom: 3.2rem;
+}
+
+.books-indication span{
+    align-self: flex-start;
+    color: var(--text-color-white, #FCFCFC);
+    font-family: var(--primary-font);
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+}
+
+
+
+.btn-area {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3.7rem;
+}
+
+.btn-view-more{
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .content-container-author {
+        display: flex;
+        justify-content: center;
+        padding: 0 3.2rem 0;
+        margin-top: 6.4rem;
+    }
+
+    .image-author{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+
+        width: 40%;
+    }
+    
+    .image-author img {
+        min-width: 285.19px;
+        width: 100%;
+        min-height: 285.19px;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .infos {
+        width: 60%;
+        margin: 0 2.0rem;
+    }
+
+    .books-indication{
+        padding: 0 3.2rem;
+    }
+
+    .books-indication h2{
+        font-size: 2.4rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 125%;
+    }
+}
+
+@media (min-width:1024px) {
+    .content-container-author {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0 3.2rem 0;
+        margin-bottom: 12.4rem;
+    }
+
+    .image-author{
+        display: flex;
+        align-items: center;
+        align-items: center;
+        margin: 0;
+
+        width: 30%;
+    }
+    
+    .image-author img {
+        width: 100%;
+        height: 30.7rem;
+        object-fit: cover;
+    }
+
+    .infos-author-name {
+        font-size: 3.2rem;
+    }
+
+    .infos p {
+        width: 80%;
+    }
+
+    .local-rate-area {
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .local-text{
+        width: 50%;
+    }
+
+    .books-indication {
+        padding: 0 17rem 0 ;
+    }
+
+}
