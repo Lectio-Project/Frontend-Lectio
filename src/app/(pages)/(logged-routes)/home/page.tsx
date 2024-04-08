@@ -18,41 +18,13 @@ import api from "@/api/api";
 import './home.css';
 
 export default function Home() {
-    const {onboarding, setOnboarding} = useDataContext();
     const [books, setBooks] = useState<Book[]>([]);
     const [authors, setAuthors] = useState<Author[]>([]);
     const isTablet = useMediaQuery('(min-width:768px)');
     const isDesktop = useMediaQuery('(min-width:1280px)');
+    const {userData} = useDataContext();
+    const firstNameUser = userData.name ? userData.name.split(' ')[0] : '';
     
-    // useEffect(() => {
-    //     handleOnboardingSteps();
-    // }, [])
-
-    // async function handleOnboardingSteps() {
-    //     try {
-    //         const token = await getCookie('token');      
-
-    //         for (const item in onboarding) {
-    //             console.log(onboarding[item]);
-                
-    //             if (onboarding.hasOwnProperty(item) && Array.isArray(onboarding[item]) && onboarding[item].length === 0) {
-    //                 delete onboarding[item];
-    //             }
-    //         }
-
-    //         const request = {...onboarding, checkOnBoarding: true}
-            
-    //         await api.patch('/users', request, {
-    //             headers: { Authorization: `Bearer ${token}` }
-    //         });  
-            
-    //         setOnboarding({ genresId: [], authorsId: [], booksId: [] })
-            
-    //     } catch (error) {
-    //         return console.error(error);
-    //     } 
-    // }
-
     useEffect(() => {
         listBooks();
         listAuthors();
@@ -90,7 +62,7 @@ export default function Home() {
         <main className='container-home'>
             <Header search='able' select='home' />
             <section className='introduction-section-home'>
-                <h3 className='title-home'>Boas vindas <span>Nome</span>!</h3>
+                <h3 className='title-home'>Boas vindas <span>{firstNameUser}</span>!</h3>
                 <h4 className='text-home'>Veja o que está rolando de melhor na literatura brasileira</h4>
                 <img src={HomeImage} alt='' className='lover-books-home'/>
             </section>

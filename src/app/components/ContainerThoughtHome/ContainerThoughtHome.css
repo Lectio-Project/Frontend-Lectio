@@ -11,7 +11,7 @@
     display: flex;
     gap: 0.8rem;
 
-    width: 25.3rem;
+    width: 90%;
     height: 22.4rem;
     padding: 1.6rem;
     margin: 0.2rem 1.4rem 0.2rem 0.2rem;
@@ -62,4 +62,23 @@
     line-height: 1.96rem;
 
     color: var(--text-color-yellow);
+}
+
+@media (min-width: 1280px) {
+    .swiper.home-container-thoughts {
+        height: 29.2rem;
+    }
+
+    .default-thought-home {
+        gap: 1.6rem;
+
+        width: 85%;
+        max-width: 42rem;
+        height: 28.8rem;
+        padding: 2.4rem;
+    }
+
+    .text-thought-home, .author-thought-home {
+        font-size: 1.8rem;
+    }
 }

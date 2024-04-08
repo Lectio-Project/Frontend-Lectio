@@ -22,11 +22,8 @@ export const nextAuthOptions: NextAuthOptions = {
 					})
 				})
 
-				
 				const user = await response.json()
 				
-				
-                
 				if (user && response.ok) {
 					return user
 				}
@@ -39,8 +36,12 @@ export const nextAuthOptions: NextAuthOptions = {
 		signIn: '/signin'
 	},
     callbacks: {
-      async jwt({ token, user }) {
+      async jwt({ token, user, session, trigger }) {
 			user && (token.user = user)
+
+			if (trigger === 'update' && session && token.user) {
+				token.user = { ...token.user, ...session };
+			}
 			
 			return token
 		},

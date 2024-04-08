@@ -22,6 +22,7 @@ import './signin.css';
 
 export default function SignIn() {
     const [responseError, setResponseError] = useState({});
+    const [showPassword, setShowPassword] = useState(false);
 
     const {
         handleSubmit,
@@ -34,7 +35,7 @@ export default function SignIn() {
 
     const handleData: SubmitHandler<signinFormProps> = async (data) => {
         const { email, password } = data;
-
+        
         const result = await signIn('credentials', {
             email,
             password,
@@ -54,19 +55,15 @@ export default function SignIn() {
             if (response.status === 200) {
                 await setCookie('token', response.data.token);
                 setResponseError({});
-                console.log(response.data);
 
-                redirect('/home');
+                return redirect('/home');
             }
         } catch (error: any) {
-            console.log(error);
             if (error instanceof AxiosError) {
                 return setResponseError(error.response?.data.message);
             }
         }
     };
-
-    const [showPassword, setShowPassword] = useState(false);
 
     return (
         <main className="signin-container">

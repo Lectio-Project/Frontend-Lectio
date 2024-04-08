@@ -18,15 +18,20 @@ import 'swiper/css/grid';
 import api from '@/api/api';
 
 import './AuthorOnboarding.css';
+import { useDataContext } from '@/context/user';
+import { AuthorProps } from '@/app/(pages)/(logged-routes)/feed/author-details/[id]/page';
 
 export default function AuthorOnboarding({ selectedAuthors, setSelectedAuthors }: AuthorsOnboarding) {
-    const [authors, setAuthors] = useState<Author[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const {onboardingAuthors, setOnboardingAuthors} = useDataContext();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const isTablet = useMediaQuery('(min-width:768px)');
     const isDesktop = useMediaQuery('(min-width:1280px)'); 
     
     useEffect(() => {
-        listAuthors();
+        if (!onboardingAuthors) {
+            setIsLoading(true);
+            listAuthors();
+        }
     }, []);
 
     const listAuthors = async () => {
@@ -38,7 +43,7 @@ export default function AuthorOnboarding({ selectedAuthors, setSelectedAuthors }
                     Authorization: `Bearer ${token}`
                 }});
                 
-            setAuthors(response.data);
+            setOnboardingAuthors(response.data);
         } catch (error: any) {
             console.error(error)
         } finally {
@@ -46,11 +51,11 @@ export default function AuthorOnboarding({ selectedAuthors, setSelectedAuthors }
         }
     }
 
-    const handleAuthorSelection = (e: React.MouseEvent<HTMLElement>, author: Author) => {
+    const handleAuthorSelection = (e: React.MouseEvent<HTMLElement>, author: AuthorProps) => {
         const isAuthorSelected = selectedAuthors.includes(author);
         
         if (isAuthorSelected) {
-            setSelectedAuthors(selectedAuthors.filter((selectedAuthors: Author) => selectedAuthors !== author));
+            setSelectedAuthors(selectedAuthors.filter((selectedAuthors: AuthorProps) => selectedAuthors !== author));
             e.currentTarget.classList.replace('selected-author-list', 'default-author-list');
         } else if (selectedAuthors.length < 3) {
             setSelectedAuthors([...selectedAuthors, author]);
@@ -58,11 +63,11 @@ export default function AuthorOnboarding({ selectedAuthors, setSelectedAuthors }
         } 
     }
 
-    function handleAuthorGenrer(authors: Author) {
+    function handleAuthorGenrer(authors: AuthorProps) {
         let authorsGenderArray: string[] = [];
         let authorGender: string;
 
-        authors.Genders.forEach(element => {
+        authors.Genders?.forEach(element => {
             if (element.hasOwnProperty('gender')) {
                 authorsGenderArray.push(element.gender.gender);
             }
@@ -92,7 +97,7 @@ export default function AuthorOnboarding({ selectedAuthors, setSelectedAuthors }
             pagination={{ clickable: true, }}
             navigation={isDesktop ? true : (isTablet && false)}
         >
-            {authors.map((author) => {
+            {onboardingAuthors!.map((author) => {
                 const authorGender = handleAuthorGenrer(author);
 
                 return (
@@ -115,7 +120,7 @@ export default function AuthorOnboarding({ selectedAuthors, setSelectedAuthors }
             </div>
     ) : (
         <section className='onboarding-container-author-list'>
-        {authors.map((author) => {
+        {onboardingAuthors?.map((author) => {
             const authorGender = handleAuthorGenrer(author);
                     
             return (

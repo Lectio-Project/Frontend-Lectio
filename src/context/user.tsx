@@ -1,11 +1,11 @@
 'use client';
 
-import { BookProps } from '@/types/book';
+import { AuthorProps } from '@/app/(pages)/(logged-routes)/feed/author-details/[id]/page';
+import { BookProps } from '@/types/books';
 import { ObjectProps } from '@/types/feedDatas';
-import { Onboarding } from '@/types/onboarding-types';
+import { Genre, Onboarding } from '@/types/onboarding-types';
 import { ReactNode, createContext, useContext, useState } from 'react';
-
-interface User {
+export interface User {
     id: string;
     name: string;
     email: string;
@@ -36,6 +36,16 @@ type IUserContextData = {
     setAuthorId: React.Dispatch<React.SetStateAction<string>>;
     rateValue: number;
     setRateValue: React.Dispatch<React.SetStateAction<number>>;
+    onboardingGenders: Genre[] | null;
+    setOnboardingGenders: React.Dispatch<React.SetStateAction<Genre[] | null>>;
+    onboardingBooks: BookProps[] | null;
+    setOnboardingBooks: React.Dispatch<
+        React.SetStateAction<BookProps[] | null>
+    >;
+    onboardingAuthors: AuthorProps[] | null;
+    setOnboardingAuthors: React.Dispatch<
+        React.SetStateAction<AuthorProps[] | null>
+    >;
     booksSelected: BookProps[] | null;
     setBooksSelected: React.Dispatch<React.SetStateAction<BookProps[] | null>>;
     feedTopicsTitles: ObjectProps;
@@ -43,29 +53,21 @@ type IUserContextData = {
 
 interface AppProviderProps {
     children: ReactNode;
+    sessionUser: User;
 }
 
 const DataContext = createContext<IUserContextData | undefined>(undefined);
 
 const DataProvider: React.FC<AppProviderProps> = ({
-    children
+    children,
+    sessionUser
 }: AppProviderProps) => {
-    const [userData, setUserData] = useState<User>({
-        name: '',
-        email: '',
-        username: '',
-        bio: '',
-        id: '',
-        token: '',
-        imageUrl: '',
-        createdAt: '',
-        updatedAt: ''
-    });
+    const [userData, setUserData] = useState<User>(sessionUser);
 
     const [showModalEditPass, setShowModalEditPass] = useState<boolean>(false);
     const [showModalImage, setShowModalImage] = useState<boolean>(false);
     const [selectedImageUrl, setSelectedImageUrl] = useState(
-        userData.imageUrl || ''
+        userData?.imageUrl || ''
     );
     const [openDrawer, setOpenDrawer] = useState(false);
     const [onboarding, setOnboarding] = useState<Onboarding>({
@@ -76,6 +78,15 @@ const DataProvider: React.FC<AppProviderProps> = ({
     const [bookId, setBookId] = useState<string>('');
     const [authorId, setAuthorId] = useState<string>('');
     const [rateValue, setRateValue] = useState<number>(0);
+    const [onboardingGenders, setOnboardingGenders] = useState<Genre[] | null>(
+        null
+    );
+    const [onboardingAuthors, setOnboardingAuthors] = useState<
+        AuthorProps[] | null
+    >(null);
+    const [onboardingBooks, setOnboardingBooks] = useState<BookProps[] | null>(
+        null
+    );
 
     const [booksSelected, setBooksSelected] = useState<BookProps[] | null>(
         null
@@ -109,6 +120,12 @@ const DataProvider: React.FC<AppProviderProps> = ({
         setAuthorId,
         rateValue,
         setRateValue,
+        onboardingGenders,
+        setOnboardingGenders,
+        onboardingAuthors,
+        setOnboardingAuthors,
+        onboardingBooks,
+        setOnboardingBooks,s
         booksSelected,
         setBooksSelected,
         titleSelected,

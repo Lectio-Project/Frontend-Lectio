@@ -1,3 +1,6 @@
+import { AuthorProps } from "@/app/(pages)/(logged-routes)/feed/author-details/[id]/page";
+import { BookProps } from "./books";
+
 export interface headerOnboarding {
     title: string;
     step: number;
@@ -8,9 +11,10 @@ export interface Genre {
     gender: string;
 }
 
-export interface GenresOnboarding {
+export interface GenresOnboardingProps {
     selectedGenres: Genre[];
     setSelectedGenres: React.Dispatch<React.SetStateAction<Genre[]>>;
+    page: string;
 }
 
 export interface Author {
@@ -21,8 +25,8 @@ export interface Author {
 }
 
 export interface AuthorsOnboarding {
-    selectedAuthors: Author[];
-    setSelectedAuthors: React.Dispatch<React.SetStateAction<Author[]>>;
+    selectedAuthors: AuthorProps[];
+    setSelectedAuthors: React.Dispatch<React.SetStateAction<AuthorProps[]>>;
 }
 
 export interface Book {
@@ -34,19 +38,17 @@ export interface Book {
     }[];
 }
 
-export interface BooksOnboarding {
-    selectedBooks: Book[];
-    setSelectedBooks: React.Dispatch<React.SetStateAction<Book[]>>;
+export interface BooksOnboardingProps {
+    selectedBooks: BookProps[];
+    setSelectedBooks: React.Dispatch<React.SetStateAction<BookProps[]>>;
 }
 
 export interface Onboarding {
-    genresId?: string[],
-    authorsId?: string[],
-    booksId?: string[]
+    [key: string]: string[];
 }
 
-export interface FooterOnboarding {
-    selectedItems: Book[] | Author[] | Genre[];
+export interface FooterOnboardingProps {
+    selectedItems: BookProps[] | AuthorProps[] | Genre[];
     page: string;
     title: string;
 }

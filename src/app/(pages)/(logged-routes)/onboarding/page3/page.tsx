@@ -8,9 +8,10 @@ import HeaderOnboarding from '@/app/components/HeaderOnboarding/HeaderOnboarding
 import FooterOnboarding from '@/app/components/FooterOnboarding/FooterOnboarding';
 
 import '@/app/styles/OnboardingSteps.css';
+import { AuthorProps } from '../../feed/author-details/[id]/page';
 
 export default function Page3() {
-    const [selectedAuthors, setSelectedAuthors] = useState<Author[]>([]);
+    const [selectedAuthors, setSelectedAuthors] = useState<AuthorProps[]>([]);
 
     return (
         <main className='onboarding-steps-container'>

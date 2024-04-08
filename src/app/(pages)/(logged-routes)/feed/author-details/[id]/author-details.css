@@ -1,6 +1,5 @@
 .container-author{
     width: 100%;
-    height: auto;
 
     display: flex;
     flex-direction: column;
@@ -23,10 +22,6 @@
     height: 20rem;
 }
 
-.teste {
-    height: 100%;
-}
-
 .image-author{
     display: flex;
     align-items: center;
@@ -36,7 +31,7 @@
 
 .image-author img {
     width: 90%;
-    height: 22.6rem;
+    height: 90%;
     object-fit: cover;
 
     border-radius: 0.8rem;
@@ -88,7 +83,7 @@
     width: 16.3rem;
 }
 
-.local-text span{
+.local-text p{
     color: var(--text-color-white);
     font-family: var(--primary-font);
     font-size: 1.4rem;
@@ -97,7 +92,7 @@
     line-height: 140%;
 }
 
-.local-text p{
+.local-text span{
     color: var(--text-color-white, #FFF);
 
     font-family: Inter;
@@ -128,10 +123,6 @@
 
 .books-indication{
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
     padding: 0 2.4rem 0;
     margin-top: 4rem;
     margin-bottom: 3.2rem;
@@ -157,18 +148,9 @@
     cursor: pointer;
 }
 
-.container-books-section-home {
-    padding: 0 2.4rem;
-}
-
 @media (min-width: 768px) {
-    .container-author {
-        height: 100%;
-    }
-
     .content-container-author {
         display: flex;
-        align-items: center;
         justify-content: center;
         padding: 0 3.2rem 0;
         margin-top: 6.4rem;
@@ -184,8 +166,10 @@
     }
     
     .image-author img {
+        min-width: 285.19px;
         width: 100%;
-        height: 27.5rem;
+        min-height: 285.19px;
+        height: 100%;
         object-fit: cover;
     }
 
@@ -244,14 +228,7 @@
     }
 
     .local-text{
-        display: flex;
         width: 50%;
-    }
-
-    .local-text span {
-        display: flex;
-        gap: 1rem;
-        width: 100%;
     }
 
     .books-indication{
