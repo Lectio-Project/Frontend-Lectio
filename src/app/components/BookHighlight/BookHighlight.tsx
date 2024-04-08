@@ -68,7 +68,7 @@ export default function BookHighlight({ book }: BookHighlightProps) {
                     </div>
                 </div>
                 <div className="see-book">
-                    <Link href={`/book-details/${book?.id}`}>
+                    <Link href={`/feed/book-details/${book?.id}`}>
                         <p>Ver o livro</p>
                     </Link>
                     <img src={arrowRight} alt="Seta para direita" />
