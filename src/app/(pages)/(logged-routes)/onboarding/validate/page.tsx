@@ -31,9 +31,9 @@ export default function Validate() {
             
             const request = {...onboarding, checkOnBoarding: true}
             
-            // await api.patch('/users', request, {
-            //     headers: { Authorization: `Bearer ${token}` }
-            // });  
+            await api.patch('/users', request, {
+                headers: { Authorization: `Bearer ${token}` }
+            });  
             
             setOnboarding({ genresId: [], authorsId: [], booksId: [] })
             update({checkOnBoarding: true});
