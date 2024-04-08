@@ -1,16 +1,15 @@
 import { useRouter } from 'next/navigation';
-import { FooterOnboarding, Onboarding } from '@/types/onboarding-types';
+import { FooterOnboardingProps, Onboarding } from '@/types/onboarding-types';
 import AlertIcon from '@/app/assets/alertIcon.svg'
 
 import Button from '@/app/components/Button/Button';
 
-import './FooterOnboarding.css';
 import { useEffect, useState } from 'react';
 import { useDataContext } from '@/context/user';
-// import api from '@/api/api';
-// import { getCookie } from '@/utils/cookies';
 
-export default function FooterOnboarding({ selectedItems = [], page, title }: FooterOnboarding) {
+import './FooterOnboarding.css';
+
+export default function FooterOnboarding({ selectedItems = [], page, title }: FooterOnboardingProps) {
     const [error, setError] = useState<boolean>(false);
     const {onboarding, setOnboarding} = useDataContext();
     const router = useRouter();
@@ -45,20 +44,6 @@ export default function FooterOnboarding({ selectedItems = [], page, title }: Fo
 
         setOnboarding(newOnboardingItem);
         return router.replace(page);
-        
-        // try {
-        //     if (window.location.pathname === '/onboarding/page4') {
-        //         const token = await getCookie('token');
-
-        //         await api.patch('/users', onboarding, {
-        //             headers: { Authorization: `Bearer ${token}` }
-        //         });
-        //     }
-
-        //     return router.replace(page);
-        // } catch (error) {
-        //     return console.error(error);
-        // }
     }
 
     return (

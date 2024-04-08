@@ -50,7 +50,7 @@ export default function HamburguerMenu({select}:propsDrawner){
 
                     <div 
                     className={`item-menu ${select === 'perfil' ? 'selected': ''}`}
-                    onClick={()=> router.push('/dashboard/config-account')}
+                    onClick={()=> router.push('/profile')}
                     >
                         <img src={select === 'perfil'? GoIconY : GoIcon} alt='Icon go'/>
                         <span>Perfil</span>

@@ -1,0 +1,107 @@
+.default-book-list-search {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.6rem;
+
+    width: fit-content;
+    max-width: 90%;
+
+    cursor: pointer;
+}
+
+.book-title-search {
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+
+    font-size: 2.4rem;
+    line-height: 3.36rem;
+}
+
+.book-title-search, .book-author-search {
+    text-align: center;
+    color: var(--text-color-neutral-white);
+    font-weight: 500;
+}
+
+.book-author-search {
+    font-size: 1.4rem;
+    line-height: 1.96rem
+}
+
+.default-book-list-search:hover .book-title-search,
+.default-book-list-search:hover .book-author-search {
+    color: var(--text-color-yellow-light);
+}
+
+.default-book-list-search:active .book-title-search,
+.default-book-list-search:active .book-author-search {
+    color: var(--text-color-yellow);
+}
+
+.default-book-list-search:hover .book-title-search,
+.default-book-list-search:active .book-title-search {
+    font-weight: 700;
+}
+
+.book-author-search > span {
+    text-decoration: underline;
+    font-style: italic;
+}
+
+.book-image-search {
+    width: 19.2rem;
+    height: 29rem;
+    border-radius: 0.8rem;
+}
+
+.default-book-list-search:hover .book-image-search {
+    border: 2px solid var(--text-color-yellow-light);
+}
+
+.default-book-list-search:active .book-image-search,
+.default-book-list-search:focus .book-image-search {
+    border: 2px solid var(--text-color-yellow);
+}
+
+.book-genre-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    max-height: 2.6rem;
+    padding: 1.6rem 3rem;
+
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.96rem;
+    text-transform: capitalize;
+    
+    border-radius: 5rem;
+    color: var(--text-color-yellow);
+    background-color: var(--text-color-dark-gray);
+}
+
+.container-book-rating-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.book-rating-star-search {
+    font-size: 2.4rem;
+}
+
+.book-rating-search {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 2.8rem;
+    color: var(--text-color-yellow);
+}

@@ -1,6 +1,5 @@
 'use client';
 
-import { Input } from '@/types/forms-type';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
 import AlertIcon from '@/app/assets/alertIcon.svg'
@@ -8,6 +7,7 @@ import ShowPassword from '@/app/assets/showPassword.svg';
 import HidePassword from '@/app/assets/hidePassword.svg';
 
 import './input.css'
+import { ChangeEventHandler } from 'react';
 
 interface propsRegister {
     register?: UseFormRegisterReturn<string>,
@@ -19,9 +19,10 @@ interface propsRegister {
     errorMessage?: string,
     showPassword?: boolean,
     toggleShowPassword?: () => void,
+    onChange?: ChangeEventHandler<HTMLInputElement>;
 }
 
-export default function Input({ label, placeholder, register, value, type, name, errorMessage, showPassword, toggleShowPassword}:propsRegister){
+export default function Input({ label, placeholder, register, value, type, name, errorMessage, showPassword,toggleShowPassword, onChange }:propsRegister){
 
     return(
         <div className={`input ${errorMessage && 'input-error'} ${register?.name === 'password' && 'input-password'}`}>
@@ -33,6 +34,7 @@ export default function Input({ label, placeholder, register, value, type, name,
                     type={type}
                     name={name}
                     {...register}
+                    onChange={onChange}
                 />
                 {(register?.name === 'password' || register?.name === 'passwordConfirmation') &&  (
                     <img

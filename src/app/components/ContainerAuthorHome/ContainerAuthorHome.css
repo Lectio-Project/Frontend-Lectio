@@ -1,3 +1,7 @@
+.external-home-container-authors {
+    position: relative;
+}
+
 .swiper.home-container-authors {
     display: flex;
     flex-direction: row;
@@ -13,7 +17,7 @@
     gap: 1.5rem;
     cursor: pointer;
 
-    width: 25.3rem;
+    width: 90%;
     height: 9rem;
     padding: 1.6rem;
     margin: 0.2rem 1.4rem 0.2rem 0.2rem;
@@ -26,7 +30,6 @@
 .default-author-list:hover {
     outline: 2px solid var(--text-color-yellow);
 }
-
 
 .author-image-home {
     width: 5.7rem;
@@ -73,4 +76,39 @@
 
 .default-author-list:hover .author-genre-home {
     color: var(--text-color-yellow-dark);
+}
+
+.swiper-button-next, .swiper-button-prev {
+    height: 1rem;
+    width: 1rem;
+    z-index: 10;
+    cursor: pointer;
+
+    color: var(--text-color-yellow);
+}
+
+.swiper-button-next {
+    right: 20px;
+}
+
+.swiper-button-prev {
+    left: -70px;
+}
+
+.swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+    color: transparent;
+}
+
+.swiper-button-next.swiper-button-next-authors,
+.swiper-button-prev.swiper-button-prev-authors {
+    position: absolute;
+    top: 65%;
+}
+
+@media (min-width: 1280px) {
+    .default-author-list, .selected-author-list {
+        width: 85%;
+        max-width: 42rem;
+    }
 }

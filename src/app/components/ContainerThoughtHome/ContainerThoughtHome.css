@@ -1,3 +1,7 @@
+.external-home-container-thoughts {
+    position: relative;
+}
+
 .swiper.home-container-thoughts {
     display: flex;
     flex-direction: row;
@@ -11,7 +15,7 @@
     display: flex;
     gap: 0.8rem;
 
-    width: 25.3rem;
+    width: 90%;
     height: 22.4rem;
     padding: 1.6rem;
     margin: 0.2rem 1.4rem 0.2rem 0.2rem;
@@ -62,4 +66,51 @@
     line-height: 1.96rem;
 
     color: var(--text-color-yellow);
+}
+
+.swiper-button-next, .swiper-button-prev {
+    height: 1rem;
+    width: 1rem;
+    z-index: 10;
+    cursor: pointer;
+
+    color: var(--text-color-yellow);
+}
+
+.swiper-button-next {
+    right: 20px;
+}
+
+.swiper-button-prev {
+    left: -70px;
+}
+
+.swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+    color: transparent;
+}
+
+.swiper-button-next.swiper-button-next-thoughts,
+.swiper-button-prev.swiper-button-prev-thoughts {
+    position: absolute;
+    top: 50%;
+}
+
+@media (min-width: 1280px) {
+    .swiper.home-container-thoughts {
+        height: 29.2rem;
+    }
+
+    .default-thought-home {
+        gap: 1.6rem;
+
+        width: 85%;
+        max-width: 42rem;
+        height: 28.8rem;
+        padding: 2.4rem;
+    }
+
+    .text-thought-home, .author-thought-home {
+        font-size: 1.8rem;
+    }
 }

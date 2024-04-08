@@ -1,3 +1,4 @@
+import { AuthorProps } from "./author";
 import { Author } from "./onboarding-types";
 
 export interface Book {
@@ -18,20 +19,20 @@ export interface Thought{
     updatedAt: string;
 }
 
-export interface ContainerBookHome {
+export interface ContainerBookHomeProps {
     books: Book[];
     isTablet: boolean;
     isDesktop: boolean;
     sort?: boolean;
 }
 
-export interface ContainerAuthorHome {
-    authors: Author[];
+export interface ContainerAuthorHomeProps {
+    authors: AuthorProps[];
     isTablet: boolean;
     isDesktop: boolean;
 }
 
-export interface ContainerThoughtHome {
+export interface ContainerThoughtHomeProps {
     books: Book[];
     isTablet: boolean;
     isDesktop: boolean;
