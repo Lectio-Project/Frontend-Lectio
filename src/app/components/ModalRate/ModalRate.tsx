@@ -18,22 +18,26 @@ import './ModalRate.css';
 
 interface ModalRateProps {
     title: string;
-    bookId: string;
+    bookId?: string;
+    authorId?: string;
     addComment: number;
     setAddComment: React.Dispatch<React.SetStateAction<number>>;
     lastAvalitionUser?: CommentProps;
     retunValue?: boolean;
+    requisition?: 'book' | 'author';
 }
 
 export default function ModalRate({
     title,
     bookId,
+    authorId,
     addComment,
     setAddComment,
-    lastAvalitionUser
+    lastAvalitionUser,
+    requisition
 }: ModalRateProps) {
     const { id, bookGrade, text: lastText } = lastAvalitionUser || {};
-
+    
     const [showModal, setShowModal] = useState<boolean>(false);
     const [text, setText] = useState<string>(lastText || '');
     const { rateValue } = useDataContext();
@@ -49,25 +53,39 @@ export default function ModalRate({
     async function handleRate() {
         try {
             const token = await getCookie('token');
-            const request = {
+            const requestBook = {
                 text: text,
                 bookGrade: rateValue,
                 bookId: bookId
             };
+            const requestAuthor = {
+                grade: rateValue
+            }
 
-            lastAvalitionUser
-                ? await api.patch(`/comments/${id}`, request, {
-                      headers: {
-                          authorization: `Bearer ${token}`
-                      }
-                  })
-                : await api.post(`/comments`, request, {
-                      headers: {
-                          authorization: `Bearer ${token}`
-                      }
-                  });
+            if (requisition === 'book') {
+                lastAvalitionUser
+                    ? await api.patch(`/comments/${id}`, requestBook, {
+                          headers: {
+                              authorization: `Bearer ${token}`
+                          }
+                      })
+                    : await api.post(`/comments`, requestBook, {
+                          headers: {
+                              authorization: `Bearer ${token}`
+                          }
+                      });
+    
+                setAddComment(addComment + 1);
+            } else {
+                await api.patch(`/authors/avaliation/${authorId}`, requestAuthor, {
+                    headers: {
+                        authorization: `Bearer ${token}`
+                    }
+                })
 
-            setAddComment(addComment + 1);
+                setAddComment(addComment + 1);
+            }
+
             handleClose();
         } catch (error: any) {
             console.error(error);

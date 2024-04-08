@@ -1,6 +1,8 @@
 'use client';
 
-import { Onboarding } from '@/types/onboarding-types';
+import { AuthorProps } from '@/app/(pages)/(logged-routes)/feed/author-details/[id]/page';
+import { BookProps } from '@/types/books';
+import { Genre, Onboarding } from '@/types/onboarding-types';
 import { ReactNode, createContext, useContext, useState } from 'react';
 
 export interface User {
@@ -34,6 +36,12 @@ type IUserContextData = {
     setAuthorId: React.Dispatch<React.SetStateAction<string>>;
     rateValue: number;
     setRateValue: React.Dispatch<React.SetStateAction<number>>;
+    onboardingGenders: Genre[] | null;
+    setOnboardingGenders: React.Dispatch<React.SetStateAction<Genre[] | null>>;
+    onboardingBooks: BookProps[] | null;
+    setOnboardingBooks: React.Dispatch<React.SetStateAction<BookProps[] | null>>;
+    onboardingAuthors: AuthorProps[] | null;
+    setOnboardingAuthors: React.Dispatch<React.SetStateAction<AuthorProps[] | null>>;
 };
 
 interface AppProviderProps {
@@ -63,6 +71,9 @@ const DataProvider: React.FC<AppProviderProps> = ({
     const [bookId, setBookId] = useState<string>('');
     const [authorId, setAuthorId] = useState<string>('');
     const [rateValue, setRateValue] = useState<number>(0);
+    const [onboardingGenders, setOnboardingGenders] = useState<Genre[] | null>(null);
+    const [onboardingAuthors, setOnboardingAuthors] = useState<AuthorProps[] | null>(null);
+    const [onboardingBooks, setOnboardingBooks] = useState<BookProps[] | null>(null);
 
     const contextValue = {
         userData,
@@ -82,7 +93,13 @@ const DataProvider: React.FC<AppProviderProps> = ({
         authorId,
         setAuthorId,
         rateValue,
-        setRateValue
+        setRateValue,
+        onboardingGenders,
+        setOnboardingGenders,
+        onboardingAuthors,
+        setOnboardingAuthors,
+        onboardingBooks,
+        setOnboardingBooks
     };
 
     return (

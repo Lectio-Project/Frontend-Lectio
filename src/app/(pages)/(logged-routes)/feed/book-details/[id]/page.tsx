@@ -19,37 +19,19 @@ import Comment from '@/app/components/Comment/Comment';
 import { useDataContext } from '@/context/user';
 import { useRouter } from 'next/navigation';
 import './book-details.css';
+import { CommentProps } from '@/types/comments';
+import { BookProps } from '@/types/books';
+import ContainerBookHome from '@/app/components/ContainerBookHome/ContainerBookHome';
+import { useSession } from 'next-auth/react';
+import { AuthorBookProps } from '../../author-details/[id]/page';
 
 type BookDetailsProps = {
     params: { id: string };
 };
 
 export default function BookDetails({ params }: BookDetailsProps) {
-    const [bookData, setBookData] = useState<BookProps>({
-        name: '',
-        publishYear: '',
-        publishingCompany: '',
-        synopsis: '',
-        imageUrl: '',
-        avgGrade: 0,
-        counterGrade: 0,
-        totalPages: '',
-        totalGrade: 0,
-        isbn13: '',
-        gender: { id: '', gender: '' },
-        AuthorBook: [{ author: { id: '', name: '', imageUrl: '' } }],
-        LiteraryAwards: [{ id: '', name: '', year: '' }],
-        Comment: [
-            {
-                id: '',
-                bookGrade: 0,
-                text: '',
-                createdAt: '',
-                updatedAt: '',
-                user: { id: '', name: '', imageUrl: '' }
-            }
-        ]
-    });
+    const [bookData, setBookData] = useState<BookProps>();
+    const session = useSession();
 
     const [booksAuthorData, setBooksAuthorData] = useState([]);
     const [commentWithText, setCommentWithText] = useState<CommentProps[]>([]);
@@ -70,65 +52,41 @@ export default function BookDetails({ params }: BookDetailsProps) {
     const initialImage =
         'https://www.shutterstock.com/image-vector/blank-avatar-photo-place-holder-600nw-1095249842.jpg';
 
-    interface CommentProps {
-        id: string;
-        bookGrade: number;
-        text: string;
-        createdAt: string;
-        updatedAt: string;
-        user: { id: string; name: string; imageUrl: string };
-    }
-
-    interface BookProps {
-        name: string;
-        publishYear: string;
-        publishingCompany: string;
-        synopsis: string;
-        imageUrl: string;
-        totalGrade: number;
-        avgGrade: number;
-        counterGrade: number;
-        totalPages: string;
-        isbn13: string;
-        gender: { id: string; gender: string };
-        AuthorBook: {
-            author: { id: string; name: string; imageUrl: string };
-        }[];
-        LiteraryAwards?: { id: string; name: string; year: string }[];
-        Comment: CommentProps[];
-    }
-
     useEffect(() => {
         handleBookData();
-    }, [addComment]);
-
-    useEffect(() => {
-        if (bookData.AuthorBook[0].author.id) {
-            handleBooksAuthor();
-        }
-    }, [bookData.AuthorBook[0].author.id]);
+    }, [addComment, session]);
 
     async function handleBookData() {
         try {
-            const token = await getCookie('token');
-            const response = await api.get(`/books/${routeId}?add=comment`, {
+            const responseBook = await api.get(`/books/${routeId}?add=comment`);
+            
+            const authorId = responseBook.data.AuthorBook[0].author.id
+            
+            const responseAuthor = await api.get(`/authors/${authorId}?add=book`, {
                 headers: {
-                    authorization: `Bearer ${token}`
+                    authorization: `Bearer ${session.data?.token}`
                 }
-            });
+            })
 
-            setBookData(response.data);
-
-            const commentText = response.data.Comment.filter(
+            setBookData(responseBook.data);
+            
+            const commentText = responseBook.data.Comment.filter(
                 (comment: CommentProps) => comment.text
             );
 
-            const lastAvaliationOfUser = response.data.Comment.find(
+            const lastAvaliationOfUser = responseBook.data.Comment.find(
                 (comment: CommentProps) => comment.user.id === userData.id
             );
 
             setLastAvaliationUser(lastAvaliationOfUser);
             setCommentWithText(commentText);
+
+            const {data} = responseAuthor
+            const booksAuthorMap = data.AuthorBook.map((book: AuthorBookProps) => {
+                return book.book
+            })
+
+            setBooksAuthorData(booksAuthorMap)
         } catch (error: any) {
             console.error(error);
         } finally {
@@ -136,27 +94,9 @@ export default function BookDetails({ params }: BookDetailsProps) {
         }
     }
 
-    async function handleBooksAuthor() {
-        try {
-            const token = await getCookie('token');
-            const response = await api.get(
-                `/authors/${bookData.AuthorBook[0].author.id}?add=book`,
-                {
-                    headers: {
-                        authorization: `Bearer ${token}`
-                    }
-                }
-            );
-
-            setBooksAuthorData(response.data);
-        } catch (error: any) {
-            console.error(error);
-        }
-    }
-
     function handleFindBook() {
         const bookName = bookData?.name;
-        return bookName.replaceAll(' ', '+');
+        return bookName?.replaceAll(' ', '+');
     }
 
     interface ImageErrorEvent extends SyntheticEvent<HTMLImageElement, Event> {
@@ -174,7 +114,7 @@ export default function BookDetails({ params }: BookDetailsProps) {
             <Loading />
         </div>
     ) : (
-        !isLoading && (
+        !isLoading && bookData && (
             <section className="container-book">
                 <Header search="able" select="feed" />
 
@@ -185,7 +125,7 @@ export default function BookDetails({ params }: BookDetailsProps) {
                             <span className="book-author">
                                 por{' '}
                                 <span>
-                                    {bookData.AuthorBook[0].author.name}
+                                    {bookData.AuthorBook![0].author.name}
                                 </span>
                             </span>
                         </div>
@@ -237,6 +177,7 @@ export default function BookDetails({ params }: BookDetailsProps) {
                                 addComment={addComment}
                                 setAddComment={setAddComment}
                                 lastAvalitionUser={lastAvalitionUser!}
+                                requisition='book'
                             />
                         </div>
                     </div>
@@ -247,7 +188,7 @@ export default function BookDetails({ params }: BookDetailsProps) {
                             <span className="book-author">
                                 por{' '}
                                 <span>
-                                    {bookData.AuthorBook[0].author.name}
+                                    {bookData.AuthorBook![0].author.name}
                                 </span>
                             </span>
                         </div>
@@ -388,11 +329,11 @@ export default function BookDetails({ params }: BookDetailsProps) {
                             <h3>Você também pode se interessar...</h3>
                             <span>
                                 Livros também escritos por{' '}
-                                {bookData.AuthorBook[0].author.name}:
+                                {bookData.AuthorBook![0].author.name}:
                             </span>
                         </section>
 
-                        {/* <ContainerBookHome books={booksAuthorData} isTablet={isTablet} isDesktop={isDesktop} /> */}
+                        <ContainerBookHome books={booksAuthorData} isTablet={isTablet} isDesktop={isDesktop} />
                     </div>
                 </main>
             </section>

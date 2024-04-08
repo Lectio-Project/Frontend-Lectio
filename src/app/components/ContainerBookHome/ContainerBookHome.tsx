@@ -27,7 +27,7 @@ const ContainerBookHome = ({books, isTablet, isDesktop, sort}: ContainerBookHome
         setBookId(bookId);
         router.push(`/feed/book-details/${bookId}`);
     }
-
+    
     return (
         <Swiper
             className='home-container-books'
@@ -43,7 +43,7 @@ const ContainerBookHome = ({books, isTablet, isDesktop, sort}: ContainerBookHome
                         <img src={book.imageUrl} className='book-image-home'/>
                         <section className='info-book-home'>
                             <h4 className='book-title-home'>{book.name}</h4>
-                            <span className='book-author-home'>{book.AuthorBook[0].author.name}</span>
+                            {book.AuthorBook && book.AuthorBook[0] && <span className='book-author-home'>{book.AuthorBook[0].author.name}</span>}
                             <div className='container-book-rating-home'>
                                 <Rating className='book-rating-star-home' max={1} value={1} size='large' readOnly />
                                 <span className='book-rating-home'>{book.avgGrade.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</span>

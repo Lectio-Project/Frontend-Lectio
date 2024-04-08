@@ -6,12 +6,6 @@
     align-items: center;
 
     width: 100%;
-    height: 100vh;
-}
-
-.loader {
-    width: 20rem;
-    height: 20rem;
 }
 
 .container-book {
@@ -341,10 +335,6 @@
 }
 
 @media (min-width: 768px) {
-    .container-book {
-        height: 100%;
-    }
-
     .content-container-book {
         display: grid;
         grid-template-columns: repeat(1, 284px 1fr);

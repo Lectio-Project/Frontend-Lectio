@@ -1,3 +1,6 @@
+import { AuthorProps } from "@/app/(pages)/(logged-routes)/feed/author-details/[id]/page";
+import { BookProps } from "./books";
+
 export interface headerOnboarding {
     title: string;
     step: number;
@@ -22,8 +25,8 @@ export interface Author {
 }
 
 export interface AuthorsOnboarding {
-    selectedAuthors: Author[];
-    setSelectedAuthors: React.Dispatch<React.SetStateAction<Author[]>>;
+    selectedAuthors: AuthorProps[];
+    setSelectedAuthors: React.Dispatch<React.SetStateAction<AuthorProps[]>>;
 }
 
 export interface Book {
@@ -36,8 +39,8 @@ export interface Book {
 }
 
 export interface BooksOnboardingProps {
-    selectedBooks: Book[];
-    setSelectedBooks: React.Dispatch<React.SetStateAction<Book[]>>;
+    selectedBooks: BookProps[];
+    setSelectedBooks: React.Dispatch<React.SetStateAction<BookProps[]>>;
 }
 
 export interface Onboarding {
@@ -45,7 +48,7 @@ export interface Onboarding {
 }
 
 export interface FooterOnboardingProps {
-    selectedItems: Book[] | Author[] | Genre[];
+    selectedItems: BookProps[] | AuthorProps[] | Genre[];
     page: string;
     title: string;
 }

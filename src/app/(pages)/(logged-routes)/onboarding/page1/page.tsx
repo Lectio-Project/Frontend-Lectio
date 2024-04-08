@@ -6,16 +6,39 @@ import './page1.css'
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
+import api from '@/api/api';
+import { useDataContext } from '@/context/user';
 
 export default function Page1(){
     const {data: session, update} = useSession();
+    const {setOnboardingGenders, setOnboardingBooks, setOnboardingAuthors} = useDataContext();
     const router = useRouter();
     
     useEffect(() => {
         if (session?.checkOnBoarding) {
-            window.location.reload();
+            return window.location.reload();
         }
-    }, [session?.checkOnBoarding])
+
+        async function getData() {
+            const requests = [api.get('/genres?add=gender', {
+                headers: {
+                    Authorization: `Bearer ${session?.token}`
+                }
+            }), api.get('/books'), api.get('/authors', {
+                headers: {
+                    Authorization: `Bearer ${session?.token}`
+                }
+            })]
+
+            const [responseGender, responseBook, responseAuthor] = await Promise.all(requests);
+
+            setOnboardingGenders(responseGender.data);
+            setOnboardingBooks(responseBook.data);
+            setOnboardingAuthors(responseAuthor.data) 
+        }
+
+        getData();
+    }, [session])
 
     return (
         <main className='container-main'>

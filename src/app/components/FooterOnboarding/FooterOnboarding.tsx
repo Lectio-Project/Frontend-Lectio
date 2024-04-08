@@ -7,6 +7,8 @@ import Button from '@/app/components/Button/Button';
 import { useEffect, useState } from 'react';
 import { useDataContext } from '@/context/user';
 
+import './FooterOnboarding.css';
+
 export default function FooterOnboarding({ selectedItems = [], page, title }: FooterOnboardingProps) {
     const [error, setError] = useState<boolean>(false);
     const {onboarding, setOnboarding} = useDataContext();

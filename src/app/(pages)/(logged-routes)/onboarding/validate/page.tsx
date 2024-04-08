@@ -7,6 +7,8 @@ import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import './validate.css';
+
 export default function Validate() {
     const {data: session, update} = useSession();
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -44,6 +46,8 @@ export default function Validate() {
     }
 
     return isLoading ? (
-        <Loading />
+        <div className='loading-validate'>
+            <Loading />
+        </div>
     ) : redirect('/home')
 }

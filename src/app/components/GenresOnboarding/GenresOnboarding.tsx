@@ -9,14 +9,18 @@ import Loading from '../Loading/loading';
 import api from '@/api/api';
 
 import './GenresOnboarding.css';
+import { useDataContext } from '@/context/user';
 
 export default function GenresOnboarding({ selectedGenres, setSelectedGenres, page }: GenresOnboardingProps) {
-    const [genres, setGenres] = useState<Genre[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const {onboardingGenders, setOnboardingGenders} = useDataContext();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
-
+    
     useEffect(() => {
-        listGenres();
+        if (!onboardingGenders) {
+            setIsLoading(true);
+            listGenres();
+        }
     }, []);
 
     const listGenres = async () => {
@@ -27,7 +31,7 @@ export default function GenresOnboarding({ selectedGenres, setSelectedGenres, pa
                 { headers: {
                     Authorization: `Bearer ${token}`
                 }});
-            setGenres(response.data);
+            setOnboardingGenders(response.data);
         } catch (error: any) {
             console.error(error)
         } finally {
@@ -57,7 +61,7 @@ export default function GenresOnboarding({ selectedGenres, setSelectedGenres, pa
                 <Loading />
             </div>
         ) : (!isLoading && <section className='onboarding-container-button-list'>
-            {genres.map((genre) => {
+            {onboardingGenders?.map((genre) => {
                 return (
                     <section className='onboarding-button-list' key={genre.id}>
                         <button
