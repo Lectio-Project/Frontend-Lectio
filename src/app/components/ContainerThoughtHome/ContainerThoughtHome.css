@@ -1,3 +1,7 @@
+.external-home-container-thoughts {
+    position: relative;
+}
+
 .swiper.home-container-thoughts {
     display: flex;
     flex-direction: row;
@@ -62,6 +66,34 @@
     line-height: 1.96rem;
 
     color: var(--text-color-yellow);
+}
+
+.swiper-button-next, .swiper-button-prev {
+    height: 1rem;
+    width: 1rem;
+    z-index: 10;
+    cursor: pointer;
+
+    color: var(--text-color-yellow);
+}
+
+.swiper-button-next {
+    right: 20px;
+}
+
+.swiper-button-prev {
+    left: -70px;
+}
+
+.swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+    color: transparent;
+}
+
+.swiper-button-next.swiper-button-next-thoughts,
+.swiper-button-prev.swiper-button-prev-thoughts {
+    position: absolute;
+    top: 50%;
 }
 
 @media (min-width: 1280px) {

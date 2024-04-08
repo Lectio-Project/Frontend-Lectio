@@ -62,8 +62,10 @@ export default function Home() {
         <main className='container-home'>
             <Header search='able' select='home' />
             <section className='introduction-section-home'>
-                <h3 className='title-home'>Boas vindas <span>{firstNameUser}</span>!</h3>
-                <h4 className='text-home'>Veja o que está rolando de melhor na literatura brasileira</h4>
+                <div className='introduction-texts-home'>
+                    <h3 className='title-home'>Boas vindas <span>{firstNameUser}</span>!</h3>
+                    <h4 className='text-home'>Veja o que está rolando de melhor na literatura brasileira</h4>
+                </div>
                 <img src={HomeImage} alt='' className='lover-books-home'/>
             </section>
             <section className='container-books-section-home'>
