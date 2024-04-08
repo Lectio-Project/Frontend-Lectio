@@ -13,7 +13,7 @@ import { useDataContext } from '@/context/user';
 import { getCookie } from '@/utils/cookies';
 import { useState } from 'react';
 
-import { CommentProps } from '../Comment/Comment';
+import { CommentProps } from '@/types/comment';
 import './ModalRate.css';
 
 interface ModalRateProps {
@@ -37,7 +37,7 @@ export default function ModalRate({
     requisition
 }: ModalRateProps) {
     const { id, bookGrade, text: lastText } = lastAvalitionUser || {};
-    
+
     const [showModal, setShowModal] = useState<boolean>(false);
     const [text, setText] = useState<string>(lastText || '');
     const { rateValue } = useDataContext();
@@ -60,7 +60,7 @@ export default function ModalRate({
             };
             const requestAuthor = {
                 grade: rateValue
-            }
+            };
 
             if (requisition === 'book') {
                 lastAvalitionUser
@@ -74,14 +74,18 @@ export default function ModalRate({
                               authorization: `Bearer ${token}`
                           }
                       });
-    
+
                 setAddComment(addComment + 1);
             } else {
-                await api.patch(`/authors/avaliation/${authorId}`, requestAuthor, {
-                    headers: {
-                        authorization: `Bearer ${token}`
+                await api.patch(
+                    `/authors/avaliation/${authorId}`,
+                    requestAuthor,
+                    {
+                        headers: {
+                            authorization: `Bearer ${token}`
+                        }
                     }
-                })
+                );
 
                 setAddComment(addComment + 1);
             }

@@ -1,8 +1,8 @@
 'use client';
 
-import ArrowGray from '../../../../assets/arrowBottom.svg';
-import ArrowBlack from '../../../../assets/arrowButton.svg';
-import ArrowYellow from '../../../../assets/arrowGoYellow.svg';
+import ArrowGray from '../../../../../assets/arrowBottom.svg';
+import ArrowBlack from '../../../../../assets/arrowButton.svg';
+import ArrowYellow from '../../../../../assets/arrowGoYellow.svg';
 
 import ButtonViewMore from '@/app/components/ButtonViewMore/ButtonViewMore';
 import Header from '@/app/components/Header/Header';
@@ -11,19 +11,18 @@ import ModalRate from '@/app/components/ModalRate/ModalRate';
 import RatingStars from '@/app/components/RatingStars/RatingStars';
 
 import api from '@/api/api';
-import { getCookie } from '@/utils/cookies';
 import { useMediaQuery } from '@mui/material';
 import { SyntheticEvent, useEffect, useState } from 'react';
 
 import Comment from '@/app/components/Comment/Comment';
+import ContainerBookHome from '@/app/components/ContainerBookHome/ContainerBookHome';
 import { useDataContext } from '@/context/user';
+import { AuthorBookProps } from '@/types/author';
+import { BookProps } from '@/types/book';
+import { CommentProps } from '@/types/comment';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import './book-details.css';
-import { CommentProps } from '@/types/comments';
-import { BookProps } from '@/types/books';
-import ContainerBookHome from '@/app/components/ContainerBookHome/ContainerBookHome';
-import { useSession } from 'next-auth/react';
-import { AuthorBookProps } from '../../author-details/[id]/page';
 
 type BookDetailsProps = {
     params: { id: string };
@@ -59,17 +58,20 @@ export default function BookDetails({ params }: BookDetailsProps) {
     async function handleBookData() {
         try {
             const responseBook = await api.get(`/books/${routeId}?add=comment`);
-            
-            const authorId = responseBook.data.AuthorBook[0].author.id
-            
-            const responseAuthor = await api.get(`/authors/${authorId}?add=book`, {
-                headers: {
-                    authorization: `Bearer ${session.data?.token}`
+
+            const authorId = responseBook.data.AuthorBook[0].author.id;
+
+            const responseAuthor = await api.get(
+                `/authors/${authorId}?add=book`,
+                {
+                    headers: {
+                        authorization: `Bearer ${session.data?.token}`
+                    }
                 }
-            })
+            );
 
             setBookData(responseBook.data);
-            
+
             const commentText = responseBook.data.Comment.filter(
                 (comment: CommentProps) => comment.text
             );
@@ -81,12 +83,14 @@ export default function BookDetails({ params }: BookDetailsProps) {
             setLastAvaliationUser(lastAvaliationOfUser);
             setCommentWithText(commentText);
 
-            const {data} = responseAuthor
-            const booksAuthorMap = data.AuthorBook.map((book: AuthorBookProps) => {
-                return book.book
-            })
+            const { data } = responseAuthor;
+            const booksAuthorMap = data.AuthorBook.map(
+                (book: AuthorBookProps) => {
+                    return book.book;
+                }
+            );
 
-            setBooksAuthorData(booksAuthorMap)
+            setBooksAuthorData(booksAuthorMap);
         } catch (error: any) {
             console.error(error);
         } finally {
@@ -177,7 +181,7 @@ export default function BookDetails({ params }: BookDetailsProps) {
                                 addComment={addComment}
                                 setAddComment={setAddComment}
                                 lastAvalitionUser={lastAvalitionUser!}
-                                requisition='book'
+                                requisition="book"
                             />
                         </div>
                     </div>
@@ -333,7 +337,11 @@ export default function BookDetails({ params }: BookDetailsProps) {
                             </span>
                         </section>
 
-                        <ContainerBookHome books={booksAuthorData} isTablet={isTablet} isDesktop={isDesktop} />
+                        <ContainerBookHome
+                            books={booksAuthorData}
+                            isTablet={isTablet}
+                            isDesktop={isDesktop}
+                        />
                     </div>
                 </main>
             </section>

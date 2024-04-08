@@ -17,6 +17,7 @@
     padding-bottom: 3rem;
 }
 
+s
 .loader-container .loader {
     width: 20rem;
     height: 20rem;
@@ -138,6 +139,8 @@
     line-height: 140%;
 }
 
+
+
 .btn-area {
     display: flex;
     justify-content: center;
@@ -182,8 +185,8 @@
         padding: 0 3.2rem;
     }
 
-    .books-indication span{
-        font-size: 3.2rem;
+    .books-indication h2{
+        font-size: 2.4rem;
         font-style: normal;
         font-weight: 600;
         line-height: 125%;
@@ -231,7 +234,8 @@
         width: 50%;
     }
 
-    .books-indication{
-        padding: 0 14.9rem 0 ;
+    .books-indication {
+        padding: 0 17rem 0 ;
     }
+
 }

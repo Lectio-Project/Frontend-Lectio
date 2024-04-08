@@ -1,17 +1,10 @@
+import { CommentProps } from '@/types/comment';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { SyntheticEvent } from 'react';
 import RatingStars from '../RatingStars/RatingStars';
 import './Comment.css';
 
-export interface CommentProps {
-    id: string;
-    bookGrade: number;
-    text: string;
-    createdAt: string;
-    updatedAt: string;
-    user: { id: string; name: string; imageUrl: string };
-}
 interface ImageErrorEvent extends SyntheticEvent<HTMLImageElement, Event> {
     target: EventTarget & {
         src: string;

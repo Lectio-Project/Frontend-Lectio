@@ -1,4 +1,4 @@
-@import url('../../../../globals.css');
+@import url('../../../../../globals.css');
 
 .container-book-loading {
     display: flex;
@@ -6,6 +6,7 @@
     align-items: center;
 
     width: 100%;
+    min-height: calc(100vh - 9rem);
 }
 
 .container-book {

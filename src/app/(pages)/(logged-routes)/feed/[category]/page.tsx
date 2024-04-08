@@ -6,7 +6,6 @@ import Header from '@/app/components/Header/Header';
 import Loading from '@/app/components/Loading/loading';
 import { useDataContext } from '@/context/user';
 import { BookProps } from '@/types/book';
-import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import './category.css';
 
@@ -14,11 +13,10 @@ type categoriesParams = {
     params: { category: string };
 };
 export default function Category({ params }: categoriesParams) {
-    const { booksSelected, setBooksSelected, feedTopicsTitles } =
+    const { booksSelected, setBooksSelected, feedTopicsTitles, userData } =
         useDataContext();
     const [isLoading, setIsLoading] = useState(false);
     const titleSelected = feedTopicsTitles[params.category];
-    const session = useSession();
     const paramsValue =
         params.category === 'sexGenderAuthor' ? 'woman' : 'true';
 
@@ -28,7 +26,7 @@ export default function Category({ params }: categoriesParams) {
                 `/search/categories?${params.category}=${paramsValue}`,
                 {
                     headers: {
-                        Authorization: `Bearer ${session.data?.token}`
+                        Authorization: `Bearer ${userData.token}`
                     }
                 }
             );
@@ -67,7 +65,7 @@ export default function Category({ params }: categoriesParams) {
             setIsLoading(true);
             getData();
         }
-    }, [session]);
+    }, []);
 
     return (
         <>
@@ -81,7 +79,10 @@ export default function Category({ params }: categoriesParams) {
                         <div className="category">
                             {booksSelected.map((book) => {
                                 return (
-                                    <BookHighlight book={book} key={book.id} />
+                                    <BookHighlight
+                                        book={book as BookProps}
+                                        key={book.id}
+                                    />
                                 );
                             })}
                         </div>

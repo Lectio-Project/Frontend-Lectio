@@ -1,4 +1,4 @@
-import { CommentProps } from "./comments";
+import { CommentProps } from "./comment";
 
 export interface BookProps {
   id: string;

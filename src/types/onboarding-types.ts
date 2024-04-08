@@ -1,5 +1,5 @@
-import { AuthorProps } from "@/app/(pages)/(logged-routes)/feed/author-details/[id]/page";
-import { BookProps } from "./books";
+import { AuthorProps } from "./author";
+import { BookProps } from "./book";
 
 export interface headerOnboarding {
     title: string;

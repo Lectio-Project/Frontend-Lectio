@@ -1,10 +1,11 @@
 'use client';
 
 import api from '@/api/api';
-import Comment, { CommentProps } from '@/app/components/Comment/Comment';
+import Comment from '@/app/components/Comment/Comment';
 import Header from '@/app/components/Header/Header';
 import Loading from '@/app/components/Loading/loading';
-import { getCookie } from '@/utils/cookies';
+import { useDataContext } from '@/context/user';
+import { CommentProps } from '@/types/comment';
 import { useEffect, useState } from 'react';
 import './book-comments.css';
 type BookDetailsProps = {
@@ -14,14 +15,14 @@ type BookDetailsProps = {
 export default function BookComments({ params }: BookDetailsProps) {
     const [commentWithText, setCommentWithText] = useState<CommentProps[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const { userData } = useDataContext();
 
     const bookId = params.id;
     async function handleBookData() {
         try {
-            const token = await getCookie('token');
             const response = await api.get(`/books/${bookId}?add=comment`, {
                 headers: {
-                    authorization: `Bearer ${token}`
+                    authorization: `Bearer ${userData.token}`
                 }
             });
 

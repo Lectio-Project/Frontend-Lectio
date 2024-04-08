@@ -11,18 +11,14 @@ import './feed.css';
 import api from '@/api/api';
 import BookFeed from '@/app/components/BookFeed/BookFeed';
 import Loading from '@/app/components/Loading/loading';
+import { useDataContext } from '@/context/user';
 import { BookProps } from '@/types/book';
 import { ResponseBooks } from '@/types/feedDatas';
-import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import ConceicaoImg from '../../../assets/conceicaoevaristo.svg';
 import DanielaImg from '../../../assets/danielaarbex.svg';
 import MachadoImg from '../../../assets/machadodeassis.svg';
 import ruthImg from '../../../assets/ruthrocha.svg';
-
-interface ObjectProps {
-    [key: string]: string | BookProps[] | undefined;
-}
 
 export default function Feed() {
     const authorsHighlight = [
@@ -55,17 +51,9 @@ export default function Feed() {
             img: ruthImg
         }
     ];
-
-    const feedTopicsTitles: ObjectProps = {
-        weekPopulater: 'Popular da Semana',
-        bestRated: 'Mais bem avaliados',
-        isMovie: 'Livros que foram para as telonas',
-        literaryAwards: 'Vencedores do Prêmio Jabuti',
-        sexGenderAuthor: 'Autoras mulheres'
-    };
+    const { feedTopicsTitles, userData } = useDataContext();
 
     const [books, setBooks] = useState<ResponseBooks>({});
-    const session = useSession();
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -77,7 +65,7 @@ export default function Feed() {
                     '/search/categories?isMovie=true&bestRated=true&weekPopulater=true&literaryAwards=true&sexGenderAuthor=woman',
                     {
                         headers: {
-                            Authorization: `Bearer ${session.data!.token}`
+                            Authorization: `Bearer ${userData.token}`
                         }
                     }
                 );
@@ -112,7 +100,7 @@ export default function Feed() {
         }
 
         getBooks();
-    }, [session]);
+    }, []);
 
     return (
         <>

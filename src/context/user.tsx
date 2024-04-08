@@ -1,10 +1,17 @@
 'use client';
 
-import { AuthorProps } from '@/app/(pages)/(logged-routes)/feed/author-details/[id]/page';
-import { BookProps } from '@/types/books';
+import api from '@/api/api';
+import { AuthorProps } from '@/types/author';
+import { BookProps } from '@/types/book';
 import { ObjectProps } from '@/types/feedDatas';
 import { Genre, Onboarding } from '@/types/onboarding-types';
-import { ReactNode, createContext, useContext, useState } from 'react';
+import React, {
+    ReactNode,
+    createContext,
+    useContext,
+    useEffect,
+    useState
+} from 'react';
 export interface User {
     id: string;
     name: string;
@@ -12,7 +19,7 @@ export interface User {
     username?: string;
     bio?: string;
     imageUrl?: string;
-    token?: string;
+    token: string;
     createdAt?: string;
     updatedAt?: string;
 }
@@ -49,6 +56,8 @@ type IUserContextData = {
     booksSelected: BookProps[] | null;
     setBooksSelected: React.Dispatch<React.SetStateAction<BookProps[] | null>>;
     feedTopicsTitles: ObjectProps;
+    genres: Genre[];
+    setGenres: React.Dispatch<React.SetStateAction<Genre[]>>;
 };
 
 interface AppProviderProps {
@@ -91,7 +100,6 @@ const DataProvider: React.FC<AppProviderProps> = ({
     const [booksSelected, setBooksSelected] = useState<BookProps[] | null>(
         null
     );
-
     const [titleSelected, setTitleSelected] = useState('');
     const [feedTopicsTitles] = useState<ObjectProps>({
         weekPopulater: 'Popular da Semana',
@@ -101,6 +109,17 @@ const DataProvider: React.FC<AppProviderProps> = ({
         sexGenderAuthor: 'Autoras mulheres'
     });
 
+    const [genres, setGenres] = useState<Genre[]>([]);
+
+    useEffect(() => {
+        api.get('/genres', {
+            headers: {
+                Authorization: `Bearer ${userData.token}`
+            }
+        }).then((response) => {
+            setGenres(response.data);
+        });
+    }, []);
     const contextValue = {
         userData,
         setUserData,
@@ -125,12 +144,14 @@ const DataProvider: React.FC<AppProviderProps> = ({
         onboardingAuthors,
         setOnboardingAuthors,
         onboardingBooks,
-        setOnboardingBooks,s
+        setOnboardingBooks,
         booksSelected,
         setBooksSelected,
         titleSelected,
         setTitleSelected,
-        feedTopicsTitles
+        feedTopicsTitles,
+        genres,
+        setGenres
     };
 
     return (
