@@ -12,6 +12,7 @@ import api from '@/api/api';
 import BookFeed from '@/app/components/BookFeed/BookFeed';
 import Loading from '@/app/components/Loading/loading';
 import { BookProps } from '@/types/book';
+import { ResponseBooks } from '@/types/feedDatas';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import ConceicaoImg from '../../../assets/conceicaoevaristo.svg';
@@ -21,14 +22,6 @@ import ruthImg from '../../../assets/ruthrocha.svg';
 
 interface ObjectProps {
     [key: string]: string | BookProps[] | undefined;
-}
-
-interface ResponseBooks extends ObjectProps {
-    isMove?: [];
-    bestRated?: [];
-    sexGenderAuthor?: [];
-    literaryAwards?: [];
-    weekPopulater?: [];
 }
 
 export default function Feed() {
@@ -74,12 +67,12 @@ export default function Feed() {
     const [books, setBooks] = useState<ResponseBooks>({});
     const session = useSession();
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         async function getBooks() {
             try {
-              setIsLoading(true)
+                setIsLoading(true);
                 const response = await api.get(
                     '/search/categories?isMovie=true&bestRated=true&weekPopulater=true&literaryAwards=true&sexGenderAuthor=woman',
                     {
@@ -91,13 +84,20 @@ export default function Feed() {
 
                 const { literaryAwards } = response.data;
 
-                const literaryAwardJabuti: BookProps[] = literaryAwards.filter((bookAward: BookProps) => {
-                  const jabutiAward = bookAward.LiteraryAwards?.some((book) => {  
-                    return book.name.includes('Jabuti') || book.name.includes('jabuti')
-                  })
+                const literaryAwardJabuti: BookProps[] = literaryAwards.filter(
+                    (bookAward: BookProps) => {
+                        const jabutiAward = bookAward.LiteraryAwards?.some(
+                            (book) => {
+                                return (
+                                    book.name.includes('Jabuti') ||
+                                    book.name.includes('jabuti')
+                                );
+                            }
+                        );
 
-                  return jabutiAward && bookAward
-                })
+                        return jabutiAward && bookAward;
+                    }
+                );
 
                 const booksFound = {
                     ...response.data,
@@ -105,9 +105,9 @@ export default function Feed() {
                 };
 
                 setBooks(booksFound);
-                setIsLoading(false)
+                setIsLoading(false);
             } catch (error) {
-              console.log(error)
+                console.log(error);
             }
         }
 
@@ -139,22 +139,29 @@ export default function Feed() {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            {isLoading 
-              ? 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-                <Loading /> 
-              </div>
-              : 
+            {isLoading ? (
+                <div
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: '20px'
+                    }}
+                >
+                    <Loading />
+                </div>
+            ) : (
                 Object.keys(feedTopicsTitles).map((key) => {
-                if (books[key])
-                    return (
-                        <BookFeed
-                            title={feedTopicsTitles[key] as string}
-                            books={books[key] as BookProps[]}
-                            link={key}
-                        />
-                    );
-            })}
+                    if (books[key])
+                        return (
+                            <BookFeed
+                                title={feedTopicsTitles[key] as string}
+                                books={books[key] as BookProps[]}
+                                link={key}
+                            />
+                        );
+                })
+            )}
         </>
     );
 }

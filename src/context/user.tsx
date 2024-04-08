@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
 import { BookProps } from '@/types/book';
+import { ObjectProps } from '@/types/feedDatas';
 import { Onboarding } from '@/types/onboarding-types';
 import { ReactNode, createContext, useContext, useState } from 'react';
-
 
 interface User {
     id: string;
@@ -13,8 +13,8 @@ interface User {
     bio?: string;
     imageUrl?: string;
     token?: string;
-    createdAt?: string,
-    updatedAt?: string
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 type IUserContextData = {
@@ -28,7 +28,7 @@ type IUserContextData = {
     setSelectedImageUrl: React.Dispatch<React.SetStateAction<string>>;
     openDrawer: boolean;
     setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
-    onboarding: Onboarding,
+    onboarding: Onboarding;
     setOnboarding: React.Dispatch<React.SetStateAction<Onboarding>>;
     bookId: string;
     setBookId: React.Dispatch<React.SetStateAction<string>>;
@@ -36,11 +36,10 @@ type IUserContextData = {
     setAuthorId: React.Dispatch<React.SetStateAction<string>>;
     rateValue: number;
     setRateValue: React.Dispatch<React.SetStateAction<number>>;
-    booksSelected: BookProps[];
-    setBooksSelected: React.Dispatch<React.SetStateAction<BookProps[]>>;
-    titleSelected: string;
-    setTitleSelected: React.Dispatch<React.SetStateAction<string>>;
-}
+    booksSelected: BookProps[] | null;
+    setBooksSelected: React.Dispatch<React.SetStateAction<BookProps[] | null>>;
+    feedTopicsTitles: ObjectProps;
+};
 
 interface AppProviderProps {
     children: ReactNode;
@@ -48,25 +47,27 @@ interface AppProviderProps {
 
 const DataContext = createContext<IUserContextData | undefined>(undefined);
 
-const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps) => {
-    
-    const [userData, setUserData] = useState<User>({ 
-        name: '', 
+const DataProvider: React.FC<AppProviderProps> = ({
+    children
+}: AppProviderProps) => {
+    const [userData, setUserData] = useState<User>({
+        name: '',
         email: '',
-        username:'', 
-        bio:'' , 
-        id: '', 
-        token: '', 
+        username: '',
+        bio: '',
+        id: '',
+        token: '',
         imageUrl: '',
         createdAt: '',
         updatedAt: ''
-
     });
 
     const [showModalEditPass, setShowModalEditPass] = useState<boolean>(false);
     const [showModalImage, setShowModalImage] = useState<boolean>(false);
-    const [selectedImageUrl, setSelectedImageUrl] = useState(userData.imageUrl || '');
-    const [openDrawer, setOpenDrawer]= useState(false);
+    const [selectedImageUrl, setSelectedImageUrl] = useState(
+        userData.imageUrl || ''
+    );
+    const [openDrawer, setOpenDrawer] = useState(false);
     const [onboarding, setOnboarding] = useState<Onboarding>({
         genresId: [],
         authorsId: [],
@@ -76,9 +77,18 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
     const [authorId, setAuthorId] = useState<string>('');
     const [rateValue, setRateValue] = useState<number>(0);
 
-    const [booksSelected, setBooksSelected] = useState<BookProps[]>([])
+    const [booksSelected, setBooksSelected] = useState<BookProps[] | null>(
+        null
+    );
 
-    const [titleSelected, setTitleSelected] = useState('')
+    const [titleSelected, setTitleSelected] = useState('');
+    const [feedTopicsTitles] = useState<ObjectProps>({
+        weekPopulater: 'Popular da Semana',
+        bestRated: 'Mais bem avaliados',
+        isMovie: 'Livros que foram para as telonas',
+        literaryAwards: 'Vencedores do Prêmio Jabuti',
+        sexGenderAuthor: 'Autoras mulheres'
+    });
 
     const contextValue = {
         userData,
@@ -102,16 +112,23 @@ const DataProvider: React.FC<AppProviderProps> = ({ children }: AppProviderProps
         booksSelected,
         setBooksSelected,
         titleSelected,
-        setTitleSelected
+        setTitleSelected,
+        feedTopicsTitles
     };
 
-    return <DataContext.Provider value={contextValue}>{children}</DataContext.Provider>;
+    return (
+        <DataContext.Provider value={contextValue}>
+            {children}
+        </DataContext.Provider>
+    );
 };
 
 const useDataContext = () => {
     const context = useContext(DataContext);
     if (!context) {
-        throw new Error('useDataContext deve ser usado dentro de um ClientesProvider');
+        throw new Error(
+            'useDataContext deve ser usado dentro de um ClientesProvider'
+        );
     }
     return context;
 };
