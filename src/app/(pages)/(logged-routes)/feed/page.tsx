@@ -103,7 +103,7 @@ export default function Feed() {
     }, []);
 
     return (
-        <>
+        <div className='container-feed'>
             <Header search="disabled" select="feed" />
             <Swiper
                 modules={[Pagination, Autoplay]}
@@ -133,7 +133,8 @@ export default function Feed() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        padding: '20px'
+                        padding: '100px',
+                        backgroundColor: '#121418',
                     }}
                 >
                     <Loading />
@@ -150,6 +151,6 @@ export default function Feed() {
                         );
                 })
             )}
-        </>
+        </div>
     );
 }

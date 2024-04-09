@@ -1,3 +1,8 @@
+.container-search {
+    min-height: 100%;
+    background-color: var(--bg-color-primary);
+}
+
 .title-search {
     padding: 2rem 2.4rem;
     margin-top: 10.5rem;
