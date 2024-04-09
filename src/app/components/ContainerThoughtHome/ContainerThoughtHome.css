@@ -1,5 +1,6 @@
 .external-home-container-thoughts {
     position: relative;
+    cursor: pointer;
 }
 
 .swiper.home-container-thoughts {
