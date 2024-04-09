@@ -34,7 +34,7 @@ export default function UploadImage(){
         const file = event.target.files[0];
     
         if (!file) {
-            return console.log('file vazio');
+            return
         }
     
         const storageRef = ref(storage, `images/${file.name}`);
@@ -83,13 +83,13 @@ export default function UploadImage(){
                                     return
                                 }
                             }).catch((error) => {
-                                console.log(error.message);
+                                console.error(error.message);
                                 setRemoveLoad(true)
                             });
                         }
                     })
                     .catch((error) => {
-                        console.log(error.message);
+                        console.error(error.message);
                     });
             }
         );
