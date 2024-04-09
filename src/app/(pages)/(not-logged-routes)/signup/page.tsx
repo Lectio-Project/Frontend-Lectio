@@ -49,7 +49,7 @@ export default function SignUp() {
             setResponseError(error.response.data.message)
         }
     }
-
+    
     return (
         <main className='signup-container'>
             <header><img src={LogoWithName} alt="Logo Lectio and name" className='signup-logo-with-name'/></header>

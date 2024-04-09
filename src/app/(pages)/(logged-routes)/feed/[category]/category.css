@@ -1,3 +1,7 @@
+.container-feed-category {
+  background-color: var(--bg-color-primary);
+}
+
 .category-selected {
   padding: 3.2rem 12.8rem;
 }
@@ -15,6 +19,13 @@
 
 .category .full-book {
   max-width: 90%;
+}
+
+.loading-feed-category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 9rem);
 }
 
 @media (max-width: 767px) {

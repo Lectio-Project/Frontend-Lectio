@@ -95,7 +95,7 @@ export default function Feed() {
                 setBooks(booksFound);
                 setIsLoading(false);
             } catch (error) {
-                console.log(error);
+                console.error(error);
             }
         }
 
@@ -103,8 +103,8 @@ export default function Feed() {
     }, []);
 
     return (
-        <>
-            <Header search="disabled" select="feed" />
+        <div className='container-feed'>
+            <Header search="able" select="feed" />
             <Swiper
                 modules={[Pagination, Autoplay]}
                 slidesPerView={1}
@@ -133,7 +133,8 @@ export default function Feed() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        padding: '20px'
+                        padding: '100px',
+                        backgroundColor: '#121418',
                     }}
                 >
                     <Loading />
@@ -150,6 +151,6 @@ export default function Feed() {
                         );
                 })
             )}
-        </>
+        </div>
     );
 }

@@ -1,3 +1,7 @@
+.container-feed {
+  background-color: var(--bg-color-primary);
+}
+
 .container-slider {
   height: 668px;
   width: 100%;

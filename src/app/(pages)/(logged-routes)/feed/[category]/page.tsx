@@ -68,11 +68,13 @@ export default function Category({ params }: categoriesParams) {
     }, []);
 
     return (
-        <>
+        <div className='container-feed-category'>
             <Header select="feed" search="able" />
             <div className="category-container">
                 {isLoading || !booksSelected ? (
-                    <Loading />
+                    <div className='loading-feed-category'>
+                        <Loading />
+                    </div>
                 ) : (
                     <div className="category-selected">
                         <h1>{titleSelected as string}</h1>
@@ -89,6 +91,6 @@ export default function Category({ params }: categoriesParams) {
                     </div>
                 )}
             </div>
-        </>
+        </div>
     );
 }
