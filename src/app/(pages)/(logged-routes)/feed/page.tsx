@@ -104,7 +104,7 @@ export default function Feed() {
 
     return (
         <div className='container-feed'>
-            <Header search="disabled" select="feed" />
+            <Header search="able" select="feed" />
             <Swiper
                 modules={[Pagination, Autoplay]}
                 slidesPerView={1}
