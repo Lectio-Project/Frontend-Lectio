@@ -19,7 +19,7 @@ interface propsRegister {
     errorMessage?: string,
     showPassword?: boolean,
     toggleShowPassword?: () => void,
-    onChange?: ChangeEventHandler<HTMLInputElement>;
+    onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
 }
 
 export default function Input({ label, placeholder, register, value, type, name, errorMessage, showPassword,toggleShowPassword, onChange }:propsRegister){
@@ -34,7 +34,7 @@ export default function Input({ label, placeholder, register, value, type, name,
                     type={type}
                     name={name}
                     {...register}
-                    onChange={onChange}
+                    {...onChange}
                 />
                 {(register?.name === 'password' || register?.name === 'passwordConfirmation') &&  (
                     <img

@@ -33,10 +33,10 @@ export default function HamburguerMenu({select}:propsDrawner){
 
                 <Box className= 'itens-container'>
                     <div 
-                    className={`item-menu ${select === 'inicio' ? 'selected': ''}`}
+                    className={`item-menu ${select === 'home' ? 'selected': ''}`}
                     onClick={()=> router.push('/home')}
                     >
-                        <img src={select === 'inicio'? GoIconY : GoIcon} alt='Icon go'/>
+                        <img src={select === 'home'? GoIconY : GoIcon} alt='Icon go'/>
                         <span>Início</span>
                     </div>
 

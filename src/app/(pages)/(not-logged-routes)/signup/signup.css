@@ -221,7 +221,7 @@
 
 @media (min-width: 1280px) {
     .signup-container {
-        height: 100%;
+        min-height: 100%;
     }
 
     .signup-content {

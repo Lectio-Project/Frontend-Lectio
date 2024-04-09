@@ -1,5 +1,6 @@
 .external-home-container-books {
     position: relative;
+    cursor: pointer;
 }
 
 .swiper-slide.swiper-slide-active {

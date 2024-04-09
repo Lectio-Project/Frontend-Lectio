@@ -1,5 +1,6 @@
 .container-home {
     padding-bottom: 2.4rem;
+    background-color: var(--bg-color-primary);
 }
 
 .introduction-section-home,

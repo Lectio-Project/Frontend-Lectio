@@ -113,238 +113,238 @@ export default function BookDetails({ params }: BookDetailsProps) {
         event.target.src = initialImage;
     }
 
-    return isLoading ? (
-        <div className="container-book-loading">
-            <Loading />
-        </div>
-    ) : (
-        !isLoading && bookData && (
-            <section className="container-book">
-                <Header search="able" select="feed" />
-
-                <main className="content-container-book">
-                    <div className="book-info-reduced">
-                        <div className="book-title-author-mobile">
-                            <h3 className="book-title">{bookData.name}</h3>
-                            <span className="book-author">
-                                por{' '}
-                                <span>
-                                    {bookData.AuthorBook![0].author.name}
-                                </span>
+    return ( 
+        <section className="container-book">
+            <Header search="able" select="feed" />
+    
+        {isLoading || !bookData ? (
+            <div className="container-book-loading">
+                <Loading />
+            </div>
+        ) : (
+            <main className="content-container-book">
+                <div className="book-info-reduced">
+                    <div className="book-title-author-mobile">
+                        <h3 className="book-title">{bookData.name}</h3>
+                        <span className="book-author">
+                            por{' '}
+                            <span>
+                                {bookData.AuthorBook![0].author.name}
                             </span>
-                        </div>
+                        </span>
+                    </div>
 
-                        <img src={bookData.imageUrl} className="book-image" />
+                    <img src={bookData.imageUrl} className="book-image" />
 
-                        <div className="local-genres-area-mobile">
-                            <span className="genre-title">Gênero</span>
-                            <span className="genre-book">
-                                {bookData.gender.gender}
-                            </span>
-                        </div>
+                    <div className="local-genres-area-mobile">
+                        <span className="genre-title">Gênero</span>
+                        <span className="genre-book">
+                            {bookData.gender.gender}
+                        </span>
+                    </div>
 
-                        <div className="book-review-mobile">
-                            <div className="note-book">
-                                <RatingStars
-                                    starsValues={bookData.avgGrade}
-                                    size="medium"
-                                    readOnly
-                                    bookValue={bookData.avgGrade}
-                                />
-                            </div>
-
-                            <div className="assessments-and-reviews">
-                                <span>{bookData.counterGrade} avaliações</span>
-                                <span>·</span>
-                                <span>
-                                    {commentWithText.length} comentários
-                                </span>
-                            </div>
-                        </div>
-
-                        <a
-                            className="button-book"
-                            href={`https://www.amazon.com.br/s?k=${handleFindBook()}`}
-                        >
-                            <span>Quero ler!</span>
-                            <img src={ArrowBlack} alt="" />
-                        </a>
-
-                        <div className="rating-book">
-                            <ModalRate
-                                title={
-                                    lastAvalitionUser
-                                        ? 'Reavalie a obra'
-                                        : 'Avalie a obra'
-                                }
-                                bookId={routeId}
-                                addComment={addComment}
-                                setAddComment={setAddComment}
-                                lastAvalitionUser={lastAvalitionUser!}
-                                requisition="book"
+                    <div className="book-review-mobile">
+                        <div className="note-book">
+                            <RatingStars
+                                starsValues={bookData.avgGrade}
+                                size="medium"
+                                readOnly
+                                bookValue={bookData.avgGrade}
                             />
+                        </div>
+
+                        <div className="assessments-and-reviews">
+                            <span>{bookData.counterGrade} avaliações</span>
+                            <span>·</span>
+                            <span>
+                                {commentWithText.length} comentários
+                            </span>
                         </div>
                     </div>
 
-                    <div className="book-info-large">
-                        <div className="book-title-author-desktop">
-                            <h3 className="book-title">{bookData.name}</h3>
-                            <span className="book-author">
-                                por{' '}
-                                <span>
-                                    {bookData.AuthorBook![0].author.name}
-                                </span>
-                            </span>
-                        </div>
+                    <a
+                        className="button-book"
+                        href={`https://www.amazon.com.br/s?k=${handleFindBook()}`}
+                    >
+                        <span>Quero ler!</span>
+                        <img src={ArrowBlack} alt="" />
+                    </a>
 
-                        <div className="book-review-desktop">
-                            <div className="note-book">
-                                <RatingStars
-                                    starsValues={bookData.avgGrade}
-                                    size={isTablet ? 'medium' : 'large'}
-                                    readOnly
-                                    bookValue={bookData.avgGrade}
-                                />
-                            </div>
-
-                            <div className="assessments-and-reviews">
-                                <span>{bookData.counterGrade} avaliações</span>
-                                <span>·</span>
-                                <span>
-                                    {bookData.Comment.length} comentários
-                                </span>
-                            </div>
-                        </div>
-
-                        <div className="local-genres-area-desktop">
-                            <span className="genre-title">Gênero</span>
-                            <span className="genre-book">
-                                {bookData.gender.gender}
-                            </span>
-                        </div>
-
-                        <div
-                            className={
-                                showDescription
-                                    ? 'book-description-open'
-                                    : 'book-description'
+                    <div className="rating-book">
+                        <ModalRate
+                            title={
+                                lastAvalitionUser
+                                    ? 'Reavalie a obra'
+                                    : 'Avalie a obra'
                             }
-                        >
-                            <p className="book-description-text">
-                                {bookData.synopsis}
-                            </p>
-                        </div>
-
-                        <div
-                            className="book-description-button"
-                            onClick={() => setShowDescription(!showDescription)}
-                        >
-                            <span>
-                                {showDescription ? 'Minimizar' : 'Saiba mais'}
-                            </span>
-                            <img
-                                className={
-                                    showDescription
-                                        ? 'arrow-top-button'
-                                        : 'arrow-bottom-button'
-                                }
-                                src={ArrowYellow}
-                                alt=""
-                            />
-                        </div>
-
-                        <button
-                            className={
-                                showInfoTechnical
-                                    ? 'button-informations-open'
-                                    : 'button-informations-close'
-                            }
-                        >
-                            <div
-                                className="button-informations-top"
-                                onClick={() => setShowInfoTechnical(true)}
-                            >
-                                <strong>Informações técnicas</strong>
-                                <img
-                                    src={ArrowGray}
-                                    alt="ícone para expandir o botão"
-                                    className={
-                                        showInfoTechnical
-                                            ? 'button-informations-arrowTop'
-                                            : 'button-informations-arrowBottom'
-                                    }
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        setShowInfoTechnical(
-                                            !showInfoTechnical
-                                        );
-                                    }}
-                                />
-                            </div>
-
-                            {showInfoTechnical && (
-                                <section className="button-informations">
-                                    <div className="button-informations-info">
-                                        <h3>Ano de publicação</h3>
-                                        <h3>Editora</h3>
-                                        <h3>Prêmios literários</h3>
-                                        <h3>Número de páginas</h3>
-                                        <h3>ISBN</h3>
-                                    </div>
-
-                                    <div className="button-informations-info">
-                                        <p>{bookData.publishYear}</p>
-                                        <p>{bookData.publishingCompany}</p>
-                                        <p>
-                                            {bookData.LiteraryAwards?.length
-                                                ? `Prêmio ${bookData.LiteraryAwards[0].name} (${bookData.LiteraryAwards[0].year})`
-                                                : 'Nenhum'}
-                                        </p>
-                                        <p>{bookData.totalPages}</p>
-                                        <p>{bookData.isbn13}</p>
-                                    </div>
-                                </section>
-                            )}
-                        </button>
-
-                        <section className="container-comments">
-                            <h3 className="comments-title">Comentários</h3>
-                            <span className="comments-published">
-                                {commentWithText.length} comentários publicados
-                            </span>
-                            <section className="comments">
-                                {commentWithText.slice(0, 3).map((comment) => (
-                                    <Comment key={comment.id} {...comment} />
-                                ))}
-                            </section>
-                            <ButtonViewMore
-                                className="button-more-comments"
-                                title="Ver mais comentários"
-                                type="button"
-                                onClick={() =>
-                                    router.push(
-                                        `/feed/book-comments/${routeId}`
-                                    )
-                                }
-                            />
-                        </section>
-
-                        <section className="more-books-author">
-                            <h3>Você também pode se interessar...</h3>
-                            <span>
-                                Livros também escritos por{' '}
-                                {bookData.AuthorBook![0].author.name}:
-                            </span>
-                        </section>
-
-                        <ContainerBookHome
-                            books={booksAuthorData}
-                            isTablet={isTablet}
-                            isDesktop={isDesktop}
+                            bookId={routeId}
+                            addComment={addComment}
+                            setAddComment={setAddComment}
+                            lastAvalitionUser={lastAvalitionUser!}
+                            requisition="book"
                         />
                     </div>
-                </main>
+                </div>
+
+                <div className="book-info-large">
+                    <div className="book-title-author-desktop">
+                        <h3 className="book-title">{bookData.name}</h3>
+                        <span className="book-author">
+                            por{' '}
+                            <span>
+                                {bookData.AuthorBook![0].author.name}
+                            </span>
+                        </span>
+                    </div>
+
+                    <div className="book-review-desktop">
+                        <div className="note-book">
+                            <RatingStars
+                                starsValues={bookData.avgGrade}
+                                size={isTablet ? 'medium' : 'large'}
+                                readOnly
+                                bookValue={bookData.avgGrade}
+                            />
+                        </div>
+
+                        <div className="assessments-and-reviews">
+                            <span>{bookData.counterGrade} avaliações</span>
+                            <span>·</span>
+                            <span>
+                                {bookData.Comment.length} comentários
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="local-genres-area-desktop">
+                        <span className="genre-title">Gênero</span>
+                        <span className="genre-book">
+                            {bookData.gender.gender}
+                        </span>
+                    </div>
+
+                    <div
+                        className={
+                            showDescription
+                                ? 'book-description-open'
+                                : 'book-description'
+                        }
+                    >
+                        <p className="book-description-text">
+                            {bookData.synopsis}
+                        </p>
+                    </div>
+
+                    <div
+                        className="book-description-button"
+                        onClick={() => setShowDescription(!showDescription)}
+                    >
+                        <span>
+                            {showDescription ? 'Minimizar' : 'Saiba mais'}
+                        </span>
+                        <img
+                            className={
+                                showDescription
+                                    ? 'arrow-top-button'
+                                    : 'arrow-bottom-button'
+                            }
+                            src={ArrowYellow}
+                            alt=""
+                        />
+                    </div>
+
+                    <button
+                        className={
+                            showInfoTechnical
+                                ? 'button-informations-open'
+                                : 'button-informations-close'
+                        }
+                    >
+                        <div
+                            className="button-informations-top"
+                            onClick={() => setShowInfoTechnical(true)}
+                        >
+                            <strong>Informações técnicas</strong>
+                            <img
+                                src={ArrowGray}
+                                alt="ícone para expandir o botão"
+                                className={
+                                    showInfoTechnical
+                                        ? 'button-informations-arrowTop'
+                                        : 'button-informations-arrowBottom'
+                                }
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setShowInfoTechnical(
+                                        !showInfoTechnical
+                                    );
+                                }}
+                            />
+                        </div>
+
+                        {showInfoTechnical && (
+                            <section className="button-informations">
+                                <div className="button-informations-info">
+                                    <h3>Ano de publicação</h3>
+                                    <h3>Editora</h3>
+                                    <h3>Prêmios literários</h3>
+                                    <h3>Número de páginas</h3>
+                                    <h3>ISBN</h3>
+                                </div>
+
+                                <div className="button-informations-info">
+                                    <p>{bookData.publishYear}</p>
+                                    <p>{bookData.publishingCompany}</p>
+                                    <p>
+                                        {bookData.LiteraryAwards?.length
+                                            ? `Prêmio ${bookData.LiteraryAwards[0].name} (${bookData.LiteraryAwards[0].year})`
+                                            : 'Nenhum'}
+                                    </p>
+                                    <p>{bookData.totalPages}</p>
+                                    <p>{bookData.isbn13}</p>
+                                </div>
+                            </section>
+                        )}
+                    </button>
+
+                    <section className="container-comments">
+                        <h3 className="comments-title">Comentários</h3>
+                        <span className="comments-published">
+                            {commentWithText.length} comentários publicados
+                        </span>
+                        <section className="comments">
+                            {commentWithText.slice(0, 3).map((comment) => (
+                                <Comment key={comment.id} {...comment} />
+                            ))}
+                        </section>
+                        <ButtonViewMore
+                            className="button-more-comments"
+                            title="Ver mais comentários"
+                            type="button"
+                            onClick={() =>
+                                router.push(
+                                    `/feed/book-comments/${routeId}`
+                                )
+                            }
+                        />
+                    </section>
+
+                    <section className="more-books-author">
+                        <h3>Você também pode se interessar...</h3>
+                        <span>
+                            Livros também escritos por{' '}
+                            {bookData.AuthorBook![0].author.name}:
+                        </span>
+                    </section>
+
+                    <ContainerBookHome
+                        books={booksAuthorData}
+                        isTablet={isTablet}
+                        isDesktop={isDesktop}
+                    />
+                </div>
+            </main>
+        )}
             </section>
-        )
-    );
+    )
 }
